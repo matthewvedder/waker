@@ -1,0 +1,8 @@
+.canvas {
+  background-color: WhiteSmoke;
+  display: flex;
+  flex: 1;
+  padding: 2em
+}
+
+/* background-color: #41B3A3; */
