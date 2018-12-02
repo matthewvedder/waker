@@ -24,11 +24,11 @@ class Canvas extends Component {
 
   render() {
     const layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 25},
-      {i: 'b', x: 100, y: 10, w: 1, h: 25},
-      {i: 'c', x: 2, y: 2, w: 1, h: 25},
-      {i: 'd', x: 1, y: 1, w: 1, h: 25},
-      {i: 'e', x: 2, y: 1, w: 1, h: 25}
+      {i: 'a', x: 0, y: 0, w: 1, h: 23},
+      {i: 'b', x: 1, y: 0, w: 1, h: 23},
+      {i: 'c', x: 2, y: 0, w: 1, h: 23},
+      {i: 'd', x: 3, y: 0, w: 1, h: 23},
+      {i: 'e', x: 4, y: 0, w: 1, h: 23}
     ]
 
     return (
