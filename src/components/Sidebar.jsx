@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Navbar from './Navbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCompass, faGripHorizontal, faHome } from '@fortawesome/free-solid-svg-icons'
+import Avatar from './Avatar'
 import '../styles/Sidebar.css'
 
 class Sidebar extends Component {
@@ -15,8 +15,8 @@ class Sidebar extends Component {
   render() {
     return (
       <div className='sidebar'>
-        <Navbar />
         <div className='sidebar-opac'>
+          <Avatar />
           <div style={{ backgroundColor: '#41b3a3' }} className='sidebar-item'>
             <FontAwesomeIcon icon={faHome} />
             <span className='sidebar-item-label'>Home</span>
