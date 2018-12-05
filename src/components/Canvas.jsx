@@ -7,6 +7,7 @@ import Image2 from '../images/pose2.jpeg'
 import Image3 from '../images/pose3.jpeg'
 import Image4 from '../images/pose4.jpeg'
 import Image5 from '../images/pose5.jpeg'
+// import '../../node_modules/react-grid-layout/css/styles.css'
 import '../styles/Canvas.css'
 
 class Canvas extends Component {
@@ -33,7 +34,14 @@ class Canvas extends Component {
 
     return (
       <div className='canvas'>
-        <GridLayout className="layout" layout={layout} cols={5} rowHeight={1} width={1200}>
+        <GridLayout
+          className="layout"
+          layout={layout}
+          cols={5}
+          rowHeight={1}
+          width={1200}
+          isResizable={false}
+        >
           {this.mapImages()}
         </GridLayout>
       </div>
