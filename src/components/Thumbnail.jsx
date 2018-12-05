@@ -5,9 +5,7 @@ import '../styles/Thumbnail.css'
 class Thumbnail extends Component {
   render() {
     return (
-      <Paper className='thumbnail'>
-          <img className='thumbnail-img' src={this.props.img}/>
-      </Paper>
+      <img className='thumbnail-img' src={this.props.img}/>
     )
   }
 }
