@@ -29,11 +29,11 @@ class Canvas extends Component {
 
   render() {
     const layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 23},
-      {i: 'b', x: 1, y: 0, w: 1, h: 23},
-      {i: 'c', x: 2, y: 0, w: 1, h: 23},
-      {i: 'd', x: 3, y: 0, w: 1, h: 23},
-      {i: 'e', x: 4, y: 0, w: 1, h: 23}
+      {i: 'a', x: 0, y: 0, w: 1, h: 17},
+      {i: 'b', x: 1, y: 0, w: 1, h: 17},
+      {i: 'c', x: 2, y: 0, w: 1, h: 17},
+      {i: 'd', x: 3, y: 0, w: 1, h: 17},
+      {i: 'e', x: 4, y: 0, w: 1, h: 17}
     ]
 
     return (
@@ -41,7 +41,7 @@ class Canvas extends Component {
         <GridLayout
           className="layout"
           layout={layout}
-          cols={5}
+          cols={6}
           rowHeight={1}
           width={1200}
           isResizable={false}
