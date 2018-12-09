@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -7,7 +8,15 @@ class LoginForm extends Component {
     this.login = this.login.bind(this)
   }
   login() {
-    console.log(this.state)
+    const { email, password } = this.state
+    const request = {"auth": { email, password }}
+      axios.post('http://localhost:8000/user_token', request)
+    .then(function (response) {
+      localStorage.setItem("jwt", response.data.jwt)
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
   }
 
   render() {
