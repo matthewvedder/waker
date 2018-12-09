@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import GridLayout from 'react-grid-layout'
 import Navbar from './Navbar'
 import Thumbnail from './Thumbnail'
-// import Image1 from '../images/pose.jpeg'
-// import Image2 from '../images/pose2.jpeg'
-// import Image3 from '../images/pose3.jpeg'
-// import Image4 from '../images/pose4.jpeg'
-// import Image5 from '../images/pose5.jpeg'
+import AddThumbnail from './AddThumbnail'
 import Warrior2 from '../images/warrior2.jpg'
 import KingPodgeon from '../images/king-pidgeon.jpg'
 import Crow from '../images/crow.jpg'
@@ -33,7 +29,8 @@ class Canvas extends Component {
       {i: 'b', x: 1, y: 0, w: 1, h: 17},
       {i: 'c', x: 2, y: 0, w: 1, h: 17},
       {i: 'd', x: 3, y: 0, w: 1, h: 17},
-      {i: 'e', x: 4, y: 0, w: 1, h: 17}
+      {i: 'e', x: 4, y: 0, w: 1, h: 17},
+      {i: 'add', x:0, y: 1, w: 1, h: 17}
     ]
 
     return (
@@ -47,6 +44,10 @@ class Canvas extends Component {
           isResizable={false}
         >
           {this.mapImages()}
+          <div key='add'>
+            <AddThumbnail />
+          </div>
+
         </GridLayout>
       </div>
     )
