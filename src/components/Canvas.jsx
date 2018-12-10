@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import GridLayout from 'react-grid-layout'
 import Navbar from './Navbar'
+import Modal from './Modal'
 import Thumbnail from './Thumbnail'
 import AddThumbnail from './AddThumbnail'
 import Warrior2 from '../images/warrior2.jpg'
@@ -11,6 +12,11 @@ import DownDog from '../images/down-dog.jpg'
 import '../styles/Canvas.css'
 
 class Canvas extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { modalOpen: false }
+  }
+
   mapImages() {
     const keys=['a', 'b', 'c', 'd', 'e']
     return [Warrior2, KingPodgeon, Crow, Locust, DownDog].map((img, index) => {
@@ -49,6 +55,7 @@ class Canvas extends Component {
           </div>
 
         </GridLayout>
+        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
       </div>
     )
   }

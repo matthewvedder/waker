@@ -3,7 +3,7 @@
   width: 17em;
   background-image: url("../images/sidebar.jpg");
   background-size: 100%;
-  z-index: 100;
+  z-index: 1;
   position: relative;
 }
 
