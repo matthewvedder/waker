@@ -5,7 +5,7 @@ import Modal from './Modal'
 import Thumbnail from './Thumbnail'
 import AddThumbnail from './AddThumbnail'
 import Warrior2 from '../images/warrior2.jpg'
-import KingPodgeon from '../images/king-pidgeon.jpg'
+import KingPidgeon from '../images/king-pidgeon.jpg'
 import Crow from '../images/crow.jpg'
 import Locust from '../images/locust.jpg'
 import DownDog from '../images/down-dog.jpg'
@@ -19,7 +19,7 @@ class Canvas extends Component {
 
   mapImages() {
     const keys=['a', 'b', 'c', 'd', 'e']
-    return [Warrior2, KingPodgeon, Crow, Locust, DownDog].map((img, index) => {
+    return [Warrior2, KingPidgeon, Crow, Locust, DownDog].map((img, index) => {
       return (
         <div key={keys[index]}>
           <Thumbnail img={img}/>
@@ -50,9 +50,6 @@ class Canvas extends Component {
           isResizable={false}
         >
           {this.mapImages()}
-          <div key='add'>
-            <AddThumbnail />
-          </div>
 
         </GridLayout>
         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
