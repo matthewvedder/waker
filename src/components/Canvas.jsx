@@ -41,6 +41,7 @@ class Canvas extends Component {
 
     return (
       <div className='canvas'>
+        <Navbar />
         <GridLayout
           className="layout"
           layout={layout}

@@ -1,4 +1,15 @@
 .navbar {
   height: 3em;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
   /* border-bottom: .03em solid #5DBCD2; */
+}
+
+.logout {
+  align-self: flex-end;
+}
+
+.logout:hover {
+  cursor: pointer;
 }
