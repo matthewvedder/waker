@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import PrivateRoute from './components/PrivateRoute'
 import Canvas from './components/Canvas'
 import LoginForm from './components/LoginForm'
+import SignUp from './components/SignUp'
 import Sidebar from './components/Sidebar'
 import { isAuthenticated } from './Auth'
 import RootReducer from './reducers'
@@ -26,13 +27,16 @@ class App extends Component {
     sagaMiddleware.run(RootSaga)
 
     return (
-      <Router>
-        <div className="App">
-          <Sidebar />
-          <PrivateRoute path="/" exact component={Canvas} />
-          <Route path="/login" component={LoginForm} />
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Sidebar />
+            <PrivateRoute path="/" exact component={Canvas} />
+            <Route path="/login" component={LoginForm} />
+            <Route path="/signup" component={SignUp} />
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }
