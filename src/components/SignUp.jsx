@@ -10,7 +10,6 @@ import Errors from './Errors'
 import { signupRequest } from '../actions'
 
 class Signup extends Component {
-  // Pass the correct proptypes in for validation
   static propTypes = {
     handleSubmit: PropTypes.func,
     signupRequest: PropTypes.func,
@@ -22,18 +21,11 @@ class Signup extends Component {
     }),
   }
 
-  // Redux Form will call this function with the values of our
-  // Form fields `email` and `password` when the form is submitted
-  // this will in turn call the action
   submit = (values) => {
-    // we could just do signupRequest here with the static proptypes
-    // but ESLint doesn't like that very much...
     this.props.signupRequest(values)
   }
 
   render () {
-    // grab what we need from props.  The handleSubmit from ReduxForm
-    // and the pieces of state from the global state.
     const {
       handleSubmit,
       signup: {
@@ -71,7 +63,7 @@ class Signup extends Component {
           <Field
             name="password_confirmation"
             type="password"
-            id="password"
+            id="password-confirmation"
             className="password"
             label="Password Confirmation"
             component="input"

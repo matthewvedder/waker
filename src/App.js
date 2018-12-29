@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import PrivateRoute from './components/PrivateRoute'
 import Canvas from './components/Canvas'
-import LoginForm from './components/LoginForm'
+import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Sidebar from './components/Sidebar'
 import { isAuthenticated } from './Auth'
@@ -32,7 +32,7 @@ class App extends Component {
           <div className="App">
             <Sidebar />
             <PrivateRoute path="/" exact component={Canvas} />
-            <Route path="/login" component={LoginForm} />
+            <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
           </div>
         </Router>
