@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { logOut } from '../Auth'
+import { connect } from 'react-redux'
+import { unsetClient } from '../actions'
 import '../styles/Navbar.css'
 
-class Canvas extends Component {
+class NavBar extends Component {
   render() {
     return (
       <div className='navbar'>
-        <div className='logout' onClick={logOut}>Log Out</div>
+        <div className='logout' onClick={this.props.unsetClient}>Log Out</div>
       </div>
     )
   }
 }
 
-export default Canvas
+export default connect(null, { unsetClient })(NavBar)

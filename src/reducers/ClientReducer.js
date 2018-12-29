@@ -14,6 +14,7 @@ const reducer = function clientReducer (state = initialSate, action) {
       }
 
     case CLIENT_UNSET:
+      localStorage.removeItem('token')
       return {
         id: null,
         token: null,

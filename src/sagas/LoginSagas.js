@@ -33,7 +33,7 @@ function loginApi (email, password) {
 function* logout () {
   yield put(unsetClient())
   localStorage.removeItem('token')
-  // push('/login')
+  yield put(push('/'))
 }
 
 function* loginFlow (email, password) {
@@ -49,7 +49,7 @@ function* loginFlow (email, password) {
     yield put(setClient(token))
     yield put({ type: LOGIN_SUCCESS })
     localStorage.setItem('token', JSON.stringify(token))
-    push('/')
+    yield put(push('/'))
   } catch (error) {
     // error? send it to redux
     yield put({ type: LOGIN_ERROR, error })
@@ -57,7 +57,7 @@ function* loginFlow (email, password) {
     // No matter what, if our `forked` `task` was cancelled
     // we will then just redirect them to login
     if (yield cancelled()) {
-      // push('/login')
+      yield put(push('/login'))
     }
   }
 

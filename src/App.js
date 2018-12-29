@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { createBrowserHistory } from 'history'
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
 import createSagaMiddleware from 'redux-saga'
-import { isAuthenticated } from './Auth'
 import PrivateRoute from './components/PrivateRoute'
 import Canvas from './components/Canvas'
 import Login from './components/Login'
@@ -25,7 +24,7 @@ class App extends Component {
     const history = createBrowserHistory()
     const store = createStore(
       RootReducer(history),
-      composeSetup(applyMiddleware(sagaMiddleware)), // allows redux devtools to watch sagas
+      composeSetup(applyMiddleware(sagaMiddleware, routerMiddleware(history))), // allows redux devtools to watch sagas
     )
     sagaMiddleware.run(RootSaga)
 
