@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import GridLayout from 'react-grid-layout'
+import Selector from './Selector'
 import Navbar from './Navbar'
 import Modal from './Modal'
 import Thumbnail from './Thumbnail'
@@ -40,18 +41,20 @@ class Canvas extends Component {
 
     return (
       <div className='canvas'>
-        <Navbar />
-        <GridLayout
-          className="layout"
-          layout={layout}
-          cols={6}
-          rowHeight={1}
-          width={1200}
-          isResizable={false}
-        >
-          {this.mapImages()}
+        <Selector />
+        <div className='grid'>
+          <GridLayout
+            className="layout"
+            layout={layout}
+            cols={6}
+            rowHeight={1}
+            width={1200}
+            isResizable={false}
+          >
+            {this.mapImages()}
 
-        </GridLayout>
+          </GridLayout>
+        </div>
         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
       </div>
     )

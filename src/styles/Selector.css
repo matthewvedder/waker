@@ -1,0 +1,24 @@
+.selector {
+  display: flex;
+  background-color: #E27D60;
+  height: 12em;
+  flex-direction: column;
+  padding: 1em;
+  padding-top: .7em;
+  width: 98%;
+  color: white;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.selector-container {
+  display: flex;
+  height: 13em;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.selector-thumbnail {
+  height: 9em;
+  width: 9em;
+  padding-left: 1.3em;
+}

@@ -1,9 +1,6 @@
 .canvas {
   background-color: Gainsboro;
-  /* display: flex;
-  flex: 1; */
   width: 100%;
-  padding: 2em;
   overflow-y: scroll;
 }
 
@@ -12,6 +9,8 @@
 }
 
 .react-grid-layout {
+  padding-left: 2em;
+  padding-top: 2em;
   position: relative;
 }
 
