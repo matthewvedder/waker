@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar'
-import Modal from './Modal'
+import DragElement from './DragElement'
 import Thumbnail from './Thumbnail'
 import Warrior2 from '../images/warrior2.jpg'
 import KingPidgeon from '../images/king-pidgeon.jpg'
@@ -16,7 +16,13 @@ class Selector extends Component {
   }
 
   mapAsanas(asanas) {
-    return asanas.map(asana => <div class='selector-thumbnail'><Thumbnail img={asana}/></div>)
+    return asanas.map(asana => {
+      return (
+        <DragElement key={Math.random()}>
+          <div className='selector-thumbnail'><Thumbnail img={asana}/></div>
+        </DragElement>
+      )
+    })
   }
 
   render() {

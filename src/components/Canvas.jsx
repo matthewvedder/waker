@@ -11,10 +11,18 @@ import Locust from '../images/locust.jpg'
 import DownDog from '../images/down-dog.jpg'
 import '../styles/Canvas.css'
 
+const layout = [
+  {i: 'a', x: 0, y: 0, w: 1, h: 17},
+  {i: 'b', x: 1, y: 0, w: 1, h: 17},
+  {i: 'c', x: 2, y: 0, w: 1, h: 17},
+  {i: 'd', x: 3, y: 0, w: 1, h: 17},
+  {i: 'e', x: 4, y: 0, w: 1, h: 17},
+]
+
 class Canvas extends Component {
   constructor(props) {
     super(props)
-    this.state = { modalOpen: false }
+    this.state = { layout:  layout }
   }
 
   mapImages() {
@@ -30,14 +38,6 @@ class Canvas extends Component {
 
 
   render() {
-    const layout = [
-      {i: 'a', x: 0, y: 0, w: 1, h: 17},
-      {i: 'b', x: 1, y: 0, w: 1, h: 17},
-      {i: 'c', x: 2, y: 0, w: 1, h: 17},
-      {i: 'd', x: 3, y: 0, w: 1, h: 17},
-      {i: 'e', x: 4, y: 0, w: 1, h: 17},
-      {i: 'add', x:0, y: 1, w: 1, h: 17}
-    ]
 
     return (
       <div className='canvas'>
@@ -45,7 +45,7 @@ class Canvas extends Component {
         <div className='grid'>
           <GridLayout
             className="layout"
-            layout={layout}
+            layout={this.state.layout}
             cols={6}
             rowHeight={1}
             width={1200}
