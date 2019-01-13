@@ -48,7 +48,7 @@ function* loginFlow (email, password) {
     // inform Redux to set our client token, this is non blocking so...
     yield put(setClient(token))
     yield put({ type: LOGIN_SUCCESS })
-    localStorage.setItem('token', JSON.stringify(token))
+    localStorage.setItem('token', token)
     yield put(push('/'))
   } catch (error) {
     // error? send it to redux
