@@ -25,7 +25,7 @@ const cardSource = {
 
     // When dropped on a compatible target, do something
     const item = monitor.getItem()
-    const dropResult = monitor.getDropResult()
+    props.onDrop()
   }
 }
 
@@ -45,7 +45,6 @@ function collect(connect, monitor) {
 function Card(props) {
   // Your component receives its own props as usual
   const { id, children } = props
-
   // These two props are injected by React DnD,
   // as defined by your `collect` function above:
   const { isDragging, connectDragSource } = props

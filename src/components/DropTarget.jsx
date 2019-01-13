@@ -76,7 +76,6 @@ class DropZone extends Component {
     // These props are injected by React DnD,
     // as defined by your `collect` function above:
     const { isOver, canDrop, connectDropTarget, children } = this.props
-    console.log('can drop', canDrop)
     return connectDropTarget(
       <div className='Cell' >
         { children }

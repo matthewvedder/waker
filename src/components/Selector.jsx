@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { createAsanaInstance } from '../actions'
 import Navbar from './Navbar'
 import DragElement from './DragElement'
 import Thumbnail from './Thumbnail'
@@ -18,7 +20,7 @@ class Selector extends Component {
   mapAsanas(asanas) {
     return asanas.map(asana => {
       return (
-        <DragElement key={Math.random()}>
+        <DragElement onDrop={this.props.createAsanaInstance} key={Math.random()}>
           <div className='selector-thumbnail'><Thumbnail img={asana}/></div>
         </DragElement>
       )
@@ -38,4 +40,4 @@ class Selector extends Component {
   }
 }
 
-export default Selector
+export default connect(null, { createAsanaInstance })(Selector)
