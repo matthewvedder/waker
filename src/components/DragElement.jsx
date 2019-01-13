@@ -5,9 +5,7 @@ import { DragSource } from 'react-dnd'
 // if they have the same string type.
 // You want to keep types in a separate file with
 // the rest of your app's constants.
-const Types = {
-  CARD: 'card'
-}
+
 
 /**
  * Specifies the drag source contract.
@@ -16,7 +14,7 @@ const Types = {
 const cardSource = {
   beginDrag(props) {
     // Return the data describing the dragged item
-    const item = { id: props.id }
+    const item = { id: 'test' }
     return item
   },
 
@@ -57,4 +55,4 @@ function Card(props) {
 }
 
 // Export the wrapped version
-export default DragSource(Types.CARD, cardSource, collect)(Card)
+export default DragSource('asana', cardSource, collect)(Card)

@@ -13,7 +13,7 @@ import Sidebar from './components/Sidebar'
 import RootReducer from './reducers'
 import RootSaga from './sagas'
 import HTML5Backend from 'react-dnd-html5-backend'
-import { DragDropContextProvider } from "react-dnd";
+import { DragDropContext } from "react-dnd";
 import './styles/App.css';
 
 const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 'object' &&
@@ -32,7 +32,6 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <DragDropContextProvider backend={HTML5Backend}>
           <ConnectedRouter history={history}>
             <div className="App">
               <Sidebar />
@@ -41,10 +40,9 @@ class App extends Component {
               <Route path="/signup" component={SignUp} />
             </div>
           </ConnectedRouter>
-        </DragDropContextProvider>
       </Provider>
     );
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App)

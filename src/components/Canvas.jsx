@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
-import Navbar from './Navbar'
+import DropTarget from './DropTarget'
 import Modal from './Modal'
 import Thumbnail from './Thumbnail'
 import Warrior2 from '../images/warrior2.jpg'
@@ -42,19 +42,21 @@ class Canvas extends Component {
     return (
       <div className='canvas'>
         <Selector />
-        <div className='grid'>
-          <GridLayout
-            className="layout"
-            layout={this.state.layout}
-            cols={6}
-            rowHeight={1}
-            width={1200}
-            isResizable={false}
-          >
-            {this.mapImages()}
+        <DropTarget>
+          <div className='grid'>
+            <GridLayout
+              className="layout"
+              layout={this.state.layout}
+              cols={6}
+              rowHeight={1}
+              width={1200}
+              isResizable={false}
+            >
+              {this.mapImages()}
 
-          </GridLayout>
-        </div>
+            </GridLayout>
+          </div>
+        </DropTarget>
         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
       </div>
     )
