@@ -25,7 +25,6 @@ function createRequest() {
 }
 
 function* createFlow(email, password) {
-  let token
   try {
     const response = yield call(createRequest, email, password)
     console.log(response)
@@ -35,8 +34,6 @@ function* createFlow(email, password) {
     // yield put({ type: LOGIN_ERROR, error })
     console.log('error')
   }
-
-  return token
 }
 
 export function* watchAsanaInstances() {
