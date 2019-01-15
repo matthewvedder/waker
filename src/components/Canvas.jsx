@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { fetchAsanaInstances } from '../actions'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
 import DropTarget from './DropTarget'
@@ -23,6 +25,10 @@ class Canvas extends Component {
   constructor(props) {
     super(props)
     this.state = { layout:  layout }
+  }
+
+  componentWillMount() {
+    this.props.fetchAsanaInstances()
   }
 
   mapImages() {
@@ -63,4 +69,4 @@ class Canvas extends Component {
   }
 }
 
-export default Canvas
+export default connect(null, { fetchAsanaInstances })(Canvas)
