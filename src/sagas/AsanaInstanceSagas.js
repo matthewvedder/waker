@@ -1,8 +1,9 @@
-import { takeLatest, call } from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
 import {
   CREATE_ASANA_INSTANCE,
-  FETCH_ASANA_INSTANCES
+  FETCH_ASANA_INSTANCES,
+  SET_ASANA_INSTANCES
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asana_instances`
@@ -52,7 +53,7 @@ function fetchRequest() {
 function* fetchFlow(email, password) {
   try {
     const response = yield call(fetchRequest)
-    console.log(response)
+    yield put({ type: SET_ASANA_INSTANCES, asanas: response })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
     // error? send it to redux
