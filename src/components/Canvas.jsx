@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchAsanaInstances } from '../actions'
+import _ from 'lodash'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
 import DropTarget from './DropTarget'
@@ -13,30 +14,36 @@ import Locust from '../images/locust.jpg'
 import DownDog from '../images/down-dog.jpg'
 import '../styles/Canvas.css'
 
-const layout = [
-  {i: 'a', x: 0, y: 0, w: 1, h: 17},
-  {i: 'b', x: 1, y: 0, w: 1, h: 17},
-  {i: 'c', x: 2, y: 0, w: 1, h: 17},
-  {i: 'd', x: 3, y: 0, w: 1, h: 17},
-  {i: 'e', x: 4, y: 0, w: 1, h: 17},
-]
-
 class Canvas extends Component {
   constructor(props) {
     super(props)
-    this.state = { layout:  layout }
+    this.state = { layout:  [] }
   }
 
   componentWillMount() {
     this.props.fetchAsanaInstances()
+    this.setState({ layout: this.buildLayout([]) })
+  }
+
+  componentWillUpdate(nextProps) {
+    // this.setState({ layout: this.buildLayout(nextProps) })
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(this.state)
+  //   // return this.state.layout.length === 0
+  // }
+
+  buildLayout() {
+    return this.props.asanas.map((asana, index) => ({i: String(asana.id), x: 0, y: 0, w: 1, h: 17}))
   }
 
   mapImages() {
-    const keys=['a', 'b', 'c', 'd', 'e']
-    return [Warrior2, KingPidgeon, Crow, Locust, DownDog].map((img, index) => {
+    // const images = [Warrior2, KingPidgeon, Crow, Locust, DownDog]
+    return this.props.asanas.map((asana) => {
       return (
-        <div key={keys[index]}>
-          <Thumbnail img={img}/>
+        <div key={asana.id}>
+          <Thumbnail img={Warrior2}/>
         </div>
       )
     })
@@ -44,7 +51,7 @@ class Canvas extends Component {
 
 
   render() {
-
+    console.log(this.buildLayout())
     return (
       <div className='canvas'>
         <Selector />
@@ -52,7 +59,7 @@ class Canvas extends Component {
           <div className='grid'>
             <GridLayout
               className="layout"
-              layout={this.state.layout}
+              layout={this.buildLayout()}
               cols={6}
               rowHeight={1}
               width={1200}
@@ -69,4 +76,6 @@ class Canvas extends Component {
   }
 }
 
-export default connect(null, { fetchAsanaInstances })(Canvas)
+const mapStateToProps = state => ({ asanas: state.asanaInstances.asanas })
+
+export default connect(mapStateToProps, { fetchAsanaInstances })(Canvas)

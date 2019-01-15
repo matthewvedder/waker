@@ -28,6 +28,7 @@ function createRequest() {
 function* createFlow(email, password) {
   try {
     const response = yield call(createRequest)
+    yield fetchFlow()
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
     // error? send it to redux
