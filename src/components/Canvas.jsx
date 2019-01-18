@@ -31,11 +31,11 @@ class Canvas extends Component {
   }
 
   buildLayout(props=this.props) {
-    console.log(props)
     return props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
   }
 
   handleLayoutChange(layout) {
+    console.log(layout)
     this.setState({ layout })
   }
 
