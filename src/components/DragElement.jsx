@@ -14,7 +14,7 @@ import { DragSource } from 'react-dnd'
 const cardSource = {
   beginDrag(props) {
     // Return the data describing the dragged item
-    const item = { id: 'test' }
+    const item = { id: props.id }
     return item
   },
 

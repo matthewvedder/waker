@@ -18,32 +18,33 @@ class Canvas extends Component {
   constructor(props) {
     super(props)
     this.state = { layout:  [] }
+    this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
 
   componentWillMount() {
     this.props.fetchAsanaInstances()
-    this.setState({ layout: this.buildLayout([]) })
+    this.setState({ layout: this.buildLayout() })
   }
 
-  componentWillUpdate(nextProps) {
-    // this.setState({ layout: this.buildLayout(nextProps) })
+  componentWillReceiveProps(nextProps) {
+    this.setState({ layout: this.buildLayout(nextProps) })
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(this.state)
-  //   // return this.state.layout.length === 0
-  // }
+  buildLayout(props=this.props) {
+    console.log(props)
+    return props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
+  }
 
-  buildLayout() {
-    return this.props.asanas.map((asana, index) => ({i: String(asana.id), x: 0, y: 0, w: 1, h: 17}))
+  handleLayoutChange(layout) {
+    this.setState({ layout })
   }
 
   mapImages() {
-    // const images = [Warrior2, KingPidgeon, Crow, Locust, DownDog]
+    const images = [ DownDog, Locust, Warrior2, Crow, KingPidgeon ]
     return this.props.asanas.map((asana) => {
       return (
         <div key={asana.id}>
-          <Thumbnail img={Warrior2}/>
+          <Thumbnail img={images[asana.asana_id - 1]}/>
         </div>
       )
     })
@@ -51,7 +52,6 @@ class Canvas extends Component {
 
 
   render() {
-    console.log(this.buildLayout())
     return (
       <div className='canvas'>
         <Selector />
@@ -59,11 +59,12 @@ class Canvas extends Component {
           <div className='grid'>
             <GridLayout
               className="layout"
-              layout={this.buildLayout()}
+              layout={this.state.layout}
               cols={6}
               rowHeight={1}
               width={1200}
               isResizable={false}
+              onLayoutChange={this.handleLayoutChange}
             >
               {this.mapImages()}
 

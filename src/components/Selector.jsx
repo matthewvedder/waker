@@ -18,9 +18,9 @@ class Selector extends Component {
   }
 
   mapAsanas(asanas) {
-    return asanas.map(asana => {
+    return asanas.map((asana, index) => {
       return (
-        <DragElement onDrop={this.props.createAsanaInstance} key={Math.random()}>
+        <DragElement onDrop={() => this.props.createAsanaInstance(index + 1)} asana_id={index} key={Math.random()}>
           <div className='selector-thumbnail'><Thumbnail img={asana}/></div>
         </DragElement>
       )
@@ -28,7 +28,8 @@ class Selector extends Component {
   }
 
   render() {
-    const asanas = [ Warrior2, KingPidgeon, Crow, Locust, DownDog ]
+    const asanas = [ DownDog, Locust, Warrior2, Crow, KingPidgeon ]
+
     return (
       <div className='selector'>
         <Navbar />

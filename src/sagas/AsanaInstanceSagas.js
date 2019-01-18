@@ -7,7 +7,7 @@ import {
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asana_instances`
-function createRequest() {
+function createRequest(asana_id) {
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -15,8 +15,8 @@ function createRequest() {
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
-      'asana_id': 1,
-      'sequence_id': 1
+      asana_id,
+      sequence_id: 1
     })
   })
     .then(handleApiErrors)
@@ -25,10 +25,10 @@ function createRequest() {
     .catch((error) => { throw error })
 }
 
-function* createFlow(email, password) {
+function* createFlow({ asana_id }) {
   try {
-    const response = yield call(createRequest)
-    yield fetchFlow()
+    const response = yield call(createRequest, asana_id)
+    yield put({ type: SET_ASANA_INSTANCES, asanas: response })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
     // error? send it to redux
