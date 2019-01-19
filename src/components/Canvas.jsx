@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAsanaInstances } from '../actions'
+import { fetchAsanaInstances, updateSequence, fetchSequence } from '../actions'
 import _ from 'lodash'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
@@ -18,29 +18,41 @@ class Canvas extends Component {
   constructor(props) {
     super(props)
     this.state = { layout:  [] }
+    this.layout = this.layout.bind(this)
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
 
   componentWillMount() {
     this.props.fetchAsanaInstances()
-    this.setState({ layout: this.buildLayout() })
+    this.props.fetchSequence()
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ layout: this.buildLayout(nextProps) })
+    if (this.props.layout.length === 0 && nextProps.layout.length > 0) {
+      // this.props.updateSequence({ layout: this.buildLayout(nextProps) })
+    }
+  }
+
+  layout() {
+    const { asanas, layout } = this.props
+    return asanas.length === 0 ? [] : layout
   }
 
   buildLayout(props=this.props) {
     return props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
   }
 
+  // addAsanaInstance() {
+  //   props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
+  // }
+
   handleLayoutChange(layout) {
-    console.log(layout)
-    this.setState({ layout })
+    this.props.updateSequence({ layout: layout })
   }
 
   mapImages() {
     const images = [ DownDog, Locust, Warrior2, Crow, KingPidgeon ]
+    const { asanas, layout } = this.props
     return this.props.asanas.map((asana) => {
       return (
         <div key={asana.id}>
@@ -59,7 +71,7 @@ class Canvas extends Component {
           <div className='grid'>
             <GridLayout
               className="layout"
-              layout={this.state.layout}
+              layout={this.layout()}
               cols={6}
               rowHeight={1}
               width={1200}
@@ -77,6 +89,11 @@ class Canvas extends Component {
   }
 }
 
-const mapStateToProps = state => ({ asanas: state.asanaInstances.asanas })
+const mapStateToProps = state => {
+  return {
+    asanas: state.asanaInstances.asanas,
+    layout: state.sequence.layout
+  }
+}
 
-export default connect(mapStateToProps, { fetchAsanaInstances })(Canvas)
+export default connect(mapStateToProps, { fetchAsanaInstances, updateSequence, fetchSequence })(Canvas)
