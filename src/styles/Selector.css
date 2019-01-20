@@ -1,4 +1,6 @@
 .selector {
+  position: absolute;
+  z-index: 1;
   display: flex;
   background-color: whitesmoke;
   height: 12em;
@@ -6,7 +8,7 @@
   padding: 1em;
   padding-left: 2em;
   padding-top: .7em;
-  width: 98%;
+  width: 83%;
   /* color: #E27D60; */
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
