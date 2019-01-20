@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAsanaInstances, updateSequence, fetchSequence } from '../actions'
+import { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState } from '../actions'
 import _ from 'lodash'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
@@ -13,6 +13,8 @@ import Crow from '../images/crow.jpg'
 import Locust from '../images/locust.jpg'
 import DownDog from '../images/down-dog.jpg'
 import '../styles/Canvas.css'
+
+const NUM_COLUMNS = 6
 
 class Canvas extends Component {
   constructor(props) {
@@ -31,6 +33,8 @@ class Canvas extends Component {
     if (this.props.layout.length === 0 && nextProps.layout.length > 0) {
       // this.props.updateSequence({ layout: this.buildLayout(nextProps) })
     }
+
+    if (nextProps.didCreate) this.addAsanaInstance(nextProps)
   }
 
   layout() {
@@ -38,16 +42,36 @@ class Canvas extends Component {
     return asanas.length === 0 ? [] : layout
   }
 
-  buildLayout(props=this.props) {
-    return props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
+  sortLayoutItems() {
+    return this.props.layout.sort((a, b) => {
+      if (a.y === b.y) {
+        return a.x > b.x ? 1 : -1;
+      }
+      return a.y > b.y ? 1 : -1;
+    })
   }
 
-  // addAsanaInstance() {
-  //   props.asanas.map((asana, index) => ({i: String(asana.id), x: index, y: 0, w: 1, h: 17}))
-  // }
+  addAsanaInstance(nextProps) {
+    const { asanas, layout } = nextProps
+    const newInstance = asanas[asanas.length-1]
+    const lastLayoutItem = this.sortLayoutItems()[layout.length-1] || { x: -1, y: 0 }
+    const x = lastLayoutItem.x === NUM_COLUMNS - 1 ? 0 : lastLayoutItem.x + 1
+    const newItem = {
+      i: String(newInstance.id),
+      x: x, // number of columns
+      y: lastLayoutItem.y + 17, // puts it at the bottom
+      w: 1,
+      h: 17
+    }
+
+    this.props.updateSequence({ layout: [ ...layout, newItem ] })
+    this.props.setAsanaInstanceState({ didCreate: false })
+  }
 
   handleLayoutChange(layout) {
-    this.props.updateSequence({ layout: layout })
+    if (!this.props.didCreate) {
+      this.props.updateSequence({ layout: layout })
+    }
   }
 
   mapImages() {
@@ -72,7 +96,7 @@ class Canvas extends Component {
             <GridLayout
               className="layout"
               layout={this.layout()}
-              cols={6}
+              cols={NUM_COLUMNS}
               rowHeight={1}
               width={1200}
               isResizable={false}
@@ -92,8 +116,12 @@ class Canvas extends Component {
 const mapStateToProps = state => {
   return {
     asanas: state.asanaInstances.asanas,
+    didCreate: state.asanaInstances.didCreate,
     layout: state.sequence.layout
   }
 }
 
-export default connect(mapStateToProps, { fetchAsanaInstances, updateSequence, fetchSequence })(Canvas)
+export default connect(
+  mapStateToProps,
+  { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState }
+)(Canvas)

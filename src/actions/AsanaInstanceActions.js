@@ -1,4 +1,4 @@
-import { CREATE_ASANA_INSTANCE, FETCH_ASANA_INSTANCES } from './types'
+import { CREATE_ASANA_INSTANCE, FETCH_ASANA_INSTANCES, SET_ASANA_INSTANCE_DATA } from './types'
 
 // there's literally no reason these are in a different
 // format from the other component actions other than
@@ -13,5 +13,12 @@ export const createAsanaInstance = (asana_id) => {
 export const fetchAsanaInstances = () => {
   return {
     type: FETCH_ASANA_INSTANCES
+  }
+}
+
+export const setAsanaInstanceState = (payload) => {
+  return {
+    type: SET_ASANA_INSTANCE_DATA,
+    payload
   }
 }
