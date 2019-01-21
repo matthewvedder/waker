@@ -80,9 +80,7 @@ class Canvas extends Component {
     const { asanas, layout } = this.props
     return this.props.asanas.map((asana) => {
       return (
-
-          <AsanaInstanceDrag key={asana.id} asana={asana} image={images[asana.asana_id - 1]} />
-
+        <AsanaInstanceDrag key={asana.id} asana={asana} image={images[asana.asana_id - 1]} />
       )
     })
   }
@@ -102,6 +100,7 @@ class Canvas extends Component {
               width={1200}
               isResizable={false}
               onLayoutChange={this.handleLayoutChange}
+              draggableCancel="path"
             >
               {this.mapImages()}
 
