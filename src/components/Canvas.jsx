@@ -6,6 +6,7 @@ import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
 import DropTarget from './DropTarget'
 import Modal from './Modal'
+import AsanaInstanceDrag from './AsanaInstanceDrag'
 import Thumbnail from './Thumbnail'
 import Warrior2 from '../images/warrior2.jpg'
 import KingPidgeon from '../images/king-pidgeon.jpg'
@@ -79,9 +80,9 @@ class Canvas extends Component {
     const { asanas, layout } = this.props
     return this.props.asanas.map((asana) => {
       return (
-        <div key={asana.id}>
-          <Thumbnail img={images[asana.asana_id - 1]}/>
-        </div>
+
+          <AsanaInstanceDrag key={asana.id} asana={asana} image={images[asana.asana_id - 1]} />
+
       )
     })
   }
