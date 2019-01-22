@@ -80,8 +80,7 @@ function deleteRequest(action) {
 function* deleteFlow(action) {
   try {
     const response = yield deleteRequest(action)
-    yield put({ type: SET_ASANA_INSTANCE_DATA, payload: { asanas: response } })
-    // yield put({ type: LOGIN_SUCCESS })
+    yield put({ type:  SET_ASANA_INSTANCE_DATA, payload: { asanas: response } })
   } catch (error) {
     // error? send it to redux
     // yield put({ type: LOGIN_ERROR, error })

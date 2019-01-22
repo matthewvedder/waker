@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Thumbnail from './Thumbnail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import '../styles/AsanaInstanceDrag.css'
 
 class AsanaInstanceDrag extends Component {
@@ -11,9 +12,10 @@ class AsanaInstanceDrag extends Component {
   }
 
   render() {
-    const { image, asana, style, onDelete } = this.props
+    const { image, asana, onDelete } = this.props
+    const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete'])
     return (
-      <div style={style} {...this.props}>
+      <div {...propsFromGrid}>
         <div
           className='instance'
           onMouseEnter={() => this.setState({ hovering: true })}
