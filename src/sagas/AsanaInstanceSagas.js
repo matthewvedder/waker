@@ -1,9 +1,10 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { takeLatest, takeEvery, call, put } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
 import {
   CREATE_ASANA_INSTANCE,
   FETCH_ASANA_INSTANCES,
-  SET_ASANA_INSTANCE_DATA
+  SET_ASANA_INSTANCE_DATA,
+  DELETE_ASANA_INSTANCE
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asana_instances`
@@ -62,7 +63,33 @@ function* fetchFlow(email, password) {
   }
 }
 
+function deleteRequest(action) {
+  return fetch(`${url}/${action.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+  })
+    .then(handleApiErrors)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
+function* deleteFlow(action) {
+  try {
+    const response = yield deleteRequest(action)
+    yield put({ type: SET_ASANA_INSTANCE_DATA, payload: { asanas: response } })
+    // yield put({ type: LOGIN_SUCCESS })
+  } catch (error) {
+    // error? send it to redux
+    // yield put({ type: LOGIN_ERROR, error })
+  }
+}
+
 export function* watchAsanaInstances() {
   yield takeLatest(CREATE_ASANA_INSTANCE, createFlow)
   yield takeLatest(FETCH_ASANA_INSTANCES, fetchFlow)
+  yield takeEvery(DELETE_ASANA_INSTANCE, deleteFlow)
 }

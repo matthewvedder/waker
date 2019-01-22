@@ -11,7 +11,7 @@ class AsanaInstanceDrag extends Component {
   }
 
   render() {
-    const { image, asana, style } = this.props
+    const { image, asana, style, onDelete } = this.props
     return (
       <div style={style} {...this.props}>
         <div
@@ -25,6 +25,7 @@ class AsanaInstanceDrag extends Component {
           <FontAwesomeIcon
             className='instance-drag-trash'
             icon={faTrash}
+            onClick={onDelete}
             style={{ display: this.state.hovering ? 'inherit' : 'none' }}
           />
         </div>

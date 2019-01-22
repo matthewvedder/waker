@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState } from '../actions'
 import _ from 'lodash'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
@@ -14,6 +13,13 @@ import Crow from '../images/crow.jpg'
 import Locust from '../images/locust.jpg'
 import DownDog from '../images/down-dog.jpg'
 import '../styles/Canvas.css'
+import {
+  fetchAsanaInstances,
+  updateSequence,
+  fetchSequence,
+  setAsanaInstanceState,
+  deleteAsanaInstance
+} from '../actions'
 
 const NUM_COLUMNS = 6
 
@@ -80,7 +86,12 @@ class Canvas extends Component {
     const { asanas, layout } = this.props
     return this.props.asanas.map((asana) => {
       return (
-        <AsanaInstanceDrag key={asana.id} asana={asana} image={images[asana.asana_id - 1]} />
+        <AsanaInstanceDrag
+          key={asana.id}
+          asana={asana}
+          onDelete={() => this.props.deleteAsanaInstance(asana.id)}
+          image={images[asana.asana_id - 1]}
+        />
       )
     })
   }
@@ -123,5 +134,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState }
+  { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState, deleteAsanaInstance }
 )(Canvas)
