@@ -1,0 +1,12 @@
+.create-asana {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 5%;
+}
+
+
+.create-asana form {
+  display: flex;
+  flex-direction: column;
+}

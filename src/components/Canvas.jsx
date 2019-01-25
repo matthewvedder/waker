@@ -76,7 +76,8 @@ class Canvas extends Component {
   }
 
   handleLayoutChange(layout) {
-    if (!this.props.didCreate) {
+    const { didCreate, asanas } = this.props
+    if (!this.props.didCreate && asanas.length === layout.length) {
       this.props.updateSequence({ layout: layout })
     }
   }
