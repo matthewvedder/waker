@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import Messages from './Messages'
 import Errors from './Errors'
+import ImageEditor from './ImageEditor'
 import { createAsana } from '../actions'
 import '../styles/CreateAsana.css'
 
@@ -39,6 +40,7 @@ class CreateAsana extends Component {
 
     return (
       <div className="create-asana">
+        <ImageEditor />
         <form className="create-asana-form" onSubmit={handleSubmit(this.submit.bind(this))}>
           <h1>Create Asana</h1>
           <label htmlFor="name">Name</label>
