@@ -24,8 +24,8 @@ class CreateAsana extends Component {
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `email` and `password`
   submit = (values) => {
-    console.log(this.editor.getImageScaledToCanvas().toDataURL())
-    this.props.createAsana(values)
+    const image = this.editor.getImageScaledToCanvas().toDataURL()
+    this.props.createAsana({ ...values, image })
   }
 
   setEditorRef = editor => {
