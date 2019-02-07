@@ -24,7 +24,12 @@ class CreateAsana extends Component {
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `email` and `password`
   submit = (values) => {
+    console.log(this.editor.getImageScaledToCanvas().toDataURL())
     this.props.createAsana(values)
+  }
+
+  setEditorRef = editor => {
+    if (editor) this.editor = editor
   }
 
   render () {
@@ -40,7 +45,7 @@ class CreateAsana extends Component {
 
     return (
       <div className="create-asana">
-        <ImageEditor />
+        <ImageEditor setEditorRef={this.setEditorRef}/>
         <form className="create-asana-form" onSubmit={handleSubmit(this.submit.bind(this))}>
           <h1>Create Asana</h1>
           <label htmlFor="name">Name</label>

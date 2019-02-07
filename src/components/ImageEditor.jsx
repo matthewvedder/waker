@@ -1,37 +1,121 @@
-import React, { Component } from 'react'
-import classNames from 'classnames'
+import React from 'react'
+import { connect } from 'react-redux'
 import ReactAvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
 
 class ImageEditor extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { image: null, disableClick: false }
+  state = {
+    image: null,
+    position: { x: 0.5, y: 0.5 },
+    scale: 1,
+    rotate: 0,
+    preview: null,
+    width: 400,
+    height: 400,
   }
-   onDrop = (dropped) => {
-     this.setState({ image: dropped[0], disableClick: true })
-   }
 
-   render() {
-     const { image, disableClick } = this.state
+  handleNewImage = e => {
+    this.setState({ image: e.target.files[0] })
+  }
+
+  handleScale = e => {
+    const scale = parseFloat(e.target.value)
+    this.setState({ scale })
+  }
+
+  rotateLeft = e => {
+    e.preventDefault()
+
+    this.setState({
+      rotate: this.state.rotate - 90,
+    })
+  }
+
+  rotateRight = e => {
+    e.preventDefault()
+    this.setState({
+      rotate: this.state.rotate + 90,
+    })
+  }
+
+
+  handleXPosition = e => {
+    const x = parseFloat(e.target.value)
+    this.setState({ position: { ...this.state.position, x } })
+  }
+
+  handleYPosition = e => {
+    const y = parseFloat(e.target.value)
+    this.setState({ position: { ...this.state.position, y } })
+  }
+
+  logCallback(e) {
+    // eslint-disable-next-line
+    console.log('callback', e)
+  }
+
+  handlePositionChange = position => {
+    this.setState({ position })
+  }
+
+  handleDrop = acceptedFiles => {
+    this.setState({ image: acceptedFiles[0], disableClick: true })
+  }
+
+  render() {
+    const { height, width, disableClick } = this.state
     return (
-      <Dropzone onDrop={this.onDrop} disableClick={disableClick}>
+      <div>
+      <Dropzone onDrop={this.handleDrop} disableClick={disableClick}>
         {({getRootProps, getInputProps, isDragActive}) => {
           return (
             <div
               {...getRootProps()}
-              className={classNames('dropzone', {'dropzone--isActive': isDragActive})}
             >
               <input {...getInputProps()} />
-              {
-                <ReactAvatarEditor width={250} height={250} image={image} />
-              }
+              <ReactAvatarEditor
+                ref={this.props.setEditorRef}
+                scale={parseFloat(this.state.scale)}
+                position={this.state.position}
+                width={width}
+                height={height}
+                onPositionChange={this.handlePositionChange}
+                rotate={parseFloat(this.state.rotate)}
+                onLoadFailure={this.logCallback.bind(this, 'onLoadFailed')}
+                onLoadSuccess={this.logCallback.bind(this, 'onLoadSuccess')}
+                onImageReady={this.logCallback.bind(this, 'onImageReady')}
+                image={this.state.image}
+                className="editor-canvas"
+              />
             </div>
           )
         }}
       </Dropzone>
+
+
+
+        <br />
+        New File:
+        <input name="newImage" type="file" onChange={this.handleNewImage} />
+        <br />
+        Zoom:
+        <input
+          name="scale"
+          type="range"
+          onChange={this.handleScale}
+          min={this.state.allowZoomOut ? '0.1' : '1'}
+          max="2"
+          step="0.01"
+          defaultValue="1"
+        />
+        <br />
+        Rotate:
+        <button onClick={this.rotateLeft}>Left</button>
+        <button onClick={this.rotateRight}>Right</button>
+        <br />
+      </div>
     )
   }
 }
 
-export default ImageEditor
+export default connect(null)(ImageEditor)
