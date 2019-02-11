@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createAsanaInstance } from '../actions'
+import { createAsanaInstance, fetchAsanas } from '../actions'
 import Navbar from './Navbar'
 import DragElement from './DragElement'
 import Thumbnail from './Thumbnail'
@@ -15,6 +15,10 @@ class Selector extends Component {
   constructor(props) {
     super(props)
     this.mapAsanas = this.mapAsanas.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.fetchAsanas()
   }
 
   mapAsanas(asanas) {
@@ -41,4 +45,4 @@ class Selector extends Component {
   }
 }
 
-export default connect(null, { createAsanaInstance })(Selector)
+export default connect(null, { createAsanaInstance, fetchAsanas })(Selector)

@@ -1,8 +1,7 @@
 import {
-  CREATE_ASANA
+  CREATE_ASANA,
+  FETCH_ASANAS
 } from './types'
 
-// there's literally no reason these are in a different
-// format from the other component actions other than
-// that I just lost track
 export const createAsana = (payload) => ({ type: CREATE_ASANA, payload })
+export const fetchAsanas = () => ({ type: FETCH_ASANAS })
