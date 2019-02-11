@@ -45,8 +45,8 @@ class Canvas extends Component {
   }
 
   layout() {
-    const { asanas, layout } = this.props
-    return asanas.length === 0 ? [] : layout
+    const { instances, layout } = this.props
+    return instances.length === 0 ? [] : layout
   }
 
   sortLayoutItems() {
@@ -59,8 +59,8 @@ class Canvas extends Component {
   }
 
   addAsanaInstance(nextProps) {
-    const { asanas, layout } = nextProps
-    const newInstance = asanas[asanas.length-1]
+    const { instances, layout } = nextProps
+    const newInstance = instances[instances.length-1]
     const lastLayoutItem = this.sortLayoutItems()[layout.length-1] || { x: -1, y: 0 }
     const x = lastLayoutItem.x === NUM_COLUMNS - 1 ? 0 : lastLayoutItem.x + 1
     const newItem = {
@@ -76,22 +76,24 @@ class Canvas extends Component {
   }
 
   handleLayoutChange(layout) {
-    const { didCreate, asanas } = this.props
-    if (!this.props.didCreate && asanas.length === layout.length) {
+    const { didCreate, instances } = this.props
+    if (!this.props.didCreate && instances.length === layout.length) {
       this.props.updateSequence({ layout: layout })
     }
   }
 
   mapImages() {
-    const images = [ DownDog, Locust, Warrior2, Crow, KingPidgeon ]
-    const { asanas, layout } = this.props
-    return this.props.asanas.map((asana) => {
+    const { instances, asanas } = this.props
+    console.log(this.props)
+    return instances.map((instance) => {
+      const asana = asanas.find(a => a.id === instance.asana_id )
+      const thumbnail = asana ? asana.thumbnail : ''
       return (
         <AsanaInstanceDrag
-          key={asana.id}
-          asana={asana}
-          onDelete={() => this.props.deleteAsanaInstance(asana.id)}
-          image={images[asana.asana_id - 1]}
+          key={instance.id}
+          asana={instance}
+          onDelete={() => this.props.deleteAsanaInstance(instance.id)}
+          image={thumbnail}
         />
       )
     })
@@ -127,9 +129,10 @@ class Canvas extends Component {
 
 const mapStateToProps = state => {
   return {
-    asanas: state.asanaInstances.asanas,
+    instances: state.asanaInstances.asanas,
     didCreate: state.asanaInstances.didCreate,
-    layout: state.sequence.layout
+    layout: state.sequence.layout,
+    asanas: state.asanas.asanas
   }
 }
 

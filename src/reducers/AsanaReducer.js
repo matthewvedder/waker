@@ -18,6 +18,7 @@ const reducer = function asanaReducer (state = initialState, action) {
     // Set the requesting flag and append a message to be shown
     case CREATE_ASANA:
       return {
+        ...state,
         requesting: true,
         successful: false,
         messages: [{ body: 'creating Asana...', time: new Date() }],
@@ -25,11 +26,12 @@ const reducer = function asanaReducer (state = initialState, action) {
       }
 
     case SET_ASANAS:
-      return { asanas: action.payload }
+      return { ...state, asanas: action.payload }
 
     // Successful?  Reset the login state.
     case ASANA_SUCCESS:
       return {
+        ...state,
         errors: [],
         messages: [],
         requesting: false,
@@ -40,6 +42,7 @@ const reducer = function asanaReducer (state = initialState, action) {
     // set the success and requesting flags to false
     case ASANA_ERROR:
       return {
+        ...state,
         errors: state.errors.concat([{
           body: action.error.toString(),
           time: new Date(),
