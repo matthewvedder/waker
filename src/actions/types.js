@@ -20,6 +20,7 @@ export const CREATE_ASANA = 'CREATE_ASANA'
 export const ASANA_SUCCESS = 'ASANA_SUCCESS'
 export const ASANA_ERROR = 'ASANA_ERROR'
 export const FETCH_ASANAS = 'FETCH_ASANAS'
+export const SET_ASANAS = 'SET_ASANAS'
 
 export const UPDATE_SEQUENCE = 'UPDATE_SEQUENCE'
 export const FETCH_SEQUENCE  = 'FETCH_SEQUENCE'

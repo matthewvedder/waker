@@ -21,11 +21,13 @@ class Selector extends Component {
     this.props.fetchAsanas()
   }
 
-  mapAsanas(asanas) {
+  mapAsanas() {
+    const { asanas } = this.props
+    if (typeof asanas === 'undefined') return
     return asanas.map((asana, index) => {
       return (
-        <DragElement onDrop={() => this.props.createAsanaInstance(index + 1)} asana_id={index} key={Math.random()}>
-          <div className='selector-thumbnail'><Thumbnail img={asana}/></div>
+        <DragElement onDrop={() => this.props.createAsanaInstance(asana.id)} asana_id={asana.id} key={asana.id}>
+          <div className='selector-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
         </DragElement>
       )
     })
@@ -38,11 +40,13 @@ class Selector extends Component {
       <div className='selector'>
         <Navbar />
         <div className='selector-container'>
-          { this.mapAsanas(asanas) }
+          { this.mapAsanas() }
         </div>
       </div>
     )
   }
 }
 
-export default connect(null, { createAsanaInstance, fetchAsanas })(Selector)
+const mapStateToProps = state => ({ asanas: state.asanas.asanas })
+
+export default connect(mapStateToProps, { createAsanaInstance, fetchAsanas })(Selector)

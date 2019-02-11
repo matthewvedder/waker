@@ -4,7 +4,8 @@ import {
   CREATE_ASANA,
   ASANA_ERROR,
   ASANA_SUCCESS,
-  FETCH_ASANAS
+  FETCH_ASANAS,
+  SET_ASANAS
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asanas`
@@ -46,9 +47,9 @@ function indexApi (payload) {
 
 function* indexFlow (action) {
   try {
-    const payload = yield call(indexApi, action.payload)
-    console.log(payload)
-    // yield put({ type: ASANA_SUCCESS, payload })
+    const payload = yield call(indexApi)
+    yield put({ type: ASANA_SUCCESS })
+    yield put({ type: SET_ASANAS, payload })
 
   } catch (error) {
     console.warn(error)

@@ -79,16 +79,6 @@ class CreateAsana extends Component {
           />
           <button action="submit">Create</button>
         </form>
-        <div className="auth-messages">
-          {/* As in the signup, we're just using the message and error helpers */}
-          {!requesting && !!errors.length && (
-            <Errors message="Failure to login due to:" errors={errors} />
-          )}
-          {!requesting && !!messages.length && (
-            <Messages messages={messages} />
-          )}
-          {requesting && <div>Logging in...</div>}
-        </div>
       </div>
     )
   }
