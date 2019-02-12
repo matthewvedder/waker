@@ -39,9 +39,9 @@ class App extends Component {
               <Sidebar />
               <PrivateRoute path="/" exact component={Canvas} />
               <PrivateRoute path="/asanas/new" component={CreateAsana} />
+              <PrivateRoute path="/sequences" component={Sequences} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
-              <Route path="/sequences" component={Sequences} />
             </div>
           </ConnectedRouter>
       </Provider>

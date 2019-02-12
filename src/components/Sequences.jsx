@@ -9,7 +9,7 @@ class Sequences extends Component {
 
   mapSequences() {
     return this.props.sequences.map((sequence) => {
-      return <div>{ sequence.id }</div>
+      return <div key={ sequence.id }>{ sequence.id }</div>
     })
   }
   render() {
