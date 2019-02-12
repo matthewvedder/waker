@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Canvas from './components/Canvas'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
+import Sequences from './components/Sequences'
 import Sidebar from './components/Sidebar'
 import CreateAsana from './components/CreateAsana'
 import RootReducer from './reducers'
@@ -40,6 +41,7 @@ class App extends Component {
               <PrivateRoute path="/asanas/new" component={CreateAsana} />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
+              <Route path="/sequences" component={Sequences} />
             </div>
           </ConnectedRouter>
       </Provider>

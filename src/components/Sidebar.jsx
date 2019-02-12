@@ -27,17 +27,11 @@ class Sidebar extends Component {
               <span className='sidebar-item-label'>Home</span>
             </Link>
           </div>
-          <div className='sidebar-item'>
-            <FontAwesomeIcon icon={faUser} />
-            <span className='sidebar-item-label'>User Info</span>
-          </div>
-          <div className='sidebar-item'>
-            <FontAwesomeIcon icon={faCompass} />
-            <span className='sidebar-item-label'>Explore</span>
-          </div>
-          <div className='sidebar-item'>
-            <FontAwesomeIcon icon={faGripHorizontal} />
-            <span className='sidebar-item-label'>My Sequences</span>
+          <div className={this.className('/sequences')}>
+            <Link to='/sequences'>
+              <FontAwesomeIcon className='sidebar-icon' icon={faGripHorizontal} />
+              <span className='sidebar-item-label'>My Sequences</span>
+            </Link>
           </div>
           <div className={this.className('/asanas/new')}>
             <Link to='/asanas/new'>
