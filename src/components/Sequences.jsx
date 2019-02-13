@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from "react-router-dom"
 import { fetchSequences } from '../actions'
+import '../styles/sequences.css'
 
 class Sequences extends Component {
   componentWillMount() {
@@ -9,13 +11,23 @@ class Sequences extends Component {
 
   mapSequences() {
     return this.props.sequences.map((sequence) => {
-      return <div key={ sequence.id }>{ sequence.id }</div>
+      return (
+        <Link to='/'>
+          <div className='sequence' key={ sequence.id }>
+            <div className='name'>{ sequence.name }</div>
+            <div className='level'>{ sequence.level }</div>
+          </div>
+        </Link>
+      )
     })
   }
   render() {
     return (
-      <div>
-        { this.mapSequences() }
+      <div className='sequence-container'>
+        <h1 id='sequences-title'>My Sequences</h1>
+        <div className='sequences'>
+          { this.mapSequences() }
+        </div>
       </div>
     )
   }

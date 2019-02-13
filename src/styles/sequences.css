@@ -1,0 +1,28 @@
+.name {
+  font-size: 1.5em;
+}
+
+.level {
+  font-size: 1em;
+}
+
+.sequence {
+  margin-bottom: 1em;
+  color: #C38D9B;
+}
+
+.sequence:hover {
+  cursor: pointer;
+  color: #E27D60;
+}
+
+.sequence-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  margin: 2em;
+}
+
+#sequences-title {
+  color: #41B3A3;
+}
