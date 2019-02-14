@@ -9,9 +9,9 @@ class Modal extends Component {
   }
   render() {
     const { visible, title, children, onClose } = this.props
-    const display = visible ? 'absolute' : 'none'
+    const className = visible ? 'modal show-modal' : 'modal hide-modal'
     return (
-      <div style={{ display }} className='modal'>
+      <div className={className}>
         <div className='modal-content'>
           <div className='modal-header'>
             <div className='modal-title'>{ title }</div>

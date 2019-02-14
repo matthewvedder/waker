@@ -27,3 +27,11 @@
 .close-modal:hover {
   cursor: pointer;
 }
+
+.show-modal {
+  display: absolute;
+}
+
+.hide-modal {
+  display: none;
+}

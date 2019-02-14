@@ -1,12 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences } from '../actions'
+import Modal from './Modal'
 import '../styles/sequences.css'
 
 class Sequences extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { modalOpen: false }
+    this.handleAddClick = this.handleAddClick.bind(this)
+  }
   componentWillMount() {
     this.props.fetchSequences()
+  }
+
+  handleAddClick() {
+    this.setState({ modalOpen: true })
   }
 
   mapSequences() {
@@ -22,12 +34,17 @@ class Sequences extends Component {
     })
   }
   render() {
+    console.log(this.state.modalOpen)
     return (
       <div className='sequence-container'>
         <h1 id='sequences-title'>My Sequences</h1>
         <div className='sequences'>
           { this.mapSequences() }
+          <div className='sequence' id='new-sequence' onClick={this.handleAddClick}>
+            <FontAwesomeIcon icon={faPlus} />
+          </div>
         </div>
+        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
       </div>
     )
   }
