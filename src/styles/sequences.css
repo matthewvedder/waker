@@ -7,20 +7,35 @@
 }
 
 .sequence {
-  margin-bottom: 1em;
   color: #C38D9B;
 }
 
-.sequence:hover {
+.sequence-container:hover .sequence {
   cursor: pointer;
-  color: #E27D60;
+  color: #E27D60 !important;
 }
 
-.sequence-container {
+.sequence-trash {
+  margin: .3em;
+  margin-left: 1em;
+  font-size: .9em;
+  color: red;
+  cursor: pointer;
+}
+
+.sequences-container {
   display: flex;
   flex-direction: column;
   padding: 2em;
   margin: 2em;
+}
+
+.sequence-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 20em;
+  margin-bottom: 1em;
 }
 
 #new-sequence {

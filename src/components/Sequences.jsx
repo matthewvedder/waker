@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences } from '../actions'
 import CreateSequence from './CreateSequence'
 import Modal from './Modal'
@@ -11,7 +11,7 @@ import '../styles/sequences.css'
 class Sequences extends Component {
   constructor(props) {
     super(props)
-    this.state = { modalOpen: false }
+    this.state = { modalOpen: false, hoveringOver: null }
     this.handleAddClick = this.handleAddClick.bind(this)
   }
   componentWillMount() {
@@ -24,19 +24,33 @@ class Sequences extends Component {
 
   mapSequences() {
     return this.props.sequences.map((sequence) => {
+      const { id, name, level } = sequence
       return (
-        <Link to={`/sequences/${sequence.id}`}>
-          <div className='sequence' key={ sequence.id }>
-            <div className='name'>{ sequence.name }</div>
-            <div className='level'>{ sequence.level }</div>
-          </div>
-        </Link>
+        <div className='sequence-container'>
+          <Link to={`/sequences/${id}`}>
+            <div
+              className='sequence'
+              key={ id }
+              onMouseEnter={() => this.setState({ hoveringOver: id })}
+              onMouseLeave={() => this.setState({ hoveringOver: id })}
+            >
+              <div className='name'>{ name }</div>
+              <div className='level'>{ level }</div>
+            </div>
+          </Link>
+          <FontAwesomeIcon
+            className='sequence-trash'
+            icon={faTrash}
+            onClick={() => console.log('delete')}
+            style={{ display: this.state.hoveringOver === id ? 'inherit' : 'none' }}
+          />
+        </div>
       )
     })
   }
   render() {
     return (
-      <div className='sequence-container'>
+      <div className='sequences-container'>
         <h1 id='sequences-title'>My Sequences</h1>
         <div className='sequences'>
           { this.mapSequences() }
