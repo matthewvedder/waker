@@ -1,4 +1,4 @@
-import { UPDATE_SEQUENCE, FETCH_SEQUENCE, FETCH_SEQUENCES } from './types'
+import { UPDATE_SEQUENCE, FETCH_SEQUENCE, FETCH_SEQUENCES, CREATE_SEQUENCE } from './types'
 
 // there's literally no reason these are in a different
 // format from the other component actions other than
@@ -7,6 +7,13 @@ export const fetchSequence = (sequence_id) => {
   return {
     type: FETCH_SEQUENCE,
     sequence_id
+  }
+}
+
+export const createSequence = (payload) => {
+  return {
+    type: CREATE_SEQUENCE,
+    payload
   }
 }
 

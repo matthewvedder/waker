@@ -4,7 +4,8 @@ import {
   UPDATE_SEQUENCE,
   FETCH_SEQUENCE,
   FETCH_SEQUENCES,
-  SET_SEQUENCE
+  SET_SEQUENCE,
+  CREATE_SEQUENCE
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/sequences`
@@ -89,8 +90,34 @@ function* indexFlow(email, password) {
   }
 }
 
+function createRequest(payload) {
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    },
+    body: JSON.stringify({
+      ...payload
+    })
+  })
+    .then(handleApiErrors)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
+function* createFlow(action) {
+  try {
+    const response = yield createRequest(action.payload)
+    yield put({ type: SET_SEQUENCE, payload: { sequences: response }})
+  } catch (error) {
+  }
+}
+
 export function* watchSequence() {
   yield takeLatest(UPDATE_SEQUENCE, updateFlow)
   yield takeLatest(FETCH_SEQUENCE, fetchFlow)
   yield takeLatest(FETCH_SEQUENCES, indexFlow)
+  yield takeLatest(CREATE_SEQUENCE, createFlow)
 }

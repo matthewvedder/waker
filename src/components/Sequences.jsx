@@ -35,7 +35,6 @@ class Sequences extends Component {
     })
   }
   render() {
-    console.log(this.state.modalOpen)
     return (
       <div className='sequence-container'>
         <h1 id='sequences-title'>My Sequences</h1>
@@ -46,7 +45,7 @@ class Sequences extends Component {
           </div>
         </div>
         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
-          <CreateSequence />
+          <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
         </Modal>
       </div>
     )

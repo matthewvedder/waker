@@ -1,0 +1,11 @@
+.create-sequence {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+}
+
+.create-sequence-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%
+}
