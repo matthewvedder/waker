@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { fetchSequences } from '../actions'
+import { fetchSequences, deleteSequence } from '../actions'
 import CreateSequence from './CreateSequence'
 import Modal from './Modal'
 import '../styles/sequences.css'
@@ -13,6 +13,7 @@ class Sequences extends Component {
     super(props)
     this.state = { modalOpen: false, hoveringOver: null }
     this.handleAddClick = this.handleAddClick.bind(this)
+    this.handleDeleteClick = this.handleDeleteClick.bind(this)
   }
   componentWillMount() {
     this.props.fetchSequences()
@@ -20,6 +21,10 @@ class Sequences extends Component {
 
   handleAddClick() {
     this.setState({ modalOpen: true })
+  }
+
+  handleDeleteClick(id) {
+    this.props.deleteSequence(id)
   }
 
   mapSequences() {
@@ -41,7 +46,7 @@ class Sequences extends Component {
           <FontAwesomeIcon
             className='sequence-trash'
             icon={faTrash}
-            onClick={() => console.log('delete')}
+            onClick={() => this.handleDeleteClick(id)}
             style={{ display: this.state.hoveringOver === id ? 'inherit' : 'none' }}
           />
         </div>
@@ -68,4 +73,4 @@ class Sequences extends Component {
 
 const mapStateToProps = state => ({ sequences: state.sequence.sequences })
 
-export default connect(mapStateToProps, { fetchSequences })(Sequences)
+export default connect(mapStateToProps, { fetchSequences, deleteSequence })(Sequences)

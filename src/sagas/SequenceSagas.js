@@ -5,7 +5,8 @@ import {
   FETCH_SEQUENCE,
   FETCH_SEQUENCES,
   SET_SEQUENCE,
-  CREATE_SEQUENCE
+  CREATE_SEQUENCE,
+  DELETE_SEQUENCE
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/sequences`
@@ -115,9 +116,33 @@ function* createFlow(action) {
   }
 }
 
+function destroyRequest(id) {
+  return fetch(`${url}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+  })
+    .then(handleApiErrors)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
+function* destroyFlow(action) {
+  try {
+    const response = yield destroyRequest(action.id)
+    yield put({ type: SET_SEQUENCE, payload: { sequences: response }})
+  } catch (error) {
+  }
+}
+
+
 export function* watchSequence() {
   yield takeLatest(UPDATE_SEQUENCE, updateFlow)
   yield takeLatest(FETCH_SEQUENCE, fetchFlow)
   yield takeLatest(FETCH_SEQUENCES, indexFlow)
   yield takeLatest(CREATE_SEQUENCE, createFlow)
+  yield takeLatest(DELETE_SEQUENCE,  destroyFlow)
 }
