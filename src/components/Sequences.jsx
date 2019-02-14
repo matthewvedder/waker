@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences } from '../actions'
+import CreateSequence from './CreateSequence'
 import Modal from './Modal'
 import '../styles/sequences.css'
 
@@ -44,7 +45,9 @@ class Sequences extends Component {
             <FontAwesomeIcon icon={faPlus} />
           </div>
         </div>
-        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
+        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
+          <CreateSequence />
+        </Modal>
       </div>
     )
   }
