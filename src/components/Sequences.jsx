@@ -12,7 +12,7 @@ class Sequences extends Component {
   mapSequences() {
     return this.props.sequences.map((sequence) => {
       return (
-        <Link to='/'>
+        <Link to={`/sequences/${sequence.id}`}>
           <div className='sequence' key={ sequence.id }>
             <div className='name'>{ sequence.name }</div>
             <div className='level'>{ sequence.level }</div>

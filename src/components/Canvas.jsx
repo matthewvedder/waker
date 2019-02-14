@@ -31,9 +31,18 @@ class Canvas extends Component {
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
 
+  // shouldComponentUpdate() {
+  //   const { layout, instances } = this.props
+  //   return layout.length === instances.length
+  // }
+
+  componentWillUnmount() {
+    this.props.setAsanaInstanceState({ asanas: [] })
+  }
+
   componentWillMount() {
-    this.props.fetchAsanaInstances()
-    this.props.fetchSequence()
+    this.props.fetchSequence(this.id())
+    this.props.fetchAsanaInstances(this.id())
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +51,11 @@ class Canvas extends Component {
     }
 
     if (nextProps.didCreate) this.addAsanaInstance(nextProps)
+  }
+
+  id() {
+    const { pathname } = window.location
+    return pathname.split('/')[2]
   }
 
   layout() {
@@ -71,20 +85,22 @@ class Canvas extends Component {
       h: 17
     }
 
-    this.props.updateSequence({ layout: [ ...layout, newItem ] })
+    this.props.updateSequence({ layout: [ ...layout, newItem ] }, this.id())
     this.props.setAsanaInstanceState({ didCreate: false })
   }
 
   handleLayoutChange(layout) {
     const { didCreate, instances } = this.props
-    if (!this.props.didCreate && instances.length === layout.length) {
-      this.props.updateSequence({ layout: layout })
+    // hack to avoid updating layout before layout items are present
+    const invalid_height = layout.find(item => item.h === 1)
+    if (invalid_height) return
+    if (!didCreate && instances.length === layout.length) {
+      this.props.updateSequence({ layout: layout }, this.id())
     }
   }
 
   mapImages() {
     const { instances, asanas } = this.props
-    console.log(this.props)
     return instances.map((instance) => {
       const asana = asanas.find(a => a.id === instance.asana_id )
       const thumbnail = asana ? asana.thumbnail : ''
@@ -101,6 +117,7 @@ class Canvas extends Component {
 
 
   render() {
+    console.log(this.props.layout.length, this.props.instances.length)
     return (
       <div className='canvas'>
         <Selector />

@@ -16,11 +16,16 @@ class Selector extends Component {
     this.props.fetchAsanas()
   }
 
+  sequenceId() {
+    const { pathname } = window.location
+    return pathname.split('/')[2]
+  }
+
   mapAsanas() {
     const { asanas } = this.props
     return asanas.map((asana, index) => {
       return (
-        <DragElement onDrop={() => this.props.createAsanaInstance(asana.id)} asana_id={asana.id} key={asana.id}>
+        <DragElement onDrop={() => this.props.createAsanaInstance(asana.id, this.sequenceId())} asana_id={asana.id} key={asana.id}>
           <div className='selector-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
         </DragElement>
       )

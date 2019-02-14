@@ -3,10 +3,10 @@ import { UPDATE_SEQUENCE, FETCH_SEQUENCE, FETCH_SEQUENCES } from './types'
 // there's literally no reason these are in a different
 // format from the other component actions other than
 // that I just lost track
-export const fetchSequence = (layout) => {
+export const fetchSequence = (sequence_id) => {
   return {
     type: FETCH_SEQUENCE,
-    layout
+    sequence_id
   }
 }
 
@@ -16,9 +16,10 @@ export const fetchSequences = () => {
   }
 }
 
-export const updateSequence = (payload) => {
+export const updateSequence = (payload, sequence_id) => {
   return {
     type: UPDATE_SEQUENCE,
-    payload
+    payload,
+    sequence_id
   }
 }

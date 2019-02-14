@@ -8,7 +8,8 @@ import {
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asana_instances`
-function createRequest(asana_id) {
+function createRequest(action) {
+  const { asana_id, sequence_id } = action
   return fetch(url, {
     method: 'POST',
     headers: {
@@ -17,7 +18,7 @@ function createRequest(asana_id) {
     },
     body: JSON.stringify({
       asana_id,
-      sequence_id: 1
+      sequence_id
     })
   })
     .then(handleApiErrors)
@@ -26,9 +27,9 @@ function createRequest(asana_id) {
     .catch((error) => { throw error })
 }
 
-function* createFlow({ asana_id }) {
+function* createFlow(action) {
   try {
-    const response = yield call(createRequest, asana_id)
+    const response = yield call(createRequest, action)
     yield put({ type:  SET_ASANA_INSTANCE_DATA, payload: { asanas: response, didCreate: true } })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
@@ -37,8 +38,8 @@ function* createFlow({ asana_id }) {
   }
 }
 
-function fetchRequest() {
-  const fetchUrl = `${url}?sequence_id=1`
+function fetchRequest(action) {
+  const fetchUrl = `${url}?sequence_id=${action.sequence_id}`
   return fetch(fetchUrl, {
     method: 'GET',
     headers: {
@@ -52,9 +53,9 @@ function fetchRequest() {
     .catch((error) => { throw error })
 }
 
-function* fetchFlow(email, password) {
+function* fetchFlow(action) {
   try {
-    const response = yield call(fetchRequest)
+    const response = yield call(fetchRequest, action)
     yield put({ type: SET_ASANA_INSTANCE_DATA, payload: { asanas: response } })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {

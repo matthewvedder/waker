@@ -8,16 +8,18 @@ import {
 // there's literally no reason these are in a different
 // format from the other component actions other than
 // that I just lost track
-export const createAsanaInstance = (asana_id) => {
+export const createAsanaInstance = (asana_id, sequence_id) => {
   return {
     type: CREATE_ASANA_INSTANCE,
-    asana_id
+    asana_id,
+    sequence_id
   }
 }
 
-export const fetchAsanaInstances = () => {
+export const fetchAsanaInstances = (sequence_id) => {
   return {
-    type: FETCH_ASANA_INSTANCES
+    type: FETCH_ASANA_INSTANCES,
+    sequence_id
   }
 }
 

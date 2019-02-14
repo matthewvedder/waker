@@ -9,14 +9,15 @@ import {
 
 const url = `${process.env.REACT_APP_API_URL}/sequences`
 function updateRequest(action) {
-  return fetch(`${url}/1`, {
+  const { payload, sequence_id } = action
+  return fetch(`${url}/${sequence_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
-      ...action.payload
+      ...payload
     })
   })
     .then(handleApiErrors)
@@ -36,8 +37,8 @@ function* updateFlow(action) {
   }
 }
 
-function fetchRequest() {
-  const fetchUrl = `${url}/1`
+function fetchRequest(action) {
+  const fetchUrl = `${url}/${action.sequence_id}`
   return fetch(fetchUrl, {
     method: 'GET',
     headers: {
@@ -51,9 +52,10 @@ function fetchRequest() {
     .catch((error) => { throw error })
 }
 
-function* fetchFlow(email, password) {
+function* fetchFlow(action) {
+  yield put({ type: SET_SEQUENCE, payload: { layout: [] } })
   try {
-    const response = yield call(fetchRequest)
+    const response = yield call(fetchRequest, action)
     yield put({ type: SET_SEQUENCE, payload: response })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
