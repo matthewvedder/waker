@@ -77,7 +77,7 @@ class DropZone extends Component {
     // as defined by your `collect` function above:
     const { isOver, canDrop, connectDropTarget, children } = this.props
     return connectDropTarget(
-      <div className='Cell' >
+      <div className='Cell' style={{ 'height': '100%' }}>
         { children }
       </div>
     )
