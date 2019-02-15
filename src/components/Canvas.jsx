@@ -117,7 +117,6 @@ class Canvas extends Component {
 
 
   render() {
-    console.log(this.props.layout.length, this.props.instances.length)
     return (
       <div className='canvas'>
         <Selector />

@@ -9,11 +9,17 @@ import '../styles/Selector.css'
 class Selector extends Component {
   constructor(props) {
     super(props)
+    this.state = { filteredAsanas: [] }
     this.mapAsanas = this.mapAsanas.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   componentWillMount() {
     this.props.fetchAsanas()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ filteredAsanas: nextProps.asanas })
   }
 
   sequenceId() {
@@ -21,12 +27,23 @@ class Selector extends Component {
     return pathname.split('/')[2]
   }
 
+  handleSearch(event) {
+    const search = event.target.value.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
+    const filteredAsanas = this.props.asanas.filter((asana) => {
+      return !asana.name.search(new RegExp(search, 'i'))
+    })
+    this.setState({ filteredAsanas })
+  }
+
   mapAsanas() {
-    const { asanas } = this.props
-    return asanas.map((asana, index) => {
+    const { filteredAsanas } = this.state
+    return filteredAsanas.map((asana, index) => {
       return (
         <DragElement onDrop={() => this.props.createAsanaInstance(asana.id, this.sequenceId())} asana_id={asana.id} key={asana.id}>
-          <div className='selector-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
+          <div>
+            <div className='selector-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
+            <div className='asana-name'>{asana.name}</div>
+          </div>
         </DragElement>
       )
     })
@@ -37,6 +54,7 @@ class Selector extends Component {
     return (
       <div className='selector'>
         <Navbar />
+        <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
         <div className='selector-container'>
           { this.mapAsanas() }
         </div>
