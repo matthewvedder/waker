@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createAsanaInstance, fetchAsanas } from '../actions'
-import Navbar from './Navbar'
 import DragElement from './DragElement'
 import Thumbnail from './Thumbnail'
 import '../styles/Selector.css'
@@ -53,7 +52,6 @@ class Selector extends Component {
 
     return (
       <div className='selector'>
-        <Navbar />
         <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
         <div className='selector-container'>
           { this.mapAsanas() }

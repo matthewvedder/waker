@@ -21,12 +21,6 @@ class Sidebar extends Component {
       <div className='sidebar'>
         <div className='sidebar-opac'>
           <Avatar />
-          <div className={this.className('/')}>
-            <Link to='/'>
-              <FontAwesomeIcon className='sidebar-icon' icon={faHome} />
-              <span className='sidebar-item-label'>Home</span>
-            </Link>
-          </div>
           <div className={this.className('/sequences')}>
             <Link to='/sequences'>
               <FontAwesomeIcon className='sidebar-icon' icon={faGripHorizontal} />

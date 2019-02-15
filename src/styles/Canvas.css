@@ -18,6 +18,7 @@
   min-height: 100vh;
   margin-bottom: 5em;
   margin-top: 14em;
+  display: block;
 }
 
 /* background-color: #41B3A3; */

@@ -11,6 +11,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Sequences from './components/Sequences'
 import Sidebar from './components/Sidebar'
+import Navbar from './components/Navbar'
 import CreateAsana from './components/CreateAsana'
 import RootReducer from './reducers'
 import RootSaga from './sagas'
@@ -37,12 +38,15 @@ class App extends Component {
           <ConnectedRouter history={history}>
             <div className="App">
               <Sidebar />
-              <PrivateRoute path="/" exact component={Sequences} />
-              <PrivateRoute path="/asanas/new" component={CreateAsana} />
-              <PrivateRoute path="/sequences" exact component={Sequences} />
-              <PrivateRoute path="/sequences/:id" component={Canvas} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
+              <div className='main'>
+                <Navbar />
+                <PrivateRoute path="/" exact component={Sequences} />
+                <PrivateRoute path="/asanas/new" component={CreateAsana} />
+                <PrivateRoute path="/sequences" exact component={Sequences} />
+                <PrivateRoute path="/sequences/:id" component={Canvas} />
+                <Route path="/login" component={Login} />
+                <Route path="/signup" component={SignUp} />
+              </div>
             </div>
           </ConnectedRouter>
       </Provider>
