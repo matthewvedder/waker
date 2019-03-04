@@ -30,6 +30,7 @@ class InstanceEditForm extends Component {
 
   submit = (values) => {
     this.props.updateAsanaInstance(this.props.instance_id, values)
+    this.props.onSubmit()
   }
 
   setEditorRef = editor => {
