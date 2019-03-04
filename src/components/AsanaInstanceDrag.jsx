@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Thumbnail from './Thumbnail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
 import '../styles/AsanaInstanceDrag.css'
 
@@ -12,8 +12,8 @@ class AsanaInstanceDrag extends Component {
   }
 
   render() {
-    const { image, asana, onDelete } = this.props
-    const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete'])
+    const { image, asana, onDelete, handleEditClick } = this.props
+    const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete', 'handleEditClick'])
     return (
       <div {...propsFromGrid}>
         <div
@@ -24,12 +24,25 @@ class AsanaInstanceDrag extends Component {
           <div className='instance-image-drag'>
             <Thumbnail img={image}/>
           </div>
-          <FontAwesomeIcon
-            className='instance-drag-trash'
-            icon={faTrash}
-            onClick={onDelete}
-            style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-          />
+          <div className='instance-drag-icons'>
+            <FontAwesomeIcon
+              className='instance-drag-pen instance-drag-icon'
+              icon={faPen}
+              onClick={handleEditClick}
+              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
+            />
+            <FontAwesomeIcon
+              className='instance-drag-eye instance-drag-icon'
+              icon={faEye}
+              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
+            />
+            <FontAwesomeIcon
+              className='instance-drag-trash instance-drag-icon'
+              icon={faTrash}
+              onClick={onDelete}
+              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
+            />
+          </div>
         </div>
       </div>
     )

@@ -1,0 +1,33 @@
+.instance-edit {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+  width: 70%;
+}
+
+
+.instance-edit form {
+  display: flex;
+  flex-direction: column;
+  min-width: 10em;
+  padding-top: 0em;
+  flex: 1;
+}
+
+.edit-duration {
+  display: flex;
+  flex-direction: row;
+}
+
+.duration-qty {
+  margin-right: 1em;
+  width: 5em;
+}
+
+.notes {
+  height: 20em;
+}
+
+.side {
+  width: 15em;
+}

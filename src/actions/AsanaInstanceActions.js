@@ -2,7 +2,8 @@ import {
   CREATE_ASANA_INSTANCE,
   FETCH_ASANA_INSTANCES,
   SET_ASANA_INSTANCE_DATA,
-  DELETE_ASANA_INSTANCE
+  DELETE_ASANA_INSTANCE,
+  UPDATE_ASANA_INSTANCE
 } from './types'
 
 // there's literally no reason these are in a different
@@ -13,6 +14,14 @@ export const createAsanaInstance = (asana_id, sequence_id) => {
     type: CREATE_ASANA_INSTANCE,
     asana_id,
     sequence_id
+  }
+}
+
+export const updateAsanaInstance = (instance_id, payload) => {
+  return {
+    type: UPDATE_ASANA_INSTANCE,
+    instance_id,
+    payload
   }
 }
 

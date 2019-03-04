@@ -4,14 +4,9 @@ import _ from 'lodash'
 import GridLayout from 'react-grid-layout'
 import Selector from './Selector'
 import DropTarget from './DropTarget'
-import Modal from './Modal'
+import InstanceEditModal from './InstanceEditModal'
 import AsanaInstanceDrag from './AsanaInstanceDrag'
-import Thumbnail from './Thumbnail'
-import Warrior2 from '../images/warrior2.jpg'
-import KingPidgeon from '../images/king-pidgeon.jpg'
-import Crow from '../images/crow.jpg'
-import Locust from '../images/locust.jpg'
-import DownDog from '../images/down-dog.jpg'
+import InstanceEditForm from './InstanceEditForm'
 import '../styles/Canvas.css'
 import {
   fetchAsanaInstances,
@@ -26,7 +21,7 @@ const NUM_COLUMNS = 6
 class Canvas extends Component {
   constructor(props) {
     super(props)
-    this.state = { layout:  [] }
+    this.state = { layout:  [], editModalOpen: false, instance_id: null }
     this.layout = this.layout.bind(this)
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
@@ -110,6 +105,7 @@ class Canvas extends Component {
           asana={instance}
           onDelete={() => this.props.deleteAsanaInstance(instance.id)}
           image={thumbnail}
+          handleEditClick={ () => this.setState({ editModalOpen: true, instance_id: instance.id }) }
         />
       )
     })
@@ -117,6 +113,7 @@ class Canvas extends Component {
 
 
   render() {
+    const { editModalOpen, instance_id } = this.state
     return (
       <div className='canvas'>
         <Selector />
@@ -137,7 +134,11 @@ class Canvas extends Component {
             </GridLayout>
           </div>
         </DropTarget>
-        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })}/>
+        <InstanceEditModal
+          visible={this.state.editModalOpen}
+          onClose={() => this.setState({ editModalOpen: false, instance_id: null })}
+          instance_id={ this.state.instance_id }
+        />
       </div>
     )
   }
