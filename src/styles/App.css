@@ -8,6 +8,18 @@
   width: 100%
 }
 
+button:hover {
+  cursor: pointer;
+}
+
+.btn-md {
+  padding: .75em;
+  background-color: #E27D60;
+  border: none;
+  color: white;
+  font-size: .6em;
+}
+
 /* #E27D60 */
 /* #C38D9B  */
 /* #41B3A3 */

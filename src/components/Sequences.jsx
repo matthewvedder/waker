@@ -6,12 +6,13 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences, deleteSequence } from '../actions'
 import CreateSequence from './CreateSequence'
 import Modal from './Modal'
+import DeleteModal from './DeleteModal'
 import '../styles/sequences.css'
 
 class Sequences extends Component {
   constructor(props) {
     super(props)
-    this.state = { modalOpen: false, hoveringOver: null }
+    this.state = { modalOpen: false, deleteModalOpen: false, hoveringOver: null, id: null }
     this.handleAddClick = this.handleAddClick.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
   }
@@ -24,7 +25,7 @@ class Sequences extends Component {
   }
 
   handleDeleteClick(id) {
-    this.props.deleteSequence(id)
+    this.setState({ id, deleteModalOpen: true })
   }
 
   mapSequences() {
@@ -54,6 +55,7 @@ class Sequences extends Component {
     })
   }
   render() {
+    const { id, deleteModalOpen } = this.state
     return (
       <div className='sequences-container'>
         <h1 id='sequences-title'>My Sequences</h1>
@@ -66,6 +68,11 @@ class Sequences extends Component {
         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
           <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
         </Modal>
+        <DeleteModal
+          visible={deleteModalOpen}
+          onConfirm={() => this.props.deleteSequence(id)}
+          onCancel={() => this.setState({ deleteModalOpen: false })}
+        />
       </div>
     )
   }
