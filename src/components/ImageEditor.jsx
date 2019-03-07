@@ -103,7 +103,7 @@ class ImageEditor extends React.Component {
           name="scale"
           type="range"
           onChange={this.handleScale}
-          min={this.state.allowZoomOut ? '0.1' : '1'}
+          min="0.1"
           max="2"
           step="0.01"
           defaultValue="1"
