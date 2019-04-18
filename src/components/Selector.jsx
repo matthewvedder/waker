@@ -52,7 +52,11 @@ class Selector extends Component {
 
     return (
       <div className='selector'>
-        <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
+        <div className='selector-header'>
+          <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
+          <div className="sequence-title">{this.props.sequenceName}</div>
+          <div />
+        </div>
         <div className='selector-container'>
           { this.mapAsanas() }
         </div>

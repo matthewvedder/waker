@@ -116,7 +116,7 @@ class Canvas extends Component {
     const { editModalOpen, instance_id } = this.state
     return (
       <div className='canvas'>
-        <Selector />
+        <Selector sequenceName={this.props.sequence.name} />
         <DropTarget>
           <div className='grid'>
             <GridLayout
@@ -149,6 +149,7 @@ const mapStateToProps = state => {
     instances: state.asanaInstances.asanas,
     didCreate: state.asanaInstances.didCreate,
     layout: state.sequence.layout,
+    sequence: state.sequence,
     asanas: state.asanas.asanas
   }
 }

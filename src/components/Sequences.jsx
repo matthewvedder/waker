@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
+import Tooltip from 'rc-tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences, deleteSequence } from '../actions'
@@ -58,7 +59,9 @@ class Sequences extends Component {
     const { id, deleteModalOpen } = this.state
     return (
       <div className='sequences-container'>
-        <h1 id='sequences-title'>My Sequences</h1>
+        <Tooltip placement="left" trigger={['hover']} overlay={<span>tooltip</span>}>
+          <h1 id='sequences-title'>My Sequences</h1>
+        </Tooltip>
         <div className='sequences'>
           { this.mapSequences() }
           <div className='sequence' id='new-sequence' onClick={this.handleAddClick}>
