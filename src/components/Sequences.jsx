@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom"
-import Tooltip from 'rc-tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences, deleteSequence } from '../actions'
 import CreateSequence from './CreateSequence'
 import Modal from './Modal'
+import moment from 'moment'
 import DeleteModal from './DeleteModal'
 import '../styles/sequences.css'
 
@@ -31,7 +31,7 @@ class Sequences extends Component {
 
   mapSequences() {
     return this.props.sequences.map((sequence) => {
-      const { id, name, level } = sequence
+      const { id, name, level, created_at } = sequence
       return (
         <div className='sequence-container'>
           <Link to={`/sequences/${id}`}>
@@ -42,7 +42,7 @@ class Sequences extends Component {
               onMouseLeave={() => this.setState({ hoveringOver: id })}
             >
               <div className='name'>{ name }</div>
-              <div className='level'>{ level }</div>
+              <div className='created-at'>{ moment(created_at).format('MMMM Do YYYY') }</div>
             </div>
           </Link>
           <FontAwesomeIcon
@@ -59,9 +59,7 @@ class Sequences extends Component {
     const { id, deleteModalOpen } = this.state
     return (
       <div className='sequences-container'>
-        <Tooltip placement="left" trigger={['hover']} overlay={<span>tooltip</span>}>
           <h1 id='sequences-title'>My Sequences</h1>
-        </Tooltip>
         <div className='sequences'>
           { this.mapSequences() }
           <div className='sequence' id='new-sequence' onClick={this.handleAddClick}>
