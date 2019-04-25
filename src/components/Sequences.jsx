@@ -33,13 +33,15 @@ class Sequences extends Component {
     return this.props.sequences.map((sequence) => {
       const { id, name, level, created_at } = sequence
       return (
-        <div className='sequence-container'>
+        <div
+          className='sequence-container'
+          onMouseEnter={() => this.setState({ hoveringOver: id })}
+          onMouseLeave={() => this.setState({ hoveringOver: null })}
+        >
           <Link to={`/sequences/${id}`}>
             <div
               className='sequence'
               key={ id }
-              onMouseEnter={() => this.setState({ hoveringOver: id })}
-              onMouseLeave={() => this.setState({ hoveringOver: id })}
             >
               <div className='name'>{ name }</div>
               <div className='created-at'>{ moment(created_at).format('MMMM Do YYYY') }</div>
