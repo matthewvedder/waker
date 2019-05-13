@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Manager, Reference, Popper } from 'react-popper'
 import Thumbnail from './Thumbnail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
@@ -15,36 +16,36 @@ class AsanaInstanceDrag extends Component {
     const { image, asana, onDelete, handleEditClick } = this.props
     const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete', 'handleEditClick'])
     return (
-      <div {...propsFromGrid}>
-        <div
-          className='instance'
-          onMouseEnter={() => this.setState({ hovering: true })}
-          onMouseLeave={() => this.setState({ hovering: false })}
-        >
-          <div className='instance-image-drag'>
-            <Thumbnail img={image}/>
-          </div>
-          <div className='instance-drag-icons'>
-            <FontAwesomeIcon
-              className='instance-drag-pen instance-drag-icon'
-              icon={faPen}
-              onClick={handleEditClick}
-              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-            />
-            <FontAwesomeIcon
-              className='instance-drag-eye instance-drag-icon'
-              icon={faEye}
-              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-            />
-            <FontAwesomeIcon
-              className='instance-drag-trash instance-drag-icon'
-              icon={faTrash}
-              onClick={onDelete}
-              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-            />
-          </div>
-        </div>
-      </div>
+      <Manager>
+        <Reference>
+          {({ ref }) => (
+            <div {...propsFromGrid} ref={ref}>
+              <div
+                className='instance'
+                onMouseEnter={() => this.setState({ hovering: true })}
+                onMouseLeave={() => this.setState({ hovering: false })}
+              >
+                <div className='instance-image-drag'>
+                  <Thumbnail img={image}/>
+                </div>
+              </div>
+            </div>
+          )}
+        </Reference>
+        <Popper placement="bottom">
+        {({ ref, style, placement, arrowProps, scheduleUpdate }) => {
+          scheduleUpdate()
+          return (
+            <div ref={ref} style={{ zIndex: 100, ...style }} data-placement={placement}>
+              <div style={{ display: this.state.hovering ? 'inherit' : 'none' }}>
+                Popper element
+              </div>
+              <div ref={arrowProps.ref} style={arrowProps.style} />
+            </div>
+        )
+      }}
+      </Popper>
+      </Manager>
     )
   }
 }
