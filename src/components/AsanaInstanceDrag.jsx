@@ -16,36 +16,35 @@ class AsanaInstanceDrag extends Component {
     const { image, asana, onDelete, handleEditClick } = this.props
     const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete', 'handleEditClick'])
     return (
-      <Manager>
-        <Reference>
-          {({ ref }) => (
-            <div {...propsFromGrid} ref={ref}>
-              <div
-                className='instance'
-                onMouseEnter={() => this.setState({ hovering: true })}
-                onMouseLeave={() => this.setState({ hovering: false })}
-              >
-                <div className='instance-image-drag'>
-                  <Thumbnail img={image}/>
-                </div>
-              </div>
-            </div>
-          )}
-        </Reference>
-        <Popper placement="bottom">
-        {({ ref, style, placement, arrowProps, scheduleUpdate }) => {
-          scheduleUpdate()
-          return (
-            <div ref={ref} style={{ zIndex: 100, ...style }} data-placement={placement}>
-              <div style={{ display: this.state.hovering ? 'inherit' : 'none' }}>
-                Popper element
-              </div>
-              <div ref={arrowProps.ref} style={arrowProps.style} />
-            </div>
-        )
-      }}
-      </Popper>
-      </Manager>
+      <div {...propsFromGrid}>
+        <div
+          className='instance'
+          onMouseEnter={() => this.setState({ hovering: true })}
+          onMouseLeave={() => this.setState({ hovering: false })}
+        >
+          <div className='instance-image-drag'>
+            <Thumbnail img={image}/>
+          </div>
+          <div className='instance-drag-info'>
+            <div className='instance-drag-name'>{asana.asana.name}</div>
+            <p className='instance-drag-notes'>{asana.notes}</p>
+          </div>
+          <div className='instance-drag-icons'>
+            <FontAwesomeIcon
+              className='instance-drag-pen instance-drag-icon'
+              icon={faPen}
+              onClick={handleEditClick}
+              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
+            />
+            <FontAwesomeIcon
+              className='instance-drag-trash instance-drag-icon'
+              icon={faTrash}
+              onClick={onDelete}
+              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
+            />
+          </div>
+        </div>
+      </div>
     )
   }
 }
