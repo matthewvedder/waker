@@ -24,16 +24,15 @@ class AsanaInstanceDrag extends Component {
           <div className='instance-image-drag'>
             <Thumbnail img={image}/>
           </div>
+          <div className='instance-drag-info'>
+            <div className='instance-drag-name'>{asana.asana.name}</div>
+            <p className='instance-drag-notes'>{asana.notes}</p>
+          </div>
           <div className='instance-drag-icons'>
             <FontAwesomeIcon
               className='instance-drag-pen instance-drag-icon'
               icon={faPen}
               onClick={handleEditClick}
-              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-            />
-            <FontAwesomeIcon
-              className='instance-drag-eye instance-drag-icon'
-              icon={faEye}
               style={{ display: this.state.hovering ? 'inherit' : 'none' }}
             />
             <FontAwesomeIcon
