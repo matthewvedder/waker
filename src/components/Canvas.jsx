@@ -75,9 +75,9 @@ class Canvas extends Component {
     const newItem = {
       i: String(newInstance.id),
       x: x, // number of columns
-      y: lastLayoutItem.y + 17, // puts it at the bottom
+      y: lastLayoutItem.y + 34, // puts it at the bottom
       w: 1,
-      h: 17
+      h: 34
     }
 
     this.props.updateSequence({ layout: [ ...layout, newItem ] }, this.id())

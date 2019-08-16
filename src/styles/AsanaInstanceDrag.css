@@ -7,9 +7,9 @@
 }
 
 .instance-image-drag {
-  height: 87%;
-  width: 87%;
-  align-self: center;
+  height: 45%;
+  width: 90%;
+  align-self: flex-start;
 }
 
 .instance-drag-icon {
@@ -20,8 +20,18 @@
   color: #E27D60;
 }
 
-.instance-drag-trash {
+.instance-drag-info {
+  align-self: flex-start;
+}
 
+.instance-drag-name {
+  font-weight: bold;
+}
+
+.instance-drag-notes {
+  font-size: .85em;
+  max-height: 7.3em;
+  overflow-y: scroll;
 }
 
 .instance-drag-pen {
@@ -31,7 +41,7 @@
 
 .instance-drag-icons {
   display: flex;
-  width: 87%;
-  align-self: center;
+  width: 90%;
+  align-self: flex-start;
   justify-content: flex-start;
 }
