@@ -6,7 +6,7 @@ import { createBrowserHistory } from 'history'
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
 import createSagaMiddleware from 'redux-saga'
 import PrivateRoute from './components/PrivateRoute'
-import Canvas from './components/Canvas'
+import Sequence from './components/Sequence'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Sequences from './components/Sequences'
@@ -43,7 +43,7 @@ class App extends Component {
                 <PrivateRoute path="/" exact component={Sequences} />
                 <PrivateRoute path="/asanas/new" component={CreateAsana} />
                 <PrivateRoute path="/sequences" exact component={Sequences} />
-                <PrivateRoute path="/sequences/:id" component={Canvas} />
+                <PrivateRoute path="/sequences/:id" component={Sequence} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={SignUp} />
               </div>

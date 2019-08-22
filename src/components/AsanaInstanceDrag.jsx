@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Manager, Reference, Popper } from 'react-popper'
 import Thumbnail from './Thumbnail'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
 import '../styles/AsanaInstanceDrag.css'
 

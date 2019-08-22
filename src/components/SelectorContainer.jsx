@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createAsanaInstance, fetchAsanas } from '../actions'
+import Selector from './Selector'
 import Thumbnail from './Thumbnail'
 import '../styles/Selector.css'
 
-class Selector extends Component {
+class SelectorContainer extends Component {
   constructor(props) {
     super(props)
     this.state = { filteredAsanas: [] }
@@ -54,9 +55,7 @@ class Selector extends Component {
           <div className="sequence-title">{this.props.sequenceName}</div>
           <div />
         </div>
-        <div className='selector-container' ref={this.props.dragulaDecorator}>
-          { this.mapAsanas() }
-        </div>
+        <Selector filteredAsanas={this.state.filteredAsanas}/>
       </div>
     )
   }
@@ -64,4 +63,4 @@ class Selector extends Component {
 
 const mapStateToProps = state => ({ asanas: state.asanas.asanas })
 
-export default connect(mapStateToProps, { createAsanaInstance, fetchAsanas })(Selector)
+export default connect(mapStateToProps, { createAsanaInstance, fetchAsanas })(SelectorContainer)
