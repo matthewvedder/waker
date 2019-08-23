@@ -55,6 +55,7 @@ class SequenceGrid extends Component {
       const thumbnail = asana ? asana.thumbnail : ''
       return (
         <AsanaInstanceDrag
+          id={instance.id}
           key={instance.id}
           asana={instance}
           onDelete={() => this.props.deleteAsanaInstance(instance.id)}

@@ -12,10 +12,9 @@ class AsanaInstanceDrag extends Component {
   }
 
   render() {
-    const { image, asana, onDelete, handleEditClick } = this.props
-    const propsFromGrid = _.omit(this.props, ['image', 'asana', 'onDelete', 'handleEditClick'])
+    const { image, asana, onDelete, handleEditClick, id } = this.props
     return (
-      <div {...propsFromGrid}>
+      <div id={id} className='asana-instance-drag'>
         <div
           className='instance'
           onMouseEnter={() => this.setState({ hovering: true })}

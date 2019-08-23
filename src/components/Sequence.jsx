@@ -21,6 +21,7 @@ class Canvas extends Component {
     this.state = { layout:  [], editModalOpen: false, createModalOpen: false, instance_id: null }
     this.dragContainers = []
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
+    this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
 
   componentWillMount() {
@@ -29,7 +30,7 @@ class Canvas extends Component {
   }
 
   componentDidMount () {
-    Dragula(this.dragContainers, {
+    const drake = Dragula(this.dragContainers, {
       moves: (el, source, handle, sibling) => {
         return el.className !== 'add-thumbnail'
       },
@@ -37,6 +38,14 @@ class Canvas extends Component {
         return sibling !== null
       },
     })
+
+    drake.on('drop', () => this.handleLayoutChange())
+  }
+
+  handleLayoutChange() {
+    const elements = document.getElementsByClassName('asana-instance-drag')
+    const ids = Array.from(elements).map(el => el.id).slice(0, -1)
+    this.props.updateSequence({ layout: ids }, this.id())
   }
 
   id() {
@@ -67,6 +76,7 @@ class Canvas extends Component {
           visible={this.state.createModalOpen}
           onClose={() => this.setState({ createModalOpen: false })}
           sequenceId={this.id()}
+          handleCreateInstance={this.handleLayoutChange}
         />
       </div>
     )
