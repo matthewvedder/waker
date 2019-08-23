@@ -17,6 +17,7 @@
   border: 1px solid #888;
   height: 70%;
   width: 70%;
+  overflow-y: scroll;
 }
 
 .close-modal {

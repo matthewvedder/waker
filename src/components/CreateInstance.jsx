@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createAsanaInstance, fetchAsanas } from '../actions'
 import Thumbnail from './Thumbnail'
-import '../styles/Selector.css'
+import Modal from './Modal'
+import '../styles/CreateInstance.css'
 
 class Selector extends Component {
   constructor(props) {
@@ -38,25 +39,22 @@ class Selector extends Component {
     return filteredAsanas.map((asana, index) => {
       return (
         <div>
-          test
+          <div className='instance-create-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
+          <div className='asana-name'>{asana.name}</div>
         </div>
       )
     })
   }
 
   render() {
-
+    const { visible, onClose } = this.props
     return (
-      <div className='selector'>
-        <div className='selector-header'>
-          <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
-          <div className="sequence-title">{this.props.sequenceName}</div>
-          <div />
-        </div>
-        <div className='selector-container' ref={this.props.dragulaDecorator}>
+      <Modal visible={visible} onClose={onClose}>
+        <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
+        <div className='instance-create-asanas'>
           { this.mapAsanas() }
         </div>
-      </div>
+      </Modal>
     )
   }
 }

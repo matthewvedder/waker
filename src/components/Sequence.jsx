@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
-import Selector from './Selector'
 import SequenceGrid from './SequenceGrid'
 import InstanceEditModal from './InstanceEditModal'
+import CreateInstance from './CreateInstance'
 import '../styles/Sequence.css'
 import {
   fetchAsanaInstances,
@@ -18,7 +18,7 @@ const NUM_COLUMNS = 6
 class Canvas extends Component {
   constructor(props) {
     super(props)
-    this.state = { layout:  [], editModalOpen: false, instance_id: null }
+    this.state = { layout:  [], editModalOpen: false, createModalOpen: false, instance_id: null }
     this.dragContainers = []
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
   }
@@ -29,7 +29,14 @@ class Canvas extends Component {
   }
 
   componentDidMount () {
-    Dragula(this.dragContainers)
+    Dragula(this.dragContainers, {
+      moves: (el, source, handle, sibling) => {
+        return el.className !== 'add-thumbnail'
+      },
+      accepts: function (el, target, source, sibling) {
+        return sibling !== null
+      },
+    })
   }
 
   id() {
@@ -47,12 +54,18 @@ class Canvas extends Component {
     const { editModalOpen, instance_id } = this.state
     return (
       <div className='sequence-grid-container'>
-        <Selector dragulaDecorator={this.dragulaDecorator} sequenceName={this.props.sequence.name} />
-        <SequenceGrid dragulaDecorator={this.dragulaDecorator}/>
+        <SequenceGrid
+          dragulaDecorator={this.dragulaDecorator}
+          showCreateModal={() => this.setState({ createModalOpen: true })}
+        />
         <InstanceEditModal
           visible={this.state.editModalOpen}
           onClose={() => this.setState({ editModalOpen: false, instance_id: null })}
           instance_id={ this.state.instance_id }
+        />
+        <CreateInstance
+          visible={this.state.createModalOpen}
+          onClose={() => this.setState({ createModalOpen: false })}
         />
       </div>
     )

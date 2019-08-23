@@ -7,6 +7,7 @@ import dragula from 'react-dragula'
 import InstanceEditModal from './InstanceEditModal'
 import AsanaInstanceDrag from './AsanaInstanceDrag'
 import InstanceEditForm from './InstanceEditForm'
+import AddThumbnail from './AddThumbnail'
 import styles from 'dragula/dist/dragula.css'
 import '../styles/Sequence.css'
 import {
@@ -24,12 +25,8 @@ class SequenceGrid extends Component {
   constructor(props) {
     super(props)
     this.state = { layout:  [], editModalOpen: false, instance_id: null }
+    this.mapInstances = this.mapInstances.bind(this)
   }
-
-  // shouldComponentUpdate() {
-  //   const { layout, instances } = this.props
-  //   return layout.length === instances.length
-  // }
 
   componentWillUnmount() {
     this.props.setAsanaInstanceState({ asanas: [] })
@@ -52,8 +49,8 @@ class SequenceGrid extends Component {
 
 
   mapInstances() {
-    const { instances, asanas } = this.props
-    return instances.map((instance) => {
+    const { instances, asanas, showCreateModal } = this.props
+    const elements = instances.map((instance) => {
       const asana = asanas.find(a => a.id === instance.asana_id )
       const thumbnail = asana ? asana.thumbnail : ''
       return (
@@ -66,6 +63,8 @@ class SequenceGrid extends Component {
         />
       )
     })
+
+    return [...elements, <AddThumbnail key='add-thumbnail' onClick={showCreateModal} />]
   }
 
 
