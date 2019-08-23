@@ -66,6 +66,7 @@ class Canvas extends Component {
         <CreateInstance
           visible={this.state.createModalOpen}
           onClose={() => this.setState({ createModalOpen: false })}
+          sequenceId={this.id()}
         />
       </div>
     )

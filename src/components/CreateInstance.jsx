@@ -11,10 +11,19 @@ class Selector extends Component {
     this.state = { filteredAsanas: [] }
     this.mapAsanas = this.mapAsanas.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.addToSequence = this.addToSequence.bind(this)
   }
 
   componentWillMount() {
     this.props.fetchAsanas()
+  }
+
+  componentDidMount(){
+    this.input.focus()
+  }
+
+  componentDidUpdate(){
+    this.input.focus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,13 +43,19 @@ class Selector extends Component {
     this.setState({ filteredAsanas })
   }
 
+  addToSequence(asana_id) {
+    const { onClose, sequenceId } = this.props
+    this.props.createAsanaInstance(asana_id, sequenceId)
+    onClose()
+  }
+
   mapAsanas() {
     const { filteredAsanas } = this.state
     return filteredAsanas.map((asana, index) => {
       return (
-        <div>
-          <div className='instance-create-thumbnail'><Thumbnail img={asana.thumbnail}/></div>
-          <div className='asana-name'>{asana.name}</div>
+        <div className='instance-create-thumbnail' onClick={() => this.addToSequence(asana.id)}>
+          <div><Thumbnail img={asana.thumbnail}/></div>
+          <div className='instance-create-name'>{asana.name}</div>
         </div>
       )
     })
@@ -50,7 +65,12 @@ class Selector extends Component {
     const { visible, onClose } = this.props
     return (
       <Modal visible={visible} onClose={onClose}>
-        <input placeholder="Search" onChange={this.handleSearch} className='selector-search' />
+        <input
+          placeholder="Search"
+          onChange={this.handleSearch}
+          ref={(input) => { this.input = input }}
+          className='selector-search'
+        />
         <div className='instance-create-asanas'>
           { this.mapAsanas() }
         </div>
