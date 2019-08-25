@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Thumbnail from './Thumbnail'
+import InstanceNotesEdit from './InstanceNotesEdit'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
@@ -25,15 +26,9 @@ class AsanaInstanceDrag extends Component {
           </div>
           <div className='instance-drag-info'>
             <div className='instance-drag-name'>{asana.asana.name}</div>
-            <p className='instance-drag-notes'>{asana.notes}</p>
+            <InstanceNotesEdit notes={asana.notes} id={id} />
           </div>
           <div className='instance-drag-icons'>
-            <FontAwesomeIcon
-              className='instance-drag-pen instance-drag-icon'
-              icon={faPen}
-              onClick={handleEditClick}
-              style={{ display: this.state.hovering ? 'inherit' : 'none' }}
-            />
             <FontAwesomeIcon
               className='instance-drag-trash instance-drag-icon'
               icon={faTrash}

@@ -1,0 +1,19 @@
+.instance-drag-notes-input {
+  font-size: .85em;
+  height: 7.3em;
+  width: 15em;
+  margin-top: 1em;
+}
+.instance-drag-notes {
+  font-size: .85em;
+  width: 15em;
+  height: 7.3em;
+  overflow-y: scroll;
+  cursor: pointer
+}
+
+.instance-drag-notes:hover {
+  border-color: lightgrey;
+  border-style: solid;
+border-width: medium;
+}
