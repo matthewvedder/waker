@@ -1,24 +1,11 @@
 .sidebar {
-  /* background-color: #E8A87C; */
+  background-color: #41b3a3;
   min-width: 14em;
-  background-image: url("../images/sidebar.jpg");
-  background-size: 100%;
-  z-index: 1;
-  position: relative;
+  height: 100%;
 }
 
 .sidebar-back {
 
-}
-
-.sidebar-opac {
-  background-color: black;
-  height: 100%;
-  opacity: .75;
-  z-index: 0;
-  position: absolute;
-  left: 0; top: 0; right: 0; bottom: 0;
-  color: white;
 }
 
 .sidebar-item {
