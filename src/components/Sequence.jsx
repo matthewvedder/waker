@@ -74,6 +74,7 @@ class Canvas extends Component {
     const { editModalOpen, instance_id } = this.state
     return (
       <div className='sequence-grid-container'>
+        <div className='sequence-name'>{this.props.sequence.name}</div>
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
           showCreateModal={() => this.setState({ createModalOpen: true })}

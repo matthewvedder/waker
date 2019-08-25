@@ -3,11 +3,16 @@
   height: 100%;
   flex-wrap: wrap;
   overflow-y: scroll;
-  padding-right: 2em;
-  padding-top: 2em;
+  padding: 5em;
 }
 
 .sequence-grid-container {
   height: 100%;
   width: 100%;
+  margin-top: 5em;
+}
+
+.sequence-name {
+  text-align: center;
+  font-size: 2.2em;
 }
