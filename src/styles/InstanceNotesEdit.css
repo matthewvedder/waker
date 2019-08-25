@@ -15,5 +15,5 @@
 .instance-drag-notes:hover {
   border-color: lightgrey;
   border-style: solid;
-border-width: medium;
+  border-width: medium; 
 }

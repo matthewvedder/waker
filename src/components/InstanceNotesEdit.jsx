@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { updateAsanaInstance } from '../actions'
 import '../styles/InstanceNotesEdit.css'
 
 // const listener = (event) => {
@@ -49,6 +50,7 @@ class InstanceNotesEdit extends Component {
   }
 
   toParagraph(){
+    this.props.updateAsanaInstance(this.props.id, { notes: this.input.value })
     this.setState({ element: 'paragraph'})
   }
 
@@ -57,7 +59,6 @@ class InstanceNotesEdit extends Component {
     const { notes, id } = this.props
     const { element } = this.state
     const pDisplay = element === 'paragraph' ? 'block' : 'none'
-    console.log(element)
     return (
       <div>
         <p className='instance-drag-notes' onClick={this.toTextField} style={{ display: pDisplay }}>{notes}</p>
@@ -79,4 +80,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { })(InstanceNotesEdit)
+export default connect(mapStateToProps, { updateAsanaInstance })(InstanceNotesEdit)

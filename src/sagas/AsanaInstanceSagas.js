@@ -83,16 +83,18 @@ function updateRequest(action) {
 
 function* updateFlow(action) {
   const state = yield select()
-  const { asanas } = state.asanaInstances
+  const asanas = state.asanaInstances.asanas.slice()
 
   try {
     const response = yield call(updateRequest, action)
-    const instances = asanas.filter(a => a.id !== response.id)
-    yield put({ type: SET_ASANA_INSTANCE_DATA, payload: { asanas: [...instances, response] } })
+    const instance_index = asanas.findIndex(instance => instance.id === response.id)
+    asanas[instance_index] = response
+    yield put({ type: SET_ASANA_INSTANCE_DATA, payload: { asanas } })
     // yield put({ type: LOGIN_SUCCESS })
   } catch (error) {
     // error? send it to redux
     // yield put({ type: LOGIN_ERROR, error })
+    console.log(error)
   }
 }
 
