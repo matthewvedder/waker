@@ -37,10 +37,10 @@ class InstanceNotesEdit extends Component {
       const isClickInside = specifiedElement.contains(event.target)
       if (!isClickInside) {
         specifiedElement.blur()
+        this.input.focus()
+        this.input.setSelectionRange(this.input.value.length,this.input.value.length);
+        this.input.scrollTop = this.input.scrollHeight
       }
-      this.input.focus()
-      this.input.setSelectionRange(this.input.value.length,this.input.value.length);
-      this.input.scrollTop = this.input.scrollHeight
   }
 
 

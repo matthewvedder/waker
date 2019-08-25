@@ -1,7 +1,7 @@
 .instance-create-asanas {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2em;
+  margin: 2em;
 }
 
 .instance-create-thumbnail {
