@@ -128,6 +128,7 @@ class Canvas extends Component {
               isResizable={false}
               onLayoutChange={this.handleLayoutChange}
               draggableCancel="path"
+
             >
               {this.mapImages()}
 

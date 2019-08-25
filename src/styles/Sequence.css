@@ -1,0 +1,13 @@
+.sequence-grid {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  padding-right: 2em;
+  padding-top: 2em;
+}
+
+.sequence-grid-container {
+  height: 100%;
+  width: 100%;
+}

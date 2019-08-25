@@ -1,0 +1,10 @@
+.instance-create-asanas {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.instance-create-thumbnail {
+  height: 12em;
+  width: 12em;
+  margin: 2em;
+}

@@ -6,7 +6,7 @@ import '../styles/AddThumbnail.css'
 class Thumbnail extends Component {
   render() {
     return (
-      <div className='add-thumbnail'>
+      <div className='add-thumbnail' onClick={this.props.onClick}>
         <FontAwesomeIcon icon={faPlus} />
       </div>
     )
