@@ -10,6 +10,7 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "connected-react-router": "^6.0.0",
+    "dom-autoscroller": "^2.3.4",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "prop-types": "^15.6.2",

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
+import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
 import InstanceEditModal from './InstanceEditModal'
 import CreateInstance from './CreateInstance'
@@ -38,6 +39,16 @@ class Canvas extends Component {
         return sibling !== null
       },
     })
+
+    var scroll = autoScroll(this.dragContainers, {
+      margin: 20,
+      maxSpeed: 20,
+      scrollWhenOutside: true,
+      autoScroll: function(){
+          //Only scroll when the pointer is down, and there is a child being dragged.
+          return this.down && drake.dragging;
+      }
+  });
 
     drake.on('drop', () => this.handleLayoutChange())
   }
