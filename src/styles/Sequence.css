@@ -4,11 +4,11 @@
   flex-wrap: wrap;
   overflow-y: scroll;
   padding: 5em;
-  padding-bottom: 0
+  padding-bottom: 5em;
 }
 
 .sequence-grid-container {
-  height: 75%;
+  height: 70%;
   width: 100%;
   margin-top: 2em;
 }

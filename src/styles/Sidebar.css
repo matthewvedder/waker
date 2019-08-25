@@ -14,7 +14,7 @@
   margin-left: 1em;
   margin-right: 1em;
   padding-left: 1em;
-  color: white;
+  color: black;
   /* border-radius: .2em; */
 
 }
@@ -24,14 +24,14 @@
 }
 
 .selected {
-  background-color: #41b3a3;
+  background-color: #E8A87C;
   opacity: 1;
 }
 
 .sidebar-item:hover * {
-  color: #E8A87C;
   cursor: pointer;
   opacity: 1;
+  color: black;
 }
 
 /* .sidebar-item-label:hover {
