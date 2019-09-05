@@ -1,5 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
+import history from '../History'
 import {
   UPDATE_SEQUENCE,
   FETCH_SEQUENCE,
@@ -111,7 +112,9 @@ function createRequest(payload) {
 function* createFlow(action) {
   try {
     const response = yield createRequest(action.payload)
-    yield put({ type: SET_SEQUENCE, payload: { sequences: response }})
+    const { sequences, sequence } = response
+    yield put({ type: SET_SEQUENCE, payload: { sequences }})
+    history.push(`/sequences/${sequence.id}`)
   } catch (error) {
   }
 }

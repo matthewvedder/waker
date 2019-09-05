@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { createBrowserHistory } from 'history'
+import history from './History'
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
 import createSagaMiddleware from 'redux-saga'
 import PrivateRoute from './components/PrivateRoute'
@@ -26,7 +26,6 @@ const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 
 class App extends Component {
   render() {
     const sagaMiddleware = createSagaMiddleware()
-    const history = createBrowserHistory()
     const store = createStore(
       RootReducer(history),
       composeSetup(applyMiddleware(sagaMiddleware, routerMiddleware(history))), // allows redux devtools to watch sagas
