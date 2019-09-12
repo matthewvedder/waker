@@ -72,7 +72,7 @@ class SequenceGrid extends Component {
   render() {
     const { editModalOpen, instance_id } = this.state
     return (
-          <div className='sequence-grid' ref={this.props.dragulaDecorator}>
+          <div className='sequence-grid' id='sequence-grid' ref={this.props.dragulaDecorator}>
             {this.mapInstances()}
           </div>
     )

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import html2canvas from 'html2canvas'
 import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
 import InstanceEditModal from './InstanceEditModal'
@@ -53,6 +56,24 @@ class Canvas extends Component {
     drake.on('drop', () => this.handleLayoutChange())
   }
 
+  exportSequence() {
+    const htmlSource = document.getElementById('sequence-grid')
+    const width = htmlSource.scrollWidth
+    const height = htmlSource.scrollHeight
+    htmlSource.style = 'overflow:visible;'
+    html2canvas(htmlSource, { useCORS: true, width, height }).then((canvas) => {
+        const blob = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream")
+        const hiddenLink = document.createElement("a")
+        hiddenLink.download = `test.png`
+        hiddenLink.href = blob
+        document.body.appendChild(hiddenLink)
+        hiddenLink.click()
+        document.body.removeChild(hiddenLink)
+      })
+
+      htmlSource.style = 'overflow:scroll;'
+  }
+
   handleLayoutChange() {
     const elements = document.getElementsByClassName('asana-instance-drag')
     const ids = Array.from(elements).map(el => el.id).slice(0, -1)
@@ -73,8 +94,9 @@ class Canvas extends Component {
   render() {
     const { editModalOpen, instance_id } = this.state
     return (
-      <div className='sequence-grid-container'>
+      <div className='sequence-grid-container' id='sequence'>
         <div className='sequence-name'>{this.props.sequence.name}</div>
+        <FontAwesomeIcon icon={faPlus} onClick={this.exportSequence} />
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
           showCreateModal={() => this.setState({ createModalOpen: true })}

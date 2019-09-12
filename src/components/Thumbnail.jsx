@@ -5,7 +5,7 @@ import '../styles/Thumbnail.css'
 class Thumbnail extends Component {
   render() {
     return (
-      <img className='thumbnail-img' src={this.props.img}/>
+      <img crossorigin="anonymous" className='thumbnail-img' src={this.props.img}/>
     )
   }
 }
