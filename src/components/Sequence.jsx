@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faFile } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas'
 import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
@@ -24,6 +24,7 @@ class Canvas extends Component {
     super(props)
     this.state = { layout:  [], editModalOpen: false, createModalOpen: false, instance_id: null }
     this.dragContainers = []
+    this.exportSequence = this.exportSequence.bind(this)
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
   }
@@ -61,10 +62,11 @@ class Canvas extends Component {
     const width = htmlSource.scrollWidth
     const height = htmlSource.scrollHeight
     htmlSource.style = 'overflow:visible;'
+    const name = this.props.sequence.name || 'sequence'
     html2canvas(htmlSource, { useCORS: true, width, height }).then((canvas) => {
         const blob = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream")
         const hiddenLink = document.createElement("a")
-        hiddenLink.download = `test.png`
+        hiddenLink.download = `${name.split(' ').join('-')}.png`
         hiddenLink.href = blob
         document.body.appendChild(hiddenLink)
         hiddenLink.click()
@@ -95,8 +97,10 @@ class Canvas extends Component {
     const { editModalOpen, instance_id } = this.state
     return (
       <div className='sequence-grid-container' id='sequence'>
-        <div className='sequence-name'>{this.props.sequence.name}</div>
-        <FontAwesomeIcon icon={faPlus} onClick={this.exportSequence} />
+        <div className='sequence-header'>
+          <div className='sequence-name'>{this.props.sequence.name}</div>
+          <FontAwesomeIcon icon={faFile} className='export-icon' onClick={this.exportSequence} />
+        </div>
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
           showCreateModal={() => this.setState({ createModalOpen: true })}

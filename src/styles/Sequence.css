@@ -17,3 +17,20 @@
   text-align: center;
   font-size: 2.2em;
 }
+
+.sequence-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.export-icon {
+  margin-left: 1em;
+  margin-bottom: .5em;
+  color: darkgrey;
+}
+
+.export-icon:hover {
+  cursor: pointer;
+  color: #E27D60;
+}
