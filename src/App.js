@@ -13,6 +13,7 @@ import Sequences from './components/Sequences'
 import Sidebar from './components/Sidebar'
 import Navbar from './components/Navbar'
 import CreateAsana from './components/CreateAsana'
+import EditAsana from './components/EditAsana'
 import RootReducer from './reducers'
 import RootSaga from './sagas'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -41,6 +42,7 @@ class App extends Component {
                 <Navbar />
                 <PrivateRoute path="/" exact component={Sequences} />
                 <PrivateRoute path="/asanas/new" component={CreateAsana} />
+                <PrivateRoute path="/asanas/:id/edit" component={EditAsana} />
                 <PrivateRoute path="/sequences" exact component={Sequences} />
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
                 <Route path="/login" component={Login} />
