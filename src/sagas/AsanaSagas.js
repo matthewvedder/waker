@@ -5,6 +5,7 @@ import {
   ASANA_ERROR,
   ASANA_SUCCESS,
   FETCH_ASANAS,
+  FETCH_ASANA,
   SET_ASANAS
 } from '../actions/types'
 
@@ -35,6 +36,29 @@ function* createFlow (action) {
   }
 }
 
+function getApi (id) {
+  return fetch(`${url}/${id}`, {
+    method: 'GET'
+  })
+    .then(handleApiErrors)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
+function* getFlow (action) {
+  try {
+    const payload = yield call(getApi(action.asanaId))
+    yield put({ type: ASANA_SUCCESS })
+    yield put({ type: SET_ASANAS, payload })
+
+  } catch (error) {
+    console.warn(error)
+    yield put({ type: ASANA_ERROR, error })
+  }
+}
+
+
 function indexApi (payload) {
   return fetch(url, {
     method: 'GET'
@@ -60,4 +84,5 @@ function* indexFlow (action) {
 export function* watchAsanas() {
   yield takeLatest(CREATE_ASANA, createFlow)
   yield takeLatest(FETCH_ASANAS, indexFlow)
+  yield takeLatest(FETCH_ASANA, getFlow)
 }
