@@ -2,16 +2,23 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ReactAvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
+import _ from 'lodash'
 
 class ImageEditor extends React.Component {
   state = {
-    image: null,
+    image: this.props.initialImage,
     position: { x: 0.5, y: 0.5 },
     scale: 1,
     rotate: 0,
     preview: null,
     width: 400,
     height: 400,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!_.isEqual(nextProps.initialImage, this.props.initialImage)) {
+      this.setState({ image: nextProps.initialImage })
+    }
   }
 
   handleNewImage = e => {

@@ -24,6 +24,7 @@ export const FETCH_ASANAS = 'FETCH_ASANAS'
 export const FETCH_ASANA = 'FETCH_ASANA'
 export const EDIT_ASANA = 'EDIT_ASANA'
 export const SET_ASANAS = 'SET_ASANAS'
+export const SET_ASANA = 'SET_ASANA'
 
 export const UPDATE_SEQUENCE = 'UPDATE_SEQUENCE'
 export const FETCH_SEQUENCE  = 'FETCH_SEQUENCE'

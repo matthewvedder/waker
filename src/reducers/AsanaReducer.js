@@ -2,11 +2,13 @@ import {
   CREATE_ASANA,
   ASANA_SUCCESS,
   ASANA_ERROR,
-  SET_ASANAS
+  SET_ASANAS,
+  SET_ASANA
 } from '../actions/types'
 
 const initialState = {
   asanas: [],
+  asana: {},
   requesting: false,
   successful: false,
   messages: [],
@@ -27,6 +29,9 @@ const reducer = function asanaReducer (state = initialState, action) {
 
     case SET_ASANAS:
       return { ...state, asanas: action.payload }
+
+    case SET_ASANA:
+      return { ...state, asana: action.payload }
 
     // Successful?  Reset the login state.
     case ASANA_SUCCESS:

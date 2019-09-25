@@ -6,7 +6,8 @@ import {
   ASANA_SUCCESS,
   FETCH_ASANAS,
   FETCH_ASANA,
-  SET_ASANAS
+  SET_ASANAS,
+  SET_ASANA
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asanas`
@@ -48,9 +49,9 @@ function getApi (id) {
 
 function* getFlow (action) {
   try {
-    const payload = yield call(getApi(action.asanaId))
+    const payload = yield call(getApi, action.asanaId)
     yield put({ type: ASANA_SUCCESS })
-    yield put({ type: SET_ASANAS, payload })
+    yield put({ type: SET_ASANA, payload })
 
   } catch (error) {
     console.warn(error)

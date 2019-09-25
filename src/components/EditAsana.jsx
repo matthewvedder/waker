@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import Messages from './Messages'
 import Errors from './Errors'
 import ImageEditor from './ImageEditor'
@@ -24,6 +25,15 @@ class CreateAsana extends Component {
   componentWillMount() {
     const asanaId = window.location.href.split('/')[4]
     this.props.fetchAsana(asanaId)
+    this.props.initialize({ name: 'your name' })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.asanas.successful) {
+      const { name, description, level, image } = nextProps.asanas.asana
+      this.props.destroy()
+      this.props.initialize({ name, level, description, image })
+    }
   }
 
   // Remember, Redux Form passes the form values to our handler
@@ -45,14 +55,15 @@ class CreateAsana extends Component {
         successful,
         messages,
         errors,
+        asana
       },
     } = this.props
 
     return (
       <div className="create-asana">
-        <ImageEditor setEditorRef={this.setEditorRef}/>
+        <ImageEditor initialImage={asana.image} setEditorRef={this.setEditorRef}/>
         <form className="create-asana-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-          <h1>Create Asana</h1>
+          <h1>Edit Asana</h1>
           <label htmlFor="name">Name</label>
           <Field
             name="name"
@@ -82,7 +93,7 @@ class CreateAsana extends Component {
             className="description"
             component="textarea"
           />
-          <button action="submit">Create</button>
+          <button action="submit">Save</button>
         </form>
       </div>
     )
@@ -95,9 +106,9 @@ const mapStateToProps = state => ({
 
 const connected = connect(mapStateToProps, { editAsana, fetchAsana })(CreateAsana)
 
-// in our Redux's state, this form will be available in 'form.login'
+// in our Redux's state, this form will be available in 'form.asana-edit'
 const formed = reduxForm({
-  form: 'asana',
+  form: 'asana-edit',
 })(connected)
 
 export default formed
