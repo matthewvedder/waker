@@ -17,7 +17,7 @@ class ImageEditor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.initialImage, this.props.initialImage)) {
-      this.setState({ image: nextProps.initialImage })
+      this.setState({ image: nextProps.initialImage, disableClick: true })
     }
   }
 
