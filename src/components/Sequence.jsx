@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFile } from '@fortawesome/free-solid-svg-icons'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas'
 import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
@@ -99,7 +99,7 @@ class Canvas extends Component {
       <div className='sequence-grid-container' id='sequence'>
         <div className='sequence-header'>
           <div className='sequence-name'>{this.props.sequence.name}</div>
-          <FontAwesomeIcon icon={faFile} className='export-icon' onClick={this.exportSequence} />
+          <FontAwesomeIcon icon={faDownload} className='export-icon' onClick={this.exportSequence} />
         </div>
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
