@@ -61,7 +61,7 @@ function* getFlow (action) {
 }
 
 function editApi (id, payload) {
-  return fetch(`${url}/${id}/edit`, {
+  return fetch(`${url}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

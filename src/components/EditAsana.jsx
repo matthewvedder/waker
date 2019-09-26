@@ -23,24 +23,27 @@ class CreateAsana extends Component {
   }
 
   componentWillMount() {
-    const asanaId = window.location.href.split('/')[4]
-    this.props.fetchAsana(asanaId)
-    this.props.initialize({ name: 'your name' })
+    this.props.fetchAsana(this.asanaId())
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.asanas.successful) {
+    if (!_.isEqual(this.props.asanas.asana, nextProps.asanas.asana)) {
+      console.log(nextProps.asanas.asana)
       const { name, description, level, image } = nextProps.asanas.asana
       this.props.destroy()
       this.props.initialize({ name, level, description, image })
     }
   }
 
+  asanaId() {
+    return window.location.href.split('/')[4]
+  }
+
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `email` and `password`
   submit = (values) => {
     const image = this.editor.getImageScaledToCanvas().toDataURL()
-    this.props.editAsana({ ...values, image })
+    this.props.editAsana(this.asanaId(), { ...values, image })
   }
 
   setEditorRef = editor => {

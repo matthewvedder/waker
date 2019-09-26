@@ -3,7 +3,8 @@ import {
   ASANA_SUCCESS,
   ASANA_ERROR,
   SET_ASANAS,
-  SET_ASANA
+  SET_ASANA,
+  FETCH_ASANA
 } from '../actions/types'
 
 const initialState = {
@@ -24,6 +25,15 @@ const reducer = function asanaReducer (state = initialState, action) {
         requesting: true,
         successful: false,
         messages: [{ body: 'creating Asana...', time: new Date() }],
+        errors: [],
+      }
+
+    case FETCH_ASANA:
+      return {
+        ...state,
+        requesting: true,
+        successful: false,
+        messages: [{ body: 'fetching Asana...', time: new Date() }],
         errors: [],
       }
 
