@@ -27,7 +27,7 @@ class Sidebar extends Component {
               <span className='sidebar-item-label'>My Sequences</span>
             </Link>
           </div>
-          <div className={this.className('/asanas/new')}>
+          <div style={{ display: 'none' }} className={this.className('/asanas/new')}>
             <Link to='/asanas/new'>
               <FontAwesomeIcon className='sidebar-icon' icon={faPlus} />
               <span className='sidebar-item-label'>New Asana</span>
