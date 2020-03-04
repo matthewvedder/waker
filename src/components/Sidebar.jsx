@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Drawer from '@material-ui/core/Drawer';
 import {
   faUser,
   faCompass,
@@ -18,8 +19,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className='sidebar'>
-        <div className='sidebar-opac'>
+      <Drawer open={true}>
           <Avatar />
           <div className={this.className('/sequences')}>
             <Link to='/sequences'>
@@ -33,8 +33,7 @@ class Sidebar extends Component {
               <span className='sidebar-item-label'>New Asana</span>
             </Link>
           </div>
-        </div>
-      </div>
+        </Drawer>
     )
   }
 }
