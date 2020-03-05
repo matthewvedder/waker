@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ResponsiveDrawer from './ResponsiveDrawer'
 import {
   faUser,
   faCompass,
@@ -17,23 +24,20 @@ class Sidebar extends Component {
     return route === window.location.pathname ? 'sidebar-item selected' : 'sidebar-item'
   }
 
+
+
   render() {
     return (
-      <Drawer open={true}>
-          <Avatar />
-          <div className={this.className('/sequences')}>
+      <ResponsiveDrawer open={true} >
+      <List>
+          <ListItem button key={'My Sequences'}>
+            <ListItemIcon>{<MailIcon />}</ListItemIcon>
             <Link to='/sequences'>
-              <FontAwesomeIcon className='sidebar-icon' icon={faGripHorizontal} />
-              <span className='sidebar-item-label'>My Sequences</span>
+              <ListItemText primary={'My Sequences'} />
             </Link>
-          </div>
-          <div style={{ display: 'none' }} className={this.className('/asanas/new')}>
-            <Link to='/asanas/new'>
-              <FontAwesomeIcon className='sidebar-icon' icon={faPlus} />
-              <span className='sidebar-item-label'>New Asana</span>
-            </Link>
-          </div>
-        </Drawer>
+          </ListItem>
+      </List>
+    </ResponsiveDrawer>
     )
   }
 }

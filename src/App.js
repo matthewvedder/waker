@@ -40,7 +40,6 @@ class App extends Component {
             <div className="App">
               <Sidebar />
               <div className='main'>
-                <Navbar />
                 <PrivateRoute path="/" exact component={Sequences} />
                 <PrivateRoute path="/asanas/new" component={CreateAsana} />
                 <PrivateRoute path="/asanas" exact component={AsanaIndex} />
