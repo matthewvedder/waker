@@ -17,7 +17,6 @@ import {
   faPlus
 } from '@fortawesome/free-solid-svg-icons'
 import Avatar from './Avatar'
-import '../styles/Sidebar.css'
 
 class Sidebar extends Component {
   className(route) {
