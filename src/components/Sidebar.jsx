@@ -29,12 +29,12 @@ class Sidebar extends Component {
     return (
       <ResponsiveDrawer open={true} >
       <List>
+        <Link to='/sequences'>
           <ListItem button key={'My Sequences'}>
             <ListItemIcon>{<MailIcon />}</ListItemIcon>
-            <Link to='/sequences'>
-              <ListItemText primary={'My Sequences'} />
-            </Link>
+            <ListItemText primary={'My Sequences'} />
           </ListItem>
+        </Link>
       </List>
     </ResponsiveDrawer>
     )

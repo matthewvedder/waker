@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences, deleteSequence } from '../actions'
@@ -8,7 +8,23 @@ import CreateSequence from './CreateSequence'
 import Modal from './Modal'
 import moment from 'moment'
 import DeleteModal from './DeleteModal'
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import '../styles/sequences.css'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 class Sequences extends Component {
   constructor(props) {
@@ -19,6 +35,10 @@ class Sequences extends Component {
   }
   componentWillMount() {
     this.props.fetchSequences()
+  }
+
+  handleSequenceClick(id) {
+    this.props.history.push(`/sequences/${id}`)
   }
 
   handleAddClick() {
@@ -33,50 +53,45 @@ class Sequences extends Component {
     return this.props.sequences.map((sequence) => {
       const { id, name, level, created_at } = sequence
       return (
-        <div
-          className='sequence-container'
-          onMouseEnter={() => this.setState({ hoveringOver: id })}
-          onMouseLeave={() => this.setState({ hoveringOver: null })}
-        >
-          <Link to={`/sequences/${id}`}>
-            <div
-              className='sequence'
-              key={ id }
-            >
-              <div className='name'>{ name }</div>
-              <div className='created-at'>{ moment(created_at).format('MMMM Do YYYY') }</div>
-            </div>
-          </Link>
-          <FontAwesomeIcon
-            className='sequence-trash'
-            icon={faTrash}
-            onClick={() => this.handleDeleteClick(id)}
-            style={{ display: this.state.hoveringOver === id ? 'inherit' : 'none' }}
-          />
-        </div>
+          <ListItem
+            button
+            onMouseEnter={() => this.setState({ hoveringOver: id })}
+            onMouseLeave={() => this.setState({ hoveringOver: null })}
+            onClick={ () => this.handleSequenceClick(id) }
+          >
+            <ListItemText primary={name}  secondary={moment(created_at).format('MMMM Do YYYY')} />
+            <ListItemSecondaryAction>
+               <IconButton edge="end" aria-label="delete" onClick={() => this.handleDeleteClick(id)}>
+                 <DeleteIcon />
+               </IconButton>
+             </ListItemSecondaryAction>
+          </ListItem>
       )
     })
   }
   render() {
     const { id, deleteModalOpen } = this.state
     return (
-      <div className='sequences-container'>
-          <h1 id='sequences-title'>My Sequences</h1>
-        <div className='sequences'>
+      <div className="sequences-container">
+         <List component="nav">
           { this.mapSequences() }
-          <div className='sequence' id='new-sequence' onClick={this.handleAddClick}>
-            <FontAwesomeIcon icon={faPlus} />
-          </div>
-        </div>
-        <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
-          <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
-        </Modal>
-        <DeleteModal
-          visible={deleteModalOpen}
-          onConfirm={() => this.props.deleteSequence(id)}
-          onCancel={() => this.setState({ deleteModalOpen: false })}
-        />
-      </div>
+          <ListItem>
+            <Button onClick={this.handleAddClick} variant="contained" color="primary" href="#contained-buttons">
+              Create Sequence
+            </Button>
+          </ListItem>
+         </List>
+
+         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
+           <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
+         </Modal>
+         <DeleteModal
+           visible={deleteModalOpen}
+           onConfirm={() => this.props.deleteSequence(id)}
+           onCancel={() => this.setState({ deleteModalOpen: false })}
+         />
+
+       </div>
     )
   }
 }
