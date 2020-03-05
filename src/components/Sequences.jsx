@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { fetchSequences, deleteSequence } from '../actions'
 import CreateSequence from './CreateSequence'
-import Modal from './Modal'
 import moment from 'moment'
-import DeleteModal from './DeleteModal'
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import List from '@material-ui/core/List';
@@ -89,17 +85,19 @@ class Sequences extends Component {
             </Button>
           </ListItem>
          </List>
-
-         <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
+         <Dialog open={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Create Sequence</DialogTitle>
+          <DialogContent>
            <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
-         </Modal>
+          </DialogContent>
+         </Dialog>
          <Dialog
             open={deleteModalOpen}
             onClose={() => this.setState({ deleteModalOpen: false })}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this?"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">Are you sure you want to delete this?</DialogTitle>
             <DialogActions>
               <Button onClick={() => this.setState({ deleteModalOpen: false })} color="primary">
                 Nevermind
