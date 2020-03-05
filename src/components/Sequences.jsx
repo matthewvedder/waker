@@ -9,6 +9,9 @@ import Modal from './Modal'
 import moment from 'moment'
 import DeleteModal from './DeleteModal'
 import { makeStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
@@ -49,6 +52,11 @@ class Sequences extends Component {
     this.setState({ id, deleteModalOpen: true })
   }
 
+  handleConfirmDeleteClick(id) {
+    this.props.deleteSequence(id)
+    this.setState({ deleteModalOpen: false })
+  }
+
   mapSequences() {
     return this.props.sequences.map((sequence) => {
       const { id, name, level, created_at } = sequence
@@ -85,11 +93,22 @@ class Sequences extends Component {
          <Modal visible={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} >
            <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
          </Modal>
-         <DeleteModal
-           visible={deleteModalOpen}
-           onConfirm={() => this.props.deleteSequence(id)}
-           onCancel={() => this.setState({ deleteModalOpen: false })}
-         />
+         <Dialog
+            open={deleteModalOpen}
+            onClose={() => this.setState({ deleteModalOpen: false })}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this?"}</DialogTitle>
+            <DialogActions>
+              <Button onClick={() => this.setState({ deleteModalOpen: false })} color="primary">
+                Nevermind
+              </Button>
+              <Button onClick={() => this.handleConfirmDeleteClick(id)} color="primary" autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
 
        </div>
     )
