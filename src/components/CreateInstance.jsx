@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createAsanaInstance, fetchAsanas } from '../actions'
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
 import Thumbnail from './Thumbnail'
-import Modal from './Modal'
+import { withStyles } from '@material-ui/core/styles';
 import '../styles/CreateInstance.css'
 
 class Selector extends Component {
@@ -16,14 +20,6 @@ class Selector extends Component {
 
   componentWillMount() {
     this.props.fetchAsanas()
-  }
-
-  componentDidMount(){
-    this.input.focus()
-  }
-
-  componentDidUpdate(){
-    this.input.focus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,17 +61,23 @@ class Selector extends Component {
   render() {
     const { visible, onClose } = this.props
     return (
-      <Modal visible={visible} onClose={onClose}>
-        <input
-          placeholder="Search"
+      <Dialog maxWidth="lg" onClose={onClose} aria-labelledby="simple-dialog-title" open={visible}>
+        <DialogTitle id="simple-dialog-title">Add Asana</DialogTitle>
+        <DialogContent>
+        <TextField
+          autoFocus
           onChange={this.handleSearch}
-          ref={(input) => { this.input = input }}
-          className='selector-search'
+          maxWidth="md"
+          margin="dense"
+          id="name"
+          label="Search"
+          type="search"
         />
+        </DialogContent>
         <div className='instance-create-asanas'>
           { this.mapAsanas() }
         </div>
-      </Modal>
+       </Dialog>
     )
   }
 }
