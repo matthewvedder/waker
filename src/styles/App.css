@@ -1,13 +1,6 @@
-.App {
-  display: flex;
-  height: 100%;
-  flex-direction: row;
-  background-color: whitesmoke;
-}
-
 .main {
   width: 100%;
-  height: 100%;
+  margin-top: 5em;
 }
 
 button:hover {

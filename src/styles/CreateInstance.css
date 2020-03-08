@@ -2,14 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   margin: 2em;
+  padding: 2em;
+  width: 70vw;
+  height: 55vh;
 }
 
 .instance-create-thumbnail {
   height: 10em;
   width: 10em;
   margin: 2em;
-}
-
-.selector-search {
-  margin-top: 3em;
 }

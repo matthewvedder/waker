@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, submit, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { createSequence } from '../actions'
-import '../styles/CreateSequence.css'
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class CreateSequence extends Component {
   static propTypes = {
@@ -22,6 +23,23 @@ class CreateSequence extends Component {
     this.props.onCreate()
   }
 
+  renderTextField = ({
+    input,
+    label,
+    meta: { touched, error },
+    ...custom
+  }) => (
+    <TextField
+      autoFocus
+      margin="dense"
+      id="name"
+      label={label}
+      fullWidth
+      {...input}
+      {...custom}
+    />
+  )
+
   render () {
     const {
       handleSubmit,
@@ -36,29 +54,15 @@ class CreateSequence extends Component {
     return (
       <div className="create-sequence">
         <form className="create-sequence-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-          <h1>Create Sequence</h1>
           <label htmlFor="name">Name</label>
           <Field
             name="name"
             type="text"
             id="name"
             className="name"
-            component="input"
+            component={this.renderTextField}
           />
-          <label htmlFor="level">Level</label>
-          <Field
-            name="level"
-            type="text"
-            id="level"
-            className="level"
-            component="select"
-          >
-            <option></option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </Field>
-          <button action="submit">Create</button>
+          <Button type="submit">Create</Button>
         </form>
       </div>
     )

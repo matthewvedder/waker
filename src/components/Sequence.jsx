@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import html2canvas from 'html2canvas'
 import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
@@ -78,7 +79,7 @@ class Canvas extends Component {
 
   handleLayoutChange() {
     const elements = document.getElementsByClassName('asana-instance-drag')
-    const ids = Array.from(elements).map(el => el.id).slice(0, -1)
+    const ids = _.uniq(Array.from(elements).map(el => el.id))
     this.props.updateSequence({ layout: ids }, this.id())
   }
 
@@ -114,7 +115,6 @@ class Canvas extends Component {
           visible={this.state.createModalOpen}
           onClose={() => this.setState({ createModalOpen: false })}
           sequenceId={this.id()}
-          handleCreateInstance={this.handleLayoutChange}
         />
       </div>
     )

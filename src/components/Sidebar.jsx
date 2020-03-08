@@ -1,42 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faUser,
-  faCompass,
-  faGripHorizontal,
-  faHome,
-  faPlus
-} from '@fortawesome/free-solid-svg-icons'
-import Avatar from './Avatar'
-import '../styles/Sidebar.css'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import { makeStyles } from '@material-ui/core/styles';
+import ResponsiveDrawer from './ResponsiveDrawer'
 
-class Sidebar extends Component {
-  className(route) {
-    return route === window.location.pathname ? 'sidebar-item selected' : 'sidebar-item'
+const useStyles = makeStyles(theme => ({
+  listItem: {
+    color: 'black',
   }
+}));
 
-  render() {
-    return (
-      <div className='sidebar'>
-        <div className='sidebar-opac'>
-          <Avatar />
-          <div className={this.className('/sequences')}>
-            <Link to='/sequences'>
-              <FontAwesomeIcon className='sidebar-icon' icon={faGripHorizontal} />
-              <span className='sidebar-item-label'>My Sequences</span>
-            </Link>
-          </div>
-          <div style={{ display: 'none' }} className={this.className('/asanas/new')}>
-            <Link to='/asanas/new'>
-              <FontAwesomeIcon className='sidebar-icon' icon={faPlus} />
-              <span className='sidebar-item-label'>New Asana</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-    )
-  }
+export default function Sidebar() {
+  const classes = useStyles()
+  return (
+    <ResponsiveDrawer open={true} >
+    <List className={classes.root}>
+      <Link to='/sequences'>
+        <ListItem button key={'My Sequences'} className={classes.listItem}>
+          <ListItemIcon>{<ViewListIcon className={classes.listItem} />}</ListItemIcon>
+          <ListItemText primary={'My Sequences'} />
+        </ListItem>
+      </Link>
+    </List>
+  </ResponsiveDrawer>
+  )
 }
-
-export default Sidebar
