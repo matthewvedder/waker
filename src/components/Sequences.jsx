@@ -81,12 +81,12 @@ class Sequences extends Component {
           { this.mapSequences() }
           <ListItem>
             <Button onClick={this.handleAddClick} variant="contained" color="primary" href="#contained-buttons">
-              Create Sequence
+              New Sequence
             </Button>
           </ListItem>
          </List>
          <Dialog open={this.state.modalOpen} onClose={() => this.setState({ modalOpen: false })} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Create Sequence</DialogTitle>
+          <DialogTitle id="form-dialog-title">New Sequence</DialogTitle>
           <DialogContent>
            <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
           </DialogContent>

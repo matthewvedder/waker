@@ -40,9 +40,8 @@ class Selector extends Component {
   }
 
   addToSequence(asana_id) {
-    const { onClose, sequenceId, handleCreateInstance } = this.props
+    const { onClose, sequenceId } = this.props
     this.props.createAsanaInstance(asana_id, sequenceId)
-    handleCreateInstance()
     onClose()
   }
 

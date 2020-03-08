@@ -1,44 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import { makeStyles } from '@material-ui/core/styles';
 import ResponsiveDrawer from './ResponsiveDrawer'
-import {
-  faUser,
-  faCompass,
-  faGripHorizontal,
-  faHome,
-  faPlus
-} from '@fortawesome/free-solid-svg-icons'
-import Avatar from './Avatar'
 
-class Sidebar extends Component {
-  className(route) {
-    return route === window.location.pathname ? 'sidebar-item selected' : 'sidebar-item'
+const useStyles = makeStyles(theme => ({
+  listItem: {
+    color: 'black',
   }
+}));
 
-
-
-  render() {
-    return (
-      <ResponsiveDrawer open={true} >
-      <List>
-        <Link to='/sequences'>
-          <ListItem button key={'My Sequences'}>
-            <ListItemIcon>{<MailIcon />}</ListItemIcon>
-            <ListItemText primary={'My Sequences'} />
-          </ListItem>
-        </Link>
-      </List>
-    </ResponsiveDrawer>
-    )
-  }
+export default function Sidebar() {
+  const classes = useStyles()
+  return (
+    <ResponsiveDrawer open={true} >
+    <List className={classes.root}>
+      <Link to='/sequences'>
+        <ListItem button key={'My Sequences'} className={classes.listItem}>
+          <ListItemIcon>{<ViewListIcon className={classes.listItem} />}</ListItemIcon>
+          <ListItemText primary={'My Sequences'} />
+        </ListItem>
+      </Link>
+    </List>
+  </ResponsiveDrawer>
+  )
 }
-
-export default Sidebar
