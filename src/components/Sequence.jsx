@@ -78,6 +78,7 @@ class Canvas extends Component {
   }
 
   handleLayoutChange() {
+    // test
     const elements = document.getElementsByClassName('asana-instance-drag')
     const ids = _.uniq(Array.from(elements).map(el => el.id))
     this.props.updateSequence({ layout: ids }, this.id())
