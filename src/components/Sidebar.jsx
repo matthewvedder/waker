@@ -10,7 +10,7 @@ import ResponsiveDrawer from './ResponsiveDrawer'
 
 const useStyles = makeStyles(theme => ({
   listItem: {
-    color: 'black',
+    color: theme.palette.text.primary
   }
 }));
 

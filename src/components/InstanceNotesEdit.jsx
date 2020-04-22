@@ -8,7 +8,11 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles((theme) => {
 return ({
   root: {
+    marginTop: ".5em",
     '& > *': {
+      ...theme.typography.body2,
+      color: theme.palette.text.secondary,
+      padding: ".5em",
     }
   },
   textField: {
