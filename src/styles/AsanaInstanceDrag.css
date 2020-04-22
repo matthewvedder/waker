@@ -25,7 +25,8 @@
 }
 
 .instance-drag-name {
-  font-weight: bold;
+  /* font-weight: bold; */
+  margin-left: .8em;
 }
 
 .instance-drag-pen {

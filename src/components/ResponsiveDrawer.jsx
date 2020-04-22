@@ -44,8 +44,7 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: theme.palette.primary.main
+    width: drawerWidth
   },
   content: {
     flexGrow: 1,

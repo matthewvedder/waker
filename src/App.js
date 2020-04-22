@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     height: '100%',
     flexDirection: 'row',
-    backgroundColor: 'whitesmoke',
     },
   }),
 );
@@ -43,6 +42,7 @@ const App = () => {
 
     const theme = createMuiTheme({
       palette: {
+        type: 'dark',
         primary: {
           main: '#41b3a3',
         },
