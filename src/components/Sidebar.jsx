@@ -26,13 +26,6 @@ export default function Sidebar() {
           <ListItemText primary={'My Sequences'} />
         </ListItem>
       </Link>
-
-      <Link to='/yoga-sutra'>
-        <ListItem button key={'Sutra Chanting'} className={classes.listItem}>
-          <ListItemIcon>{<AudiotrackIcon className={classes.listItem} />}</ListItemIcon>
-          <ListItemText primary={'Sutra Chanting'} />
-        </ListItem>
-      </Link>
     </List>
   </ResponsiveDrawer>
   )
