@@ -17,6 +17,7 @@ import Sidebar from './components/Sidebar'
 import CreateAsana from './components/CreateAsana'
 import AsanaIndex from './components/AsanaIndex'
 import EditAsana from './components/EditAsana'
+import YogaSutra from './pages/YogaSutra'
 import RootReducer from './reducers'
 import RootSaga from './sagas'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -72,6 +73,7 @@ const App = () => {
                 <PrivateRoute path="/asanas/:id/edit" component={EditAsana} />
                 <PrivateRoute path="/sequences" exact component={Sequences} />
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
+                <Route path="/yoga-sutra" component={YogaSutra} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={SignUp} />
               </div>

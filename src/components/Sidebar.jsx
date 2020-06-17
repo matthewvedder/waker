@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ViewListIcon from '@material-ui/icons/ViewList';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import { makeStyles } from '@material-ui/core/styles';
 import ResponsiveDrawer from './ResponsiveDrawer'
 
@@ -23,6 +24,13 @@ export default function Sidebar() {
         <ListItem button key={'My Sequences'} className={classes.listItem}>
           <ListItemIcon>{<ViewListIcon className={classes.listItem} />}</ListItemIcon>
           <ListItemText primary={'My Sequences'} />
+        </ListItem>
+      </Link>
+
+      <Link to='/yoga-sutra'>
+        <ListItem button key={'Sutra Chanting'} className={classes.listItem}>
+          <ListItemIcon>{<AudiotrackIcon className={classes.listItem} />}</ListItemIcon>
+          <ListItemText primary={'Sutra Chanting'} />
         </ListItem>
       </Link>
     </List>
