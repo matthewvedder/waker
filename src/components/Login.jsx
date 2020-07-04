@@ -3,18 +3,60 @@ import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 
 import Messages from './Messages'
 import Errors from './Errors'
-
 import { loginRequest } from '../actions'
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    // backgroundColor: 'red',
+  },
+  form: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+    width: '50ch',
+    // backgroundColor: 'blue',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '15em',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+      marginTop: '5em',
+    },
+    link: { color: 'grey' },
+  },
+}));
+
+
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    label={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
 // If you were testing, you'd want to export this component
 // so that you can test your custom made component and not
 // test whether or not Redux and Redux Form are doing their jobs
-class Login extends Component {
+const Login = (props) => {
   // Pass the correct proptypes in for validation
-  static propTypes = {
+  const propTypes = {
     handleSubmit: PropTypes.func,
     loginRequest: PropTypes.func,
     login: PropTypes.shape({
@@ -27,11 +69,10 @@ class Login extends Component {
 
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `email` and `password`
-  submit = (values) => {
-    this.props.loginRequest(values)
+  const submit = (values) => {
+    props.loginRequest(values)
   }
 
-  render () {
     const {
       handleSubmit, // remember, Redux Form injects this into our props
       login: {
@@ -40,13 +81,14 @@ class Login extends Component {
         messages,
         errors,
       },
-    } = this.props
+    } = props
+
+    const classes = useStyles()
 
     return (
-      <div className="login">
-        <form className="widget-form" onSubmit={handleSubmit(this.submit.bind(this))}>
+      <div className={classes.container}>
+        <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <h1>LOGIN</h1>
-          <label htmlFor="email">Email</label>
           {/*
             Our Redux Form Field components that bind email and password
             to our Redux state's form -> login piece of state.
@@ -55,18 +97,19 @@ class Login extends Component {
             name="email"
             type="text"
             id="email"
+            label="Email"
             className="email"
-            component="input"
+            component={renderTextField}
           />
-          <label htmlFor="password">Password</label>
           <Field
             name="password"
             type="password"
+            label="Password"
             id="password"
             className="password"
-            component="input"
+            component={renderTextField}
           />
-          <button action="submit">LOGIN</button>
+          <Button type="submit" variant="contained" color="primary">LOGIN</Button>
         </form>
         <div className="auth-messages">
           {/* As in the signup, we're just using the message and error helpers */}
@@ -78,12 +121,15 @@ class Login extends Component {
           )}
           {requesting && <div>Logging in...</div>}
           {!requesting && !successful && (
-            <Link to="/signup">Need to Signup? Click Here »</Link>
+            <Link to="/signup">
+              <span style={{ color: useTheme().palette.text.primary }}>
+                Need to Signup? Click Here »
+              </span>
+            </Link>
           )}
         </div>
       </div>
     )
-  }
 }
 
 const mapStateToProps = state => ({
@@ -91,7 +137,7 @@ const mapStateToProps = state => ({
 })
 
 // make Redux state piece of `login` and our action `loginRequest`
-// available in this.props within our component
+// available in props within our component
 const connected = connect(mapStateToProps, { loginRequest })(Login)
 
 // in our Redux's state, this form will be available in 'form.login'

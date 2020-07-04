@@ -1,16 +1,60 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 
 import Messages from './Messages'
 import Errors from './Errors'
 
-import { signupRequest } from '../actions'
+import { signupRequest, loginRequest } from '../actions'
 
-class Signup extends Component {
-  static propTypes = {
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    // backgroundColor: 'red',
+  },
+  form: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+    width: '50ch',
+    // backgroundColor: 'blue',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: '15em',
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+      marginTop: '5em',
+    },
+    link: { color: 'grey' },
+  },
+}));
+
+
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...custom
+}) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    label={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
+
+const Signup = (props) => {
+  const propTypes = {
     handleSubmit: PropTypes.func,
     signupRequest: PropTypes.func,
     signup: PropTypes.shape({
@@ -21,99 +65,99 @@ class Signup extends Component {
     }),
   }
 
-  submit = (values) => {
-    this.props.signupRequest(values)
+  useEffect(() => {
+    if (successful) {
+      props.loginRequest({ email: props.email, password: props.password })
+    }
+  });
+
+  const submit = (values) => {
+    props.signupRequest(values)
   }
 
-  render () {
-    const {
-      handleSubmit,
-      signup: {
-        requesting,
-        successful,
-        messages,
-        errors,
-      },
-    } = this.props
+  const {
+    handleSubmit,
+    signup: {
+      requesting,
+      successful,
+      messages,
+      errors,
+    },
+  } = props
 
-    return (
-      <div className="signup">
-        {/* Use the Submit handler with our own submit handler*/}
-        <form className="signup -form" onSubmit={handleSubmit(this.submit)}>
-          <h1>Signup</h1>
-          <label htmlFor="email">Email</label>
-          <Field
-            name="email"
-            type="text"
-            id="email"
-            className="email"
-            label="Email"
-            component="input"
-          />
-          <label htmlFor="password">Password</label>
-          <Field
-            name="password"
-            type="password"
-            id="password"
-            className="password"
-            label="Password"
-            component="input"
-          />
-          <label htmlFor="password_confirmation">Password Confirmation</label>
-          <Field
-            name="password_confirmation"
-            type="password"
-            id="password-confirmation"
-            className="password"
-            label="Password Confirmation"
-            component="input"
-          />
-          <button action="submit">SIGNUP</button>
-        </form>
-        <div className="auth-messages">
-          {
-            /*
-            These are all nothing more than helpers that will show up
-            based on the UI states, not worth covering in depth.  Simply put
-            if there are messages or errors, we show them
-            */
-          }
-          {!requesting && !!errors.length && (
-            <Errors message="Failure to signup due to:" errors={errors} />
-          )}
-          {!requesting && !!messages.length && (
-            <Messages messages={messages} />
-          )}
-          {!requesting && successful && (
-            <div>
-              Signup Successful! <Link to="/login">Click here to Login »</Link>
-            </div>
-          )}
-          {/* Redux Router's <Link> component for quick navigation of routes */}
-          {!requesting && !successful && (
-            <Link to="/login">Already have an account? Login Here »</Link>
-          )}
-        </div>
+  const classes = useStyles()
+
+  return (
+    <div className={classes.container}>
+      {/* Use the Submit handler with our own submit handler*/}
+      <form className={classes.form} onSubmit={handleSubmit(submit)}>
+        <h1>Signup</h1>
+        <Field
+          name="email"
+          type="text"
+          id="email"
+          className="email"
+          label="Email"
+          component={renderTextField}
+        />
+        <Field
+          name="password"
+          type="password"
+          id="password"
+          className="password"
+          label="Password"
+          component={renderTextField}
+        />
+        <Field
+          name="password_confirmation"
+          type="password"
+          id="password-confirmation"
+          className="password"
+          label="Password Confirmation"
+          component={renderTextField}
+        />
+        <Button variant="contained" color="primary" type="submit">SIGNUP</Button>
+      </form>
+      <div className="auth-messages">
+        {
+          /*
+          These are all nothing more than helpers that will show up
+          based on the UI states, not worth covering in depth.  Simply put
+          if there are messages or errors, we show them
+          */
+        }
+        {!requesting && !!errors.length && (
+          <Errors message="Failure to signup due to:" errors={errors} />
+        )}
+        {!requesting && !!messages.length && (
+          <Messages messages={messages} />
+        )}
+        <Link to="/login">
+          <span style={{ color: useTheme().palette.text.primary }}>
+            Already have an account? Login Here »
+          </span>
+        </Link>
       </div>
-    )
+    </div>
+  )
+}
+
+const formComponent = reduxForm({
+  form: 'signup',
+})(Signup)
+
+const selector = formValueSelector('signup')
+
+const mapStateToProps = state => {
+  const { email, password } = selector(state, 'email', 'password')
+  return {
+    signup: state.signup,
+    email,
+    password
   }
 }
 
-// Grab only the piece of state we need
-const mapStateToProps = state => ({
-  signup: state.signup,
-})
-
-// Connect our component to redux and attach the `signup` piece
-// of state to our `props` in the component.  Also attach the
-// `signupRequest` action to our `props` as well.
-const connected = connect(mapStateToProps, { signupRequest })(Signup)
-
-// Connect our connected component to Redux Form.  It will namespace
-// the form we use in this component as `signup`.
-const formed = reduxForm({
-  form: 'signup',
-})(connected)
+const connectedSignupForm = connect(mapStateToProps, { signupRequest, loginRequest })(formComponent)
 
 // Export our well formed component!
-export default formed
+export default connectedSignupForm
