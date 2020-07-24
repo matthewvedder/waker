@@ -10,7 +10,8 @@ import '../styles/AsanaInstanceDrag.css'
 const useStyles = makeStyles((theme) => {
   return {
     name: {
-      color: theme.palette.primary.main
+      color: theme.palette.primary.main,
+      paddingLeft: '.5em'
     }
   }
 })

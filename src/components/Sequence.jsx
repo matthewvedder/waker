@@ -78,7 +78,6 @@ class Canvas extends Component {
   }
 
   handleLayoutChange() {
-    // test
     const elements = document.getElementsByClassName('asana-instance-drag')
     const ids = _.uniq(Array.from(elements).map(el => el.id))
     this.props.updateSequence({ layout: ids }, this.id())
@@ -106,11 +105,6 @@ class Canvas extends Component {
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
           showCreateModal={() => this.setState({ createModalOpen: true })}
-        />
-        <InstanceEditModal
-          visible={this.state.editModalOpen}
-          onClose={() => this.setState({ editModalOpen: false, instance_id: null })}
-          instance_id={ this.state.instance_id }
         />
         <CreateInstance
           visible={this.state.createModalOpen}

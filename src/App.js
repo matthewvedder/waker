@@ -49,7 +49,7 @@ const App = () => {
           main: '#41b3a3',
         },
         secondary: {
-          main: '#E27D60',
+          main: '#C38D9B',
         },
       }
     });
