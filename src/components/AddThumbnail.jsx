@@ -5,7 +5,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import '../styles/AddThumbnail.css'
 
 const useStyles = makeStyles((theme) => {
-  console.log(theme)
   return {
     root: {
       color: theme.palette.primary.main

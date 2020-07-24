@@ -27,9 +27,9 @@ import './styles/App.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    height: '100%',
-    flexDirection: 'row',
+      display: 'flex',
+      height: '100%',
+      flexDirection: 'row',
     },
   }),
 );
