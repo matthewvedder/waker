@@ -35,6 +35,7 @@ const InstanceNotesEdit = ((props) => {
             notchedOutline: classes.textField,
           }
         }}
+        rowsMax={4}
         multiline
         size="small"
         onBlur={(event) => props.updateAsanaInstance(id, { notes: event.target.value })}
