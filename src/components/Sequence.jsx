@@ -38,7 +38,7 @@ class Canvas extends Component {
   componentDidMount () {
     const drake = Dragula(this.dragContainers, {
       moves: (el, source, handle, sibling) => {
-        return el.className !== 'add-thumbnail'
+        return el.id !== 'add-thumbnail'
       },
       accepts: function (el, target, source, sibling) {
         return sibling !== null

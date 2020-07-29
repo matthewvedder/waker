@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
 const Thumbnail = (props) => {
   const classes = useStyles()
   return (
-    <div className={`add-thumbnail ${classes.root}`} onClick={props.onClick}>
+    <div className={`add-thumbnail ${classes.root}`} id="add-thumbnail" onClick={props.onClick}>
       <FontAwesomeIcon icon={faPlus} />
     </div>
   )
