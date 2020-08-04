@@ -4,7 +4,7 @@ import Dragula from 'react-dragula'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import html2canvas from 'html2canvas'
+import { saveAs } from 'file-saver'
 import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
 import InstanceEditModal from './InstanceEditModal'
@@ -17,6 +17,7 @@ import {
   setAsanaInstanceState,
   deleteAsanaInstance
 } from '../actions'
+import { fetchPdfRequest } from '../sagas/SequenceSagas'
 
 const NUM_COLUMNS = 6
 
@@ -59,22 +60,11 @@ class Canvas extends Component {
   }
 
   exportSequence() {
-    const htmlSource = document.getElementById('sequence-grid')
-    const width = htmlSource.scrollWidth
-    const height = htmlSource.scrollHeight
-    htmlSource.style = 'overflow:visible;'
-    const name = this.props.sequence.name || 'sequence'
-    html2canvas(htmlSource, { useCORS: true, width, height }).then((canvas) => {
-        const blob = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream")
-        const hiddenLink = document.createElement("a")
-        hiddenLink.download = `${name.split(' ').join('-')}.png`
-        hiddenLink.href = blob
-        document.body.appendChild(hiddenLink)
-        hiddenLink.click()
-        document.body.removeChild(hiddenLink)
-      })
+    const { sequence } = this.props
+    fetchPdfRequest(sequence).then((blob) => {
+      saveAs(blob, `${sequence.name}.pdf`)
+    })
 
-      htmlSource.style = 'overflow:scroll;'
   }
 
   handleLayoutChange() {
