@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDownload } from '@fortawesome/free-solid-svg-icons'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import GetAppIcon from '@material-ui/icons/GetApp'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 import _ from 'lodash'
 import { saveAs } from 'file-saver'
 import autoScroll from 'dom-autoscroller'
@@ -24,7 +26,12 @@ const NUM_COLUMNS = 6
 class Canvas extends Component {
   constructor(props) {
     super(props)
-    this.state = { layout:  [], editModalOpen: false, createModalOpen: false, instance_id: null }
+    this.state = {
+      layout:  [],
+      createModalOpen: false,
+      instance_id: null ,
+      pdfLoading: false
+    }
     this.dragContainers = []
     this.exportSequence = this.exportSequence.bind(this)
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
@@ -61,7 +68,9 @@ class Canvas extends Component {
 
   exportSequence() {
     const { sequence } = this.props
+    this.setState({ pdfLoading: true })
     fetchPdfRequest(sequence).then((blob) => {
+      this.setState({ pdfLoading: false })
       saveAs(blob, `${sequence.name}.pdf`)
     })
 
@@ -85,12 +94,21 @@ class Canvas extends Component {
   }
 
   render() {
-    const { editModalOpen, instance_id } = this.state
+    const { editModalOpen, instance_id, pdfLoading } = this.state
     return (
       <div className='sequence-grid-container' id='sequence'>
         <div className='sequence-header'>
           <div className='sequence-name'>{this.props.sequence.name}</div>
-          <FontAwesomeIcon icon={faDownload} className='export-icon' onClick={this.exportSequence} />
+          <Tooltip title="Download as PDF">
+            <IconButton aria-label="Download PDF" color='secondary'>
+              <GetAppIcon onClick={this.exportSequence} />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <div style={{ display: pdfLoading ? 'flex' : 'none', justifyContent: 'center' }}>
+          <div style={{ width: '70%' }}>
+            <LinearProgress color="secondary" />
+          </div>
         </div>
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
