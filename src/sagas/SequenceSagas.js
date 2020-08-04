@@ -40,6 +40,22 @@ function* updateFlow(action) {
   }
 }
 
+export function fetchPdfRequest(sequence) {
+  const fetchUrl = `${url}/${sequence.id}/pdf`
+  return fetch(fetchUrl, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/pdf',
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    },
+    responseType: 'blob'
+  })
+    .then(handleApiErrors)
+    .then(response => response.blob())
+    .then(blob => blob)
+    .catch((error) => { throw error })
+}
+
 function fetchRequest(action) {
   const fetchUrl = `${url}/${action.sequence_id}`
   return fetch(fetchUrl, {

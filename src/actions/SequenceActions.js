@@ -1,9 +1,10 @@
 import {
   UPDATE_SEQUENCE,
   FETCH_SEQUENCE,
+  FETCH_SEQUENCE_PDF,
   FETCH_SEQUENCES,
   CREATE_SEQUENCE,
-  DELETE_SEQUENCE 
+  DELETE_SEQUENCE,
 } from './types'
 
 // there's literally no reason these are in a different
@@ -12,6 +13,13 @@ import {
 export const fetchSequence = (sequence_id) => {
   return {
     type: FETCH_SEQUENCE,
+    sequence_id
+  }
+}
+
+export const fetchSequencePdf = (sequence_id) => {
+  return {
+    type: FETCH_SEQUENCE_PDF,
     sequence_id
   }
 }
