@@ -5,6 +5,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import GetAppIcon from '@material-ui/icons/GetApp'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
+import Alert from './Alert'
 import _ from 'lodash'
 import { saveAs } from 'file-saver'
 import autoScroll from 'dom-autoscroller'
@@ -29,8 +30,9 @@ class Canvas extends Component {
     this.state = {
       layout:  [],
       createModalOpen: false,
-      instance_id: null ,
-      pdfLoading: false
+      instance_id: null,
+      pdfLoading: false,
+      pdfError: null
     }
     this.dragContainers = []
     this.exportSequence = this.exportSequence.bind(this)
@@ -68,10 +70,13 @@ class Canvas extends Component {
 
   exportSequence() {
     const { sequence } = this.props
-    this.setState({ pdfLoading: true })
+    const fileName = `${sequence.name.toLowerCase().replace(' ', '_')}.pdf`
+    this.setState({ pdfLoading: true, pdfError: null })
     fetchPdfRequest(sequence).then((blob) => {
       this.setState({ pdfLoading: false })
-      saveAs(blob, `${sequence.name}.pdf`)
+      saveAs(blob, fileName)
+    }).catch((error) => {
+      this.setState({ pdfError: error.message, pdfLoading: false })
     })
 
   }
@@ -94,14 +99,14 @@ class Canvas extends Component {
   }
 
   render() {
-    const { editModalOpen, instance_id, pdfLoading } = this.state
+    const { editModalOpen, instance_id, pdfLoading, pdfError } = this.state
     return (
       <div className='sequence-grid-container' id='sequence'>
         <div className='sequence-header'>
           <div className='sequence-name'>{this.props.sequence.name}</div>
           <Tooltip title="Download as PDF">
-            <IconButton aria-label="Download PDF" color='secondary'>
-              <GetAppIcon onClick={this.exportSequence} />
+            <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
+              <GetAppIcon />
             </IconButton>
           </Tooltip>
         </div>
@@ -110,6 +115,7 @@ class Canvas extends Component {
             <LinearProgress color="secondary" />
           </div>
         </div>
+        <Alert message={ pdfError } severity='error' width={'70%'} />
         <SequenceGrid
           dragulaDecorator={this.dragulaDecorator}
           showCreateModal={() => this.setState({ createModalOpen: true })}
