@@ -1,82 +1,51 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 import { reduxForm, submit, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { createSequence } from '../actions'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
-class CreateSequence extends Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func,
-    createAsana: PropTypes.func,
-    login: PropTypes.shape({
-      requesting: PropTypes.bool,
-      successful: PropTypes.bool,
-      messages: PropTypes.array,
-      errors: PropTypes.array,
-    }),
+
+const useStyles = makeStyles(theme => ({
+  button: {
+    marginTop: '1em'
+  }
+}))
+
+const CreateSequence = (props) => {
+  const [name, setName] = useState('')
+  const classes = useStyles()
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    props.createSequence({ name })
+    props.onSubmit()
   }
 
-  submit = (values) => {
-    this.props.createSequence(values)
-    this.props.onCreate()
-  }
 
-  renderTextField = ({
-    input,
-    label,
-    meta: { touched, error },
-    ...custom
-  }) => (
-    <TextField
-      autoFocus
-      margin="dense"
-      id="name"
-      label={label}
-      fullWidth
-      {...input}
-      {...custom}
-    />
+  return (
+    <form className="create-sequence">
+      <TextField
+        autoFocus
+        margin="dense"
+        id="name"
+        label="Name"
+        fullWidth
+        onChange={(event) => setName(event.target.value)}
+        value={name}
+      />
+      <Button
+        className={classes.button}
+        type="submit"
+        onClick={handleSubmit}
+        variant='outlined'
+        color="primary"
+      >
+        Create
+      </Button>
+    </form>
   )
-
-  render () {
-    const {
-      handleSubmit,
-      sequence: {
-        requesting,
-        successful,
-        messages,
-        errors,
-      },
-    } = this.props
-
-    return (
-      <div className="create-sequence">
-        <form className="create-sequence-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-          <label htmlFor="name">Name</label>
-          <Field
-            name="name"
-            type="text"
-            id="name"
-            className="name"
-            component={this.renderTextField}
-          />
-          <Button type="submit">Create</Button>
-        </form>
-      </div>
-    )
-  }
 }
 
-const mapStateToProps = state => ({
-  sequence: state.sequence
-})
-
-const connected = connect(mapStateToProps, { createSequence })(CreateSequence)
-
-const formed = reduxForm({
-  form: 'login',
-})(connected)
-
-export default formed
+export default connect(null, { createSequence })(CreateSequence)

@@ -96,6 +96,7 @@ class Sequences extends Component {
           </ListItem>
          </List>
 
+         {/*Edit*/}
          <Dialog
           open={this.state.editModalOpen}
           onClose={() => this.setState({ editModalOpen: false })}
@@ -110,6 +111,7 @@ class Sequences extends Component {
           </DialogContent>
          </Dialog>
 
+         {/*Create*/}
          <Dialog
           open={this.state.modalOpen}
           onClose={() => this.setState({ modalOpen: false })}
@@ -117,10 +119,11 @@ class Sequences extends Component {
          >
           <DialogTitle id="form-dialog-title">New Sequence</DialogTitle>
           <DialogContent>
-           <CreateSequence onCreate={() => this.setState({ modalOpen: false })} />
+           <CreateSequence onSubmit={() => this.setState({ modalOpen: false })} />
           </DialogContent>
          </Dialog>
 
+         {/*Destroy*/}
          <Dialog
             open={deleteModalOpen}
             onClose={() => this.setState({ deleteModalOpen: false })}
