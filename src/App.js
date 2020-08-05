@@ -51,6 +51,9 @@ const App = () => {
         secondary: {
           main: '#C38D9B',
         },
+        warning: {
+          main: '#E27D60'
+        }
       }
     });
     const sagaMiddleware = createSagaMiddleware()

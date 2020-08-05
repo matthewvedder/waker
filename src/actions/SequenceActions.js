@@ -3,7 +3,7 @@ import {
   FETCH_SEQUENCE,
   FETCH_SEQUENCES,
   CREATE_SEQUENCE,
-  DELETE_SEQUENCE 
+  DELETE_SEQUENCE
 } from './types'
 
 // there's literally no reason these are in a different
@@ -36,10 +36,10 @@ export const deleteSequence = (id) => {
   }
 }
 
-export const updateSequence = (payload, sequence_id) => {
+export const updateSequence = (id, payload) => {
   return {
     type: UPDATE_SEQUENCE,
     payload,
-    sequence_id
+    id
   }
 }

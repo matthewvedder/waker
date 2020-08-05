@@ -12,8 +12,8 @@ import {
 
 const url = `${process.env.REACT_APP_API_URL}/sequences`
 function updateRequest(action) {
-  const { payload, sequence_id } = action
-  return fetch(`${url}/${sequence_id}`, {
+  const { payload, id } = action
+  return fetch(`${url}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -32,8 +32,7 @@ function updateRequest(action) {
 function* updateFlow(action) {
   try {
     const response = yield call(updateRequest, action)
-    yield put({ type: SET_SEQUENCE, payload: response })
-    // yield put({ type: LOGIN_SUCCESS })
+    yield put({ type: FETCH_SEQUENCES })
   } catch (error) {
     // error? send it to redux
     // yield put({ type: LOGIN_ERROR, error })

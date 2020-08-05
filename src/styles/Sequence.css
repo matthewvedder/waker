@@ -23,14 +23,3 @@
   justify-content: center;
   align-items: flex-end;
 }
-
-.export-icon {
-  margin-left: .5em;
-  margin-bottom: .3em;
-  color: darkgrey;
-}
-
-.export-icon:hover {
-  cursor: pointer;
-  color: #E27D60;
-}
