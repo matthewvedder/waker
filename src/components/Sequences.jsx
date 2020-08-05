@@ -90,7 +90,11 @@ class Sequences extends Component {
          <List component="nav">
           { this.mapSequences() }
           <ListItem>
-            <Button onClick={this.handleAddClick} variant="contained" color="primary" href="#contained-buttons">
+            <Button
+              onClick={this.handleAddClick}
+              variant="outlined"
+              color="primary"
+            >
               New Sequence
             </Button>
           </ListItem>
