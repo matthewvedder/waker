@@ -5,6 +5,11 @@ import CreateSequence from './CreateSequence'
 import EditSequence from './EditSequence'
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -86,10 +91,12 @@ class Sequences extends Component {
   render() {
     const { id, deleteModalOpen, sequence } = this.state
     return (
-      <div className="sequences-container">
-         <List component="nav">
-          { this.mapSequences() }
-          <ListItem>
+      <Container>
+        <Paper className="sequences-container" square>
+          <div className="sequences-header">
+            <Typography variant="h5">
+              Your Sequences
+            </Typography>
             <Button
               onClick={this.handleAddClick}
               variant="outlined"
@@ -97,54 +104,67 @@ class Sequences extends Component {
             >
               New Sequence
             </Button>
-          </ListItem>
-         </List>
-
-         {/*Edit*/}
-         <Dialog
-          open={this.state.editModalOpen}
-          onClose={() => this.setState({ editModalOpen: false })}
-          aria-labelledby="form-dialog-title"
-         >
-          <DialogTitle id="form-dialog-title">Edit Sequence</DialogTitle>
-          <DialogContent>
-           <EditSequence
-             onSubmit={() => this.setState({ editModalOpen: false })}
-             sequence={sequence}
-           />
-          </DialogContent>
-         </Dialog>
-
-         {/*Create*/}
-         <Dialog
-          open={this.state.modalOpen}
-          onClose={() => this.setState({ modalOpen: false })}
-          aria-labelledby="form-dialog-title"
-         >
-          <DialogTitle id="form-dialog-title">New Sequence</DialogTitle>
-          <DialogContent>
-           <CreateSequence onSubmit={() => this.setState({ modalOpen: false })} />
-          </DialogContent>
-         </Dialog>
-
-         {/*Destroy*/}
-         <Dialog
-            open={deleteModalOpen}
-            onClose={() => this.setState({ deleteModalOpen: false })}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">Are you sure you want to delete this?</DialogTitle>
-            <DialogActions>
-              <Button onClick={() => this.setState({ deleteModalOpen: false })} color="primary">
-                Nevermind
+          </div>
+          <Divider />
+           <List component="nav">
+            { this.mapSequences() }
+            {/*<ListItem>
+              <Button
+                onClick={this.handleAddClick}
+                variant="outlined"
+                color="primary"
+              >
+                New Sequence
               </Button>
-              <Button onClick={() => this.handleConfirmDeleteClick(id)} color="primary" autoFocus>
-                Yes
-              </Button>
-            </DialogActions>
-          </Dialog>
-       </div>
+            </ListItem>*/}
+           </List>
+
+           {/*Edit*/}
+           <Dialog
+            open={this.state.editModalOpen}
+            onClose={() => this.setState({ editModalOpen: false })}
+            aria-labelledby="form-dialog-title"
+           >
+            <DialogTitle id="form-dialog-title">Edit Sequence</DialogTitle>
+            <DialogContent>
+             <EditSequence
+               onSubmit={() => this.setState({ editModalOpen: false })}
+               sequence={sequence}
+             />
+            </DialogContent>
+           </Dialog>
+
+           {/*Create*/}
+           <Dialog
+            open={this.state.modalOpen}
+            onClose={() => this.setState({ modalOpen: false })}
+            aria-labelledby="form-dialog-title"
+           >
+            <DialogTitle id="form-dialog-title">New Sequence</DialogTitle>
+            <DialogContent>
+             <CreateSequence onSubmit={() => this.setState({ modalOpen: false })} />
+            </DialogContent>
+           </Dialog>
+
+           {/*Destroy*/}
+           <Dialog
+              open={deleteModalOpen}
+              onClose={() => this.setState({ deleteModalOpen: false })}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">Are you sure you want to delete this?</DialogTitle>
+              <DialogActions>
+                <Button onClick={() => this.setState({ deleteModalOpen: false })} color="primary">
+                  Nevermind
+                </Button>
+                <Button onClick={() => this.handleConfirmDeleteClick(id)} color="primary" autoFocus>
+                  Yes
+                </Button>
+              </DialogActions>
+            </Dialog>
+         </Paper>
+        </Container>
     )
   }
 }

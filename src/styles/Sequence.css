@@ -1,5 +1,6 @@
 .sequence-grid {
   display: flex;
+  flex-basis: 100px;
   height: 100%;
   flex-wrap: wrap;
   overflow-y: visible;

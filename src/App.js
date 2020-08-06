@@ -23,6 +23,7 @@ import RootSaga from './sagas'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from "react-dnd";
 import './styles/App.css'
+import 'fontsource-roboto'
 
 
 const useStyles = makeStyles(theme => ({

@@ -13,6 +13,7 @@
     "connected-react-router": "^6.0.0",
     "dom-autoscroller": "^2.3.4",
     "file-saver": "^2.0.2",
+    "fontsource-roboto": "^3.0.3",
     "html2canvas": "^1.0.0-rc.3",
     "lodash": "^4.17.11",
     "material-ui": "^0.20.2",
