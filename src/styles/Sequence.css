@@ -8,10 +8,18 @@
   padding-right: 2em;
 }
 
+.sequence {
+  display: flex;
+  justify-content: center;
+}
+
 .sequence-grid-container {
   height: 100%;
-  width: 100%;
+  width: 90%;
   margin-top: 2em;
+  margin-bottom: 2em;
+  align-self: center;
+  padding-top: 2em;
 }
 
 .sequence-name {

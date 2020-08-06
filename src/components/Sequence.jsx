@@ -4,6 +4,8 @@ import Dragula from 'react-dragula'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GetAppIcon from '@material-ui/icons/GetApp'
 import IconButton from '@material-ui/core/IconButton'
+import Paper from '@material-ui/core/Paper'
+import Container from '@material-ui/core/Container'
 import Tooltip from '@material-ui/core/Tooltip'
 import Alert from './Alert'
 import _ from 'lodash'
@@ -101,30 +103,32 @@ class Canvas extends Component {
   render() {
     const { editModalOpen, instance_id, pdfLoading, pdfError } = this.state
     return (
-      <div className='sequence-grid-container' id='sequence'>
-        <div className='sequence-header'>
-          <div className='sequence-name'>{this.props.sequence.name}</div>
-          <Tooltip title="Download as PDF">
-            <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
-              <GetAppIcon />
-            </IconButton>
-          </Tooltip>
-        </div>
-        <div style={{ display: pdfLoading ? 'flex' : 'none', justifyContent: 'center' }}>
-          <div style={{ width: '70%' }}>
-            <LinearProgress color="secondary" />
+      <div className='sequence'>
+        <Paper className='sequence-grid-container' id='sequence' square>
+          <div className='sequence-header'>
+            <div className='sequence-name'>{this.props.sequence.name}</div>
+            <Tooltip title="Download as PDF">
+              <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
+                <GetAppIcon />
+              </IconButton>
+            </Tooltip>
           </div>
-        </div>
-        <Alert message={ pdfError } severity='error' width={'70%'} />
-        <SequenceGrid
-          dragulaDecorator={this.dragulaDecorator}
-          showCreateModal={() => this.setState({ createModalOpen: true })}
-        />
-        <CreateInstance
-          visible={this.state.createModalOpen}
-          onClose={() => this.setState({ createModalOpen: false })}
-          sequenceId={this.id()}
-        />
+          <div style={{ display: pdfLoading ? 'flex' : 'none', justifyContent: 'center' }}>
+            <div style={{ width: '70%' }}>
+              <LinearProgress color="secondary" />
+            </div>
+          </div>
+          <Alert message={ pdfError } severity='error' width={'70%'} />
+          <SequenceGrid
+            dragulaDecorator={this.dragulaDecorator}
+            showCreateModal={() => this.setState({ createModalOpen: true })}
+          />
+          <CreateInstance
+            visible={this.state.createModalOpen}
+            onClose={() => this.setState({ createModalOpen: false })}
+            sequenceId={this.id()}
+          />
+        </Paper>
       </div>
     )
   }
