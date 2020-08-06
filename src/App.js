@@ -13,7 +13,7 @@ import Sequence from './components/Sequence'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Sequences from './components/Sequences'
-import Sidebar from './components/Sidebar'
+import AppBar from './components/AppBar'
 import CreateAsana from './components/CreateAsana'
 import AsanaIndex from './components/AsanaIndex'
 import EditAsana from './components/EditAsana'
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   root: {
       display: 'flex',
       height: '100%',
-      flexDirection: 'row',
+      flexDirection: 'column',
     },
   }),
 );
@@ -68,7 +68,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <ConnectedRouter history={history}>
             <Paper className={classes.root}>
-              <Sidebar />
+              <AppBar />
               <div className='main'>
                 <PrivateRoute path="/" exact component={Sequences} />
                 <PrivateRoute path="/asanas/new" component={CreateAsana} />
