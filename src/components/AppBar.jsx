@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
-
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,6 +19,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
+import { logOut, isAuthenticated } from '../lib/Auth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +51,10 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
-  const auth = true
+  const handleLogoutClick = () => {
+    handleClose()
+    logOut()
+  }
 
   return (
     <div className={classes.root}>
@@ -58,7 +63,7 @@ export default function MenuAppBar() {
           <Typography variant="h6" className={classes.title}>
             Sequence Bananza
           </Typography>
-          {auth && (
+          {isAuthenticated() && (
             <div>
               <Link to='/sequences' className={classes.navLink}>
                 <IconButton
@@ -94,7 +99,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+                <MenuItem onClick={handleLogoutClick}>Sign Out</MenuItem>
               </Menu>
             </div>
           )}
