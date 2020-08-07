@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Thumbnail from './Thumbnail'
 import InstanceNotesEdit from './InstanceNotesEdit'
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
@@ -12,13 +13,29 @@ const useStyles = makeStyles((theme) => {
     name: {
       color: theme.palette.primary.main,
       paddingLeft: '.5em'
+    },
+    notes: {
+      margin: '1em',
+      marginLeft: '.5em',
+      paddingRight: '.1em',
+      height: '5em',
+      overflowY: 'scroll'
     }
   }
 })
 
-const AsanaInstanceDrag = ({ image, asana, onDelete, handleEditClick, id }) => {
+const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id }) => {
   const [hovering, setHovering] = useState(false);
   const classes = useStyles()
+
+  const InstanceNotes = () => (
+    <div className={classes.notes}>
+      <Typography color='textSecondary' variant='body2'>
+        { asanaInstance.notes }
+      </Typography>
+    </div>
+  )
+  console.log(canEdit)
 
   return (
     <div id={id} className='asana-instance-drag'>
@@ -32,17 +49,24 @@ const AsanaInstanceDrag = ({ image, asana, onDelete, handleEditClick, id }) => {
         </div>
         <div className='instance-drag-info'>
           <div className={classes.name}>
-            { asana.asana.name }
+            { asanaInstance.asana.name }
           </div>
-          <InstanceNotesEdit notes={asana.notes} id={id} />
+          { canEdit && (
+            <InstanceNotesEdit notes={asanaInstance.notes} id={id} />
+          )}
+          { (!canEdit) && (
+            <InstanceNotes />
+          )}
         </div>
         <div className='instance-drag-icons'>
-          <FontAwesomeIcon
-            className='instance-drag-trash instance-drag-icon'
-            icon={faTrash}
-            onClick={onDelete}
-            style={{ display: hovering ? 'inherit' : 'none' }}
-          />
+          { canEdit && (
+            <FontAwesomeIcon
+              className='instance-drag-trash instance-drag-icon'
+              icon={faTrash}
+              onClick={onDelete}
+              style={{ display: hovering ? 'inherit' : 'none' }}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -9,10 +9,5 @@
   font-size: .85em;
   width: 15em;
   height: 7.3em;
-}
-
-.instance-drag-notes:hover {
-  border-color: lightgrey;
-  border-style: solid;
-  border-width: medium;
+  overflow-y: scroll;
 }

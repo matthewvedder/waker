@@ -108,15 +108,6 @@ class Sequences extends Component {
           <Divider />
            <List component="nav">
             { this.mapSequences() }
-            {/*<ListItem>
-              <Button
-                onClick={this.handleAddClick}
-                variant="outlined"
-                color="primary"
-              >
-                New Sequence
-              </Button>
-            </ListItem>*/}
            </List>
 
            {/*Edit*/}

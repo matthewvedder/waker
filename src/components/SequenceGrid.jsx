@@ -49,7 +49,7 @@ class SequenceGrid extends Component {
 
 
   mapInstances() {
-    const { instances, asanas, showCreateModal } = this.props
+    const { instances, asanas, showCreateModal, canEdit } = this.props
     const elements = instances.map((instance) => {
       const asana = asanas.find(a => a.id === instance.asana_id )
       const thumbnail = asana ? asana.thumbnail : ''
@@ -57,15 +57,19 @@ class SequenceGrid extends Component {
         <AsanaInstanceDrag
           id={instance.id}
           key={instance.id}
-          asana={instance}
+          asanaInstance={instance}
           onDelete={() => this.props.deleteAsanaInstance(instance.id)}
           image={thumbnail}
-          handleEditClick={ () => this.setState({ editModalOpen: true, instance_id: instance.id }) }
+          canEdit={this.props.canEdit}
         />
       )
     })
 
-    return [...elements, <AddThumbnail key='add-thumbnail' onClick={showCreateModal} />]
+    if (canEdit) {
+      return [...elements, <AddThumbnail key='add-thumbnail' onClick={showCreateModal} />]
+    } else {
+      return elements
+    }
   }
 
 

@@ -50,6 +50,7 @@ class Canvas extends Component {
   componentDidMount () {
     const drake = Dragula(this.dragContainers, {
       moves: (el, source, handle, sibling) => {
+        if (!this.props.sequence.can_edit) return false
         return el.id !== 'add-thumbnail'
       },
       accepts: function (el, target, source, sibling) {
@@ -122,6 +123,7 @@ class Canvas extends Component {
           <SequenceGrid
             dragulaDecorator={this.dragulaDecorator}
             showCreateModal={() => this.setState({ createModalOpen: true })}
+            canEdit={this.props.sequence.can_edit}
           />
           <CreateInstance
             visible={this.state.createModalOpen}
