@@ -60,7 +60,12 @@ class Selector extends Component {
   render() {
     const { visible, onClose } = this.props
     return (
-      <Dialog maxWidth="lg" onClose={onClose} aria-labelledby="simple-dialog-title" open={visible}>
+      <Dialog
+        maxWidth="lg"
+        onClose={onClose}
+        aria-labelledby="simple-dialog-title"
+        open={visible}
+      >
         <DialogTitle id="simple-dialog-title">Add Asana</DialogTitle>
         <DialogContent>
         <TextField

@@ -9,6 +9,10 @@
   height: 55vh;
 }
 
+.instance-create-asanas > :last-child {
+  margin-bottom: 10em;
+}
+
 .create-instance-container {
   display: flex;
   justify-content: center;
