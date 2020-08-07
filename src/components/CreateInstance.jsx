@@ -73,9 +73,11 @@ class Selector extends Component {
           type="search"
         />
         </DialogContent>
-        <div className='instance-create-asanas'>
-          { this.mapAsanas() }
-        </div>
+          <div className='create-instance-container'>
+            <div className='instance-create-asanas'>
+              { this.mapAsanas() }
+            </div>
+          </div>
        </Dialog>
     )
   }

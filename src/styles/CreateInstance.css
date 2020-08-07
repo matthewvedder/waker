@@ -1,13 +1,17 @@
 .instance-create-asanas {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: flex-start;
   margin: 2em;
   margin-bottom: 5em;
   padding: 2em;
   width: 70vw;
   height: 55vh;
+}
+
+.create-instance-container {
+  display: flex;
+  justify-content: center;
 }
 
 .instance-create-thumbnail {
