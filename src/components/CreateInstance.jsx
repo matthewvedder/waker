@@ -59,7 +59,7 @@ class Selector extends Component {
   }
 
   render() {
-    const { visible, onClose } = this.props
+    const { visible, onClose, tags } = this.props
     return (
       <Dialog
         maxWidth="lg"
@@ -79,7 +79,7 @@ class Selector extends Component {
               label="Search"
               type="search"
             />
-            <TagFilter />
+            <TagFilter tags={tags} />
           </div>
         </DialogContent>
           <div className='create-instance-container'>
@@ -92,6 +92,9 @@ class Selector extends Component {
   }
 }
 
-const mapStateToProps = state => ({ asanas: state.asanas.asanas })
+const mapStateToProps = state => ({
+  asanas: state.asanas.asanas,
+  tags: state.asanas.tags
+})
 
 export default connect(mapStateToProps, { createAsanaInstance, fetchAsanas })(Selector)
