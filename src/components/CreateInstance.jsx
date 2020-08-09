@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Thumbnail from './Thumbnail'
 import { withStyles } from '@material-ui/core/styles';
+import TagFilter from './TagFilter'
 import '../styles/CreateInstance.css'
 
 class Selector extends Component {
@@ -68,15 +69,18 @@ class Selector extends Component {
       >
         <DialogTitle id="simple-dialog-title">Add Asana</DialogTitle>
         <DialogContent>
-        <TextField
-          autoFocus
-          onChange={this.handleSearch}
-          maxWidth="md"
-          margin="dense"
-          id="name"
-          label="Search"
-          type="search"
-        />
+          <div className='asana-filters'>
+            <TextField
+              autoFocus
+              onChange={this.handleSearch}
+              maxWidth="md"
+              margin="dense"
+              id="name"
+              label="Search"
+              type="search"
+            />
+            <TagFilter />
+          </div>
         </DialogContent>
           <div className='create-instance-container'>
             <div className='instance-create-asanas'>
