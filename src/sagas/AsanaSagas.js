@@ -8,7 +8,9 @@ import {
   FETCH_ASANA,
   SET_ASANAS,
   SET_ASANA,
-  EDIT_ASANA
+  EDIT_ASANA,
+  FETCH_TAGS,
+  SET_TAGS
 } from '../actions/types'
 
 const url = `${process.env.REACT_APP_API_URL}/asanas`
@@ -102,6 +104,28 @@ function* indexFlow (action) {
     const payload = yield call(indexApi)
     yield put({ type: ASANA_SUCCESS })
     yield put({ type: SET_ASANAS, payload })
+    yield put({ type: FETCH_TAGS })
+  } catch (error) {
+    console.warn(error)
+    yield put({ type: ASANA_ERROR, error })
+  }
+}
+
+function fetchTagsApi (payload) {
+  const endpoint = `${process.env.REACT_APP_API_URL}/asana-tags`
+  return fetch(endpoint, {
+    method: 'GET'
+  })
+    .then(handleApiErrors)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
+function* fetchTagsFlow (action) {
+  try {
+    const payload = yield call(fetchTagsApi)
+    yield put({ type: SET_TAGS, payload })
 
   } catch (error) {
     console.warn(error)
@@ -114,4 +138,5 @@ export function* watchAsanas() {
   yield takeLatest(FETCH_ASANAS, indexFlow)
   yield takeLatest(FETCH_ASANA, getFlow)
   yield takeLatest(EDIT_ASANA, editFlow)
+  yield takeLatest(FETCH_TAGS, fetchTagsFlow)
 }

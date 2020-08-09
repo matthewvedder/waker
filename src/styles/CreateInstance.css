@@ -23,3 +23,9 @@
   width: 10em;
   margin: 2em;
 }
+
+.asana-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
