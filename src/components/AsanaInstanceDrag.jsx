@@ -35,7 +35,6 @@ const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id }) => {
       </Typography>
     </div>
   )
-  console.log(canEdit)
 
   return (
     <div id={id} className='asana-instance-drag'>

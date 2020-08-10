@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -9,13 +9,14 @@ import _ from "lodash"
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxesTags({ tags }) {
-  const _tags = _.cloneDeep(tags)
+export default function CheckboxesTags({ tags, handleChange }) {
+  const [tagsState, setTagsState] = useState(_.cloneDeep(tags))
   return (
     <Autocomplete
       multiple
       id="tag-filter"
-      options={_tags}
+      options={tagsState}
+      onChange={(event, newValue) => handleChange(event, newValue)}
       disableCloseOnSelect
       getOptionLabel={(option) => option.name}
       renderOption={(option, { selected }) => (

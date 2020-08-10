@@ -61,7 +61,7 @@ export default function MenuAppBar() {
       <AppBar position="static" elevation={1} color="default">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Sequence Bananza
+            Waker
           </Typography>
           {isAuthenticated() && (
             <div>

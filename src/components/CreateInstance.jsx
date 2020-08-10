@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { createAsanaInstance, fetchAsanas } from '../actions'
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import TextField from '@material-ui/core/TextField';
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
+import TextField from '@material-ui/core/TextField'
 import Thumbnail from './Thumbnail'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import TagFilter from './TagFilter'
 import '../styles/CreateInstance.css'
 
@@ -17,6 +18,7 @@ class Selector extends Component {
     this.mapAsanas = this.mapAsanas.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.addToSequence = this.addToSequence.bind(this)
+    this.filterAsanas = this.filterAsanas.bind(this)
   }
 
   componentWillMount() {
@@ -58,6 +60,20 @@ class Selector extends Component {
     })
   }
 
+  filterAsanas(event, tags) {
+    if (_.isEmpty(tags)) {
+      this.setState({ filteredAsanas: this.props.asanas })
+      return
+    }
+
+    const tag_names = tags.map(tag => tag.name)
+    const filteredAsanas = this.props.asanas.filter(asana => {
+      return asana.tag_list.some(tag => tag_names.includes(tag))
+    })
+
+    this.setState({ filteredAsanas })
+  }
+
   render() {
     const { visible, onClose, tags } = this.props
     return (
@@ -79,7 +95,7 @@ class Selector extends Component {
               label="Search"
               type="search"
             />
-            <TagFilter tags={tags} />
+            <TagFilter tags={tags} handleChange={this.filterAsanas} />
           </div>
         </DialogContent>
           <div className='create-instance-container'>
