@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { createAsanaInstance, fetchAsanas } from '../actions'
+import fuzzysort from 'fuzzysort'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Dialog from '@material-ui/core/Dialog'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -35,10 +36,22 @@ class Selector extends Component {
   }
 
   handleSearch(event) {
-    const search = event.target.value.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
-    const searchedAsanas = this.props.asanas.filter((asana) => {
-      return !asana.name.search(new RegExp(search, 'i'))
-    })
+    const { value } = event.target
+    const { asanas } = this.props
+    
+    if (_.isEmpty(value)) {
+      this.setState({ searchedAsanas: asanas })
+      return
+    }
+
+    const options = {
+      limit: 30, // don't return more results than you need!
+      threshold: -10000, // don't return bad results
+      key: 'name'
+    }
+
+    const results = fuzzysort.go(value, asanas, options)
+    const searchedAsanas = results.map(result => result.obj)
     this.setState({ searchedAsanas })
   }
 
