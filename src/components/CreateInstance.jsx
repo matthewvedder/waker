@@ -14,7 +14,7 @@ import '../styles/CreateInstance.css'
 class Selector extends Component {
   constructor(props) {
     super(props)
-    this.state = { filteredAsanas: [] }
+    this.state = { filteredAsanas: [], searchedAsanas: [] }
     this.mapAsanas = this.mapAsanas.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.addToSequence = this.addToSequence.bind(this)
@@ -26,7 +26,7 @@ class Selector extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ filteredAsanas: nextProps.asanas })
+    this.setState({ filteredAsanas: nextProps.asanas, searchedAsanas: nextProps.asanas })
   }
 
   sequenceId() {
@@ -36,28 +36,10 @@ class Selector extends Component {
 
   handleSearch(event) {
     const search = event.target.value.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
-    const filteredAsanas = this.props.asanas.filter((asana) => {
+    const searchedAsanas = this.props.asanas.filter((asana) => {
       return !asana.name.search(new RegExp(search, 'i'))
     })
-    this.setState({ filteredAsanas })
-  }
-
-  addToSequence(asana_id) {
-    const { onClose, sequenceId } = this.props
-    this.props.createAsanaInstance(asana_id, sequenceId)
-    onClose()
-  }
-
-  mapAsanas() {
-    const { filteredAsanas } = this.state
-    return filteredAsanas.map((asana, index) => {
-      return (
-        <div className='instance-create-thumbnail' onClick={() => this.addToSequence(asana.id)}>
-          <div><Thumbnail img={asana.thumbnail}/></div>
-          <div className='instance-create-name'>{asana.name}</div>
-        </div>
-      )
-    })
+    this.setState({ searchedAsanas })
   }
 
   filterAsanas(event, tags) {
@@ -72,6 +54,25 @@ class Selector extends Component {
     })
 
     this.setState({ filteredAsanas })
+  }
+
+  addToSequence(asana_id) {
+    const { onClose, sequenceId } = this.props
+    this.props.createAsanaInstance(asana_id, sequenceId)
+    onClose()
+  }
+
+  mapAsanas() {
+    const { filteredAsanas, searchedAsanas } = this.state
+    const asanas = filteredAsanas.filter(value => searchedAsanas.includes(value))
+    return asanas.map((asana, index) => {
+      return (
+        <div className='instance-create-thumbnail' onClick={() => this.addToSequence(asana.id)}>
+          <div><Thumbnail img={asana.thumbnail}/></div>
+          <div className='instance-create-name'>{asana.name}</div>
+        </div>
+      )
+    })
   }
 
   render() {
