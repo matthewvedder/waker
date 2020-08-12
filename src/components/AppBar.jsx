@@ -13,12 +13,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { logOut, isAuthenticated } from '../lib/Auth'
 
@@ -65,15 +67,29 @@ export default function MenuAppBar() {
           </Typography>
           {isAuthenticated() && (
             <div>
+              <Link to='/feed' className={classes.navLink}>
+                <Tooltip title="Explore Sequences">
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <ExploreIcon />
+                  </IconButton>
+                </Tooltip>
+              </Link>
               <Link to='/sequences' className={classes.navLink}>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <ViewListIcon />
-                </IconButton>
+                <Tooltip title="Your Sequences">
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    color="inherit"
+                  >
+                    <ViewListIcon />
+                  </IconButton>
+                </Tooltip>
               </Link>
               <IconButton
                 aria-label="account of current user"

@@ -13,6 +13,7 @@ import Sequence from './components/Sequence'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Sequences from './components/Sequences'
+import Feed from './components/Feed'
 import AppBar from './components/AppBar'
 import CreateAsana from './components/CreateAsana'
 import AsanaIndex from './components/AsanaIndex'
@@ -76,6 +77,7 @@ const App = () => {
                 <PrivateRoute path="/asanas" exact component={AsanaIndex} />
                 <PrivateRoute path="/asanas/:id/edit" component={EditAsana} />
                 <PrivateRoute path="/sequences" exact component={Sequences} />
+                <PrivateRoute path="/feed" exact component={Feed} />
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
                 <Route path="/yoga-sutra" component={YogaSutra} />
                 <Route path="/login" component={Login} />

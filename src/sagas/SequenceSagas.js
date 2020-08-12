@@ -82,8 +82,9 @@ function* fetchFlow(action) {
   }
 }
 
-function indexRequest() {
-  return fetch(url, {
+export function indexRequest(options={}) {
+  const params = options.feed ? '?feed=true' : ''
+  return fetch(`${url}${params}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -98,12 +99,11 @@ function indexRequest() {
 
 function* indexFlow(email, password) {
   try {
+    yield put({ type: SET_SEQUENCE, payload: { loading: true }})
     const response = yield call(indexRequest)
-    yield put({ type: SET_SEQUENCE, payload: { sequences: response }})
-    // yield put({ type: LOGIN_SUCCESS })
+    yield put({ type: SET_SEQUENCE, payload: { sequences: response, loading: false }})
   } catch (error) {
-    // error? send it to redux
-    // yield put({ type: LOGIN_ERROR, error })
+
   }
 }
 
