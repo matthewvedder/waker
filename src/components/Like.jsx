@@ -11,9 +11,11 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center'
+  },
+  numLikes: {
+    width: '1em',
+    marginLeft: '.15em'
   }
 })
 
@@ -48,11 +50,16 @@ const Like = ({ like_by_current_user, likes, onClick }) => {
       <IconButton edge="end" aria-label="delete" onClick={handleLikeClick}>
         <LikeIcon isActive={isActive} classes={classes} />
       </IconButton>
-      <Typography variant="caption" style={{ display: numLikes > 0 ? 'flex' : 'none' }}>
-        {numLikes} {pluralize('likes', numLikes)}
+      <Typography
+        variant="caption"
+        className={classes.numLikes}
+      >
+        {numLikes || ''}
       </Typography>
     </div>
   )
 }
 
 export default Like
+
+// {pluralize('likes', numLikes)}

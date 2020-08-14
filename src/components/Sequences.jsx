@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSequences, deleteSequence } from '../actions'
+import { toggleLike } from '../services/LikeService'
 import CreateSequence from './CreateSequence'
 import EditSequence from './EditSequence'
 import moment from 'moment'
@@ -22,7 +23,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { useTheme } from "@material-ui/core/styles";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Like from './Like'
 import '../styles/sequences.css'
 
 class Sequences extends Component {
@@ -64,9 +66,15 @@ class Sequences extends Component {
     this.setState({ deleteModalOpen: false })
   }
 
+  handleLikeClick(sequence) {
+    toggleLike(sequence.like_by_current_user, sequence.id).then(
+      fetchSequences
+    )
+  }
+
   mapSequences() {
     return this.props.sequences.map((sequence) => {
-      const { id, name, level, created_at } = sequence
+      const { id, name, level, created_at, likes } = sequence
 
       return (
           <ListItem
@@ -76,6 +84,13 @@ class Sequences extends Component {
             onClick={ () => this.handleSequenceClick(id) }
           >
             <ListItemText primary={name}  secondary={moment(created_at).format('MMMM Do YYYY')} />
+            <div
+              className='list-like-container'
+              style={{ display: likes && likes.length > 0 ? 'flex' : 'none' }}
+            >
+              <FavoriteIcon />
+              <Typography variant="caption">{likes && likes.length}</Typography>
+            </div>
             <ListItemSecondaryAction>
                <IconButton edge="end" aria-label="delete" onClick={() => this.handleEditClick(sequence)}>
                  <EditIcon style={{ color: '#C38D9B' }} />
@@ -83,7 +98,7 @@ class Sequences extends Component {
                <IconButton edge="end" aria-label="delete" onClick={() => this.handleDeleteClick(id)}>
                  <DeleteIcon style={{ color: '#E27D60' }} />
                </IconButton>
-             </ListItemSecondaryAction>
+            </ListItemSecondaryAction>
           </ListItem>
       )
     })
