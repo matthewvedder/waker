@@ -5,7 +5,8 @@ import { toggleLike } from '../services/LikeService'
 import CreateSequence from './CreateSequence'
 import EditSequence from './EditSequence'
 import moment from 'moment'
-import { makeStyles } from '@material-ui/core/styles';
+import _ from 'lodash'
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -25,8 +26,21 @@ import Avatar from '@material-ui/core/Avatar';
 import Like from './Like'
 import '../styles/sequences.css'
 
+
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    // color: theme.palette.getContrastText(theme.palette.secondary.main),
+    // backgroundColor: (theme.palette[color].main),
+  }
+}))
+
+
 const Sequences = (props) => {
   const [sequences, setSequences] = useState([])
+  const classes = useStyles()
+  const theme = useTheme()
+  const colors = ['primary', 'secondary', 'error', 'warning', 'info']
+
 
   useEffect(() => {
     fetchSequences()
@@ -52,13 +66,19 @@ const Sequences = (props) => {
       const { id, name, level, created_at, like_by_current_user, likes, user: { username} } = sequence
       const avatarText = username ? username[0] : null
       const secondaryText = `${username} - ${moment(sequence.created_at).fromNow()}`
+      const color =_.sample(colors)
+      console.log(theme, color)
+      const avatarStyle = {
+        color: theme.palette.getContrastText(theme.palette.secondary.main),
+        backgroundColor: (theme.palette[color].main),
+      }
       return (
           <ListItem
             button
             onClick={ () => handleSequenceClick(id) }
           >
             <ListItemAvatar>
-              <Avatar alt={username}>{ avatarText }</Avatar>
+              <Avatar style={avatarStyle} className={classes.avatar} alt={username}>{ avatarText }</Avatar>
             </ListItemAvatar>
             <ListItemText primary={name}  secondary={secondaryText} />
             <ListItemSecondaryAction>

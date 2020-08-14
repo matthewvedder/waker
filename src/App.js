@@ -58,8 +58,14 @@ const App = () => {
         secondary: {
           main: '#C38D9B',
         },
-        warning: {
+        error: {
           main: '#E27D60'
+        },
+        info: {
+          main: '#7EC3B0'
+        },
+        warning: {
+          main: '#E8A87C'
         }
       },
       typography: {
