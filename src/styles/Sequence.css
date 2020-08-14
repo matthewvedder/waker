@@ -24,7 +24,7 @@
 
 .sequence-name {
   text-align: center;
-  font-size: 2.2em;
+  align-self: center;
 }
 
 .sequence-header {

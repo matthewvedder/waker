@@ -47,9 +47,9 @@ const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id }) => {
           <Thumbnail img={image}/>
         </div>
         <div className='instance-drag-info'>
-          <div className={classes.name}>
+          <Typography className={classes.name}>
             { asanaInstance.asana.name }
-          </div>
+          </Typography>
           { canEdit && (
             <InstanceNotesEdit notes={asanaInstance.notes} id={id} />
           )}

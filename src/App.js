@@ -23,8 +23,12 @@ import RootReducer from './reducers'
 import RootSaga from './sagas'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from "react-dnd";
+import createTypography from 'material-ui/styles/typography';
 import './styles/App.css'
 import 'fontsource-roboto'
+import "fontsource-montserrat"
+import "fontsource-playfair-display"
+import "fontsource-open-sans"
 
 
 const useStyles = makeStyles(theme => ({
@@ -56,6 +60,36 @@ const App = () => {
         },
         warning: {
           main: '#E27D60'
+        }
+      },
+      typography: {
+        fontFamily: 'open sans',
+        h1: {
+          fontFamily: 'montserrat',
+        },
+        h2: {
+          fontFamily: 'montserrat',
+        },
+        h3: {
+          fontFamily: 'montserrat',
+        },
+        h4: {
+          fontFamily: 'montserrat',
+        },
+        h5: {
+          fontFamily: 'montserrat',
+        },
+        h6: {
+          fontFamily: 'montserrat',
+        },
+        subtitle1: {
+          fontFamily: 'montserrat',
+        },
+        subtitle2: {
+          fontFamily: 'montserrat',
+        },
+        button: {
+          fontFamily: 'montserrat'
         }
       }
     });

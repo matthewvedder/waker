@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 import Container from '@material-ui/core/Container'
 import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography';
 import Alert from './Alert'
 import _ from 'lodash'
 import { saveAs } from 'file-saver'
@@ -107,7 +108,7 @@ class Canvas extends Component {
       <div className='sequence'>
         <Paper className='sequence-grid-container' id='sequence' square>
           <div className='sequence-header'>
-            <div className='sequence-name'>{this.props.sequence.name}</div>
+            <Typography variant="h5" className='sequence-name'>{this.props.sequence.name}</Typography>
             <Tooltip title="Download as PDF">
               <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
                 <GetAppIcon />
