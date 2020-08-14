@@ -60,7 +60,7 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" elevation={1} color="default">
+      <AppBar position="static" elevation={1} color="trasnparent">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Waker
