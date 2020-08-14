@@ -38,7 +38,7 @@ class Selector extends Component {
   handleSearch(event) {
     const { value } = event.target
     const { asanas } = this.props
-    
+
     if (_.isEmpty(value)) {
       this.setState({ searchedAsanas: asanas })
       return
@@ -63,7 +63,7 @@ class Selector extends Component {
 
     const tag_names = tags.map(tag => tag.name)
     const filteredAsanas = this.props.asanas.filter(asana => {
-      return asana.tag_list.some(tag => tag_names.includes(tag))
+      return tag_names.every(tag => asana.tag_list.includes(tag))
     })
 
     this.setState({ filteredAsanas })
