@@ -16,7 +16,7 @@
     "fontsource-roboto": "^3.0.3",
     "fuzzysort": "^1.1.4",
     "html2canvas": "^1.0.0-rc.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "material-ui": "^0.20.2",
     "moment": "^2.24.0",
     "pluralize": "^8.0.0",
