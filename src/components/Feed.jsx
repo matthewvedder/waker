@@ -63,11 +63,10 @@ const Sequences = (props) => {
 
   const mapSequences = () => {
     return sequences.map((sequence) => {
-      const { id, name, level, created_at, like_by_current_user, likes, user: { username} } = sequence
+      const { id, name, level, created_at, like_by_current_user, likes, user: { username}, user_id } = sequence
       const avatarText = username ? username[0] : null
       const secondaryText = `${username} - ${moment(sequence.created_at).fromNow()}`
-      const color =_.sample(colors)
-      console.log(theme, color)
+      const color = colors[user_id % colors.length]
       const avatarStyle = {
         color: theme.palette.getContrastText(theme.palette.secondary.main),
         backgroundColor: (theme.palette[color].main),
