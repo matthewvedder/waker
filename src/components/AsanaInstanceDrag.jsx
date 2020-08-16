@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => {
   return {
     name: {
       color: theme.palette.primary.main,
-      paddingLeft: '.5em'
+      paddingLeft: '.5em',
+      marginTop: '-1em'
     },
     notes: {
       margin: '1em',

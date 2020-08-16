@@ -4,9 +4,13 @@ import '../styles/Thumbnail.css'
 
 class Thumbnail extends Component {
   render() {
-    return (
-      <img crossorigin="anonymous" className='thumbnail-img' src={this.props.img}/>
-    )
+    if (this.props.img) {
+      return (
+        <img crossorigin="anonymous" className='thumbnail-img' src={this.props.img}/>
+      )
+    } else {
+      return <div className='thumbnail-img'/>
+    }
   }
 }
 
