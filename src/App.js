@@ -110,7 +110,7 @@ const App = () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ConnectedRouter history={history}>
-            <Paper className={classes.root}>
+            <Paper className={classes.root} square>
               <AppBar />
               <div className='main'>
                 <PrivateRoute path="/" exact component={Sequences} />
