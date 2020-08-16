@@ -59,9 +59,9 @@ class Canvas extends Component {
       },
     })
 
-    var scroll = autoScroll(this.dragContainers, {
+    var scroll = autoScroll([document.getElementsByClassName("main")[0]], {
       margin: 20,
-      maxSpeed: 20,
+      maxSpeed: 40,
       scrollWhenOutside: true,
       autoScroll: function(){
           //Only scroll when the pointer is down, and there is a child being dragged.

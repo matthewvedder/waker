@@ -32,3 +32,7 @@
   justify-content: center;
   align-items: flex-end;
 }
+
+.gu-mirror {
+  pointer-events: none;
+}
