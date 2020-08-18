@@ -35,7 +35,7 @@ class SequenceGrid extends Component {
   componentWillMount() {
     this.props.fetchSequence(this.id())
     this.props.fetchAsanaInstances(this.id())
-    this.props.fetchAsanas()
+    // this.props.fetchAsanas()
   }
 
   componentWillReceiveProps(nextProps) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Dragula from 'react-dragula'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GetAppIcon from '@material-ui/icons/GetApp'
+import PublicIcon from '@material-ui/icons/Public'
 import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 import Container from '@material-ui/core/Container'
@@ -21,7 +22,8 @@ import {
   updateSequence,
   fetchSequence,
   setAsanaInstanceState,
-  deleteAsanaInstance
+  deleteAsanaInstance,
+  resetSequence
 } from '../actions'
 import { fetchPdfRequest } from '../sagas/SequenceSagas'
 
@@ -35,17 +37,14 @@ class Canvas extends Component {
       createModalOpen: false,
       instance_id: null,
       pdfLoading: false,
-      pdfError: null
+      pdfError: null,
+      published: null
     }
     this.dragContainers = []
     this.exportSequence = this.exportSequence.bind(this)
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
-  }
-
-  componentWillMount() {
-    this.props.fetchSequence(this.id())
-    this.props.fetchAsanaInstances(this.id())
+    this.publish = this.publish.bind(this)
   }
 
   componentDidMount () {
@@ -72,6 +71,17 @@ class Canvas extends Component {
     drake.on('drop', () => this.handleLayoutChange())
   }
 
+  componentDidUpdate() {
+    const published = this.props.sequence.public
+    if (published && this.state.published === null) {
+      this.setState({ published })
+    }
+  }
+
+  componentWillUnmount () {
+    this.props.resetSequence()
+  }
+
   exportSequence() {
     const { sequence } = this.props
     const fileName = `${sequence.name.toLowerCase().replace(' ', '_')}.pdf`
@@ -85,10 +95,16 @@ class Canvas extends Component {
 
   }
 
+  publish() {
+    const published = !this.state.published
+    this.props.updateSequence(this.id(), { public: published })
+    this.setState({ published })
+  }
+
   handleLayoutChange() {
     const elements = document.getElementsByClassName('asana-instance-drag')
     const ids = _.uniq(Array.from(elements).map(el => el.id))
-    this.props.updateSequence({ layout: ids }, this.id())
+    this.props.updateSequence(this.id(), { layout: ids })
   }
 
   id() {
@@ -103,15 +119,29 @@ class Canvas extends Component {
   }
 
   render() {
-    const { editModalOpen, instance_id, pdfLoading, pdfError } = this.state
+    const { instance_id, pdfLoading, pdfError, published } = this.state
+    const { sequence } = this.props
+    const publishColor = published ? 'secondary' : 'none'
+    const publishTooltip = published ? 'Unpublish this Sequence' : 'Publish this Sequence'
+    const editableDisplay = sequence.can_edit ? 'flex' : 'none'
     return (
       <div className='sequence'>
         <Paper className='sequence-grid-container' id='sequence' square>
-          <div className='sequence-header'>
-            <Typography variant="h5" className='sequence-name'>{this.props.sequence.name}</Typography>
+          <div className='sequence-header' style={{ display: sequence ? 'flex' : 'none' }}>
+            <Typography variant="h5" className='sequence-name'>{sequence.name}</Typography>
             <Tooltip title="Download as PDF">
               <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
                 <GetAppIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={publishTooltip}>
+              <IconButton
+                aria-label="Publish"
+                color={publishColor}
+                onClick={this.publish}
+                style={{ display: editableDisplay }}
+              >
+                <PublicIcon />
               </IconButton>
             </Tooltip>
           </div>
@@ -124,7 +154,7 @@ class Canvas extends Component {
           <SequenceGrid
             dragulaDecorator={this.dragulaDecorator}
             showCreateModal={() => this.setState({ createModalOpen: true })}
-            canEdit={this.props.sequence.can_edit}
+            canEdit={sequence.can_edit}
           />
           <CreateInstance
             visible={this.state.createModalOpen}
@@ -149,5 +179,12 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchAsanaInstances, updateSequence, fetchSequence, setAsanaInstanceState, deleteAsanaInstance }
+  {
+    fetchAsanaInstances,
+    updateSequence,
+    fetchSequence,
+    setAsanaInstanceState,
+    deleteAsanaInstance,
+    resetSequence
+  }
 )(Canvas)

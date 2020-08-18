@@ -1,4 +1,4 @@
-import { SET_SEQUENCE } from '../actions/types'
+import { SET_SEQUENCE, RESET_SEQUENCE } from '../actions/types'
 
 const initialSate = {
   layout: [],
@@ -9,6 +9,8 @@ const reducer = function sequenceReducer(state = initialSate, action) {
   switch (action.type) {
     case SET_SEQUENCE:
       return { ...state, ...action.payload }
+    case RESET_SEQUENCE:
+      return { ...initialSate, sequences: state.sequences }
 
     default:
       return state
