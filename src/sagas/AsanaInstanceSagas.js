@@ -1,5 +1,6 @@
 import { takeLatest, takeEvery, call, put, select } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
+import { authHeaders, setAuth } from '../lib/Auth'
 import {
   CREATE_ASANA_INSTANCE,
   FETCH_ASANA_INSTANCES,
@@ -13,16 +14,14 @@ function createRequest(action) {
   const { asana_id, sequence_id } = action
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     body: JSON.stringify({
       asana_id,
       sequence_id
     })
   })
     .then(handleApiErrors)
+    .then(response => setAuth(response))
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -43,12 +42,10 @@ function fetchRequest(action) {
   const fetchUrl = `${url}?sequence_id=${action.sequence_id}`
   return fetch(fetchUrl, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(response => setAuth(response))
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -69,13 +66,11 @@ function updateRequest(action) {
   const updateUrl = `${url}/${action.instance_id}`
   return fetch(updateUrl, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     body: JSON.stringify(action.payload)
   })
     .then(handleApiErrors)
+    .then(response => setAuth(response))
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -101,12 +96,10 @@ function* updateFlow(action) {
 function deleteRequest(action) {
   return fetch(`${url}/${action.id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(response => setAuth(response))
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })

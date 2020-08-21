@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import Messages from './Messages'
@@ -91,7 +92,7 @@ const Signup = (props) => {
     <div className={classes.container}>
       {/* Use the Submit handler with our own submit handler*/}
       <form className={classes.form} onSubmit={handleSubmit(submit)}>
-        <h1>Signup</h1>
+        <Typography variant="h4">Create Account</Typography>
         <Field
           name="email"
           type="text"
@@ -116,7 +117,7 @@ const Signup = (props) => {
           label="Password Confirmation"
           component={renderTextField}
         />
-        <Button variant="contained" color="primary" type="submit">SIGNUP</Button>
+        <Button variant="contained" color="primary" type="submit">Create Account</Button>
       </form>
       <div className="auth-messages">
         {

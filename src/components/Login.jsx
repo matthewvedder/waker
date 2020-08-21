@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 import Messages from './Messages'
 import Errors from './Errors'
@@ -35,46 +37,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-const renderTextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    label={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-)
-// If you were testing, you'd want to export this component
-// so that you can test your custom made component and not
-// test whether or not Redux and Redux Form are doing their jobs
 const Login = (props) => {
-  // Pass the correct proptypes in for validation
-  const propTypes = {
-    handleSubmit: PropTypes.func,
-    loginRequest: PropTypes.func,
-    login: PropTypes.shape({
-      requesting: PropTypes.bool,
-      successful: PropTypes.bool,
-      messages: PropTypes.array,
-      errors: PropTypes.array,
-    }),
-  }
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  // Remember, Redux Form passes the form values to our handler
-  // In this case it will be an object with `email` and `password`
-  const submit = (values) => {
-    props.loginRequest(values)
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    props.loginRequest({ email, password })
   }
 
     const {
-      handleSubmit, // remember, Redux Form injects this into our props
       login: {
         requesting,
         successful,
@@ -87,29 +59,29 @@ const Login = (props) => {
 
     return (
       <div className={classes.container}>
-        <form className={classes.form} onSubmit={handleSubmit(submit)}>
-          <h1>LOGIN</h1>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <Typography variant="h4">Log In</Typography >
           {/*
             Our Redux Form Field components that bind email and password
             to our Redux state's form -> login piece of state.
           */}
-          <Field
+          <TextField
             name="email"
             type="text"
             id="email"
             label="Email"
             className="email"
-            component={renderTextField}
+            onChange={(event) => setEmail(event.target.value)}
           />
-          <Field
+          <TextField
             name="password"
             type="password"
             label="Password"
             id="password"
             className="password"
-            component={renderTextField}
+            onChange={(event) => setPassword(event.target.value)}
           />
-          <Button type="submit" variant="contained" color="primary">LOGIN</Button>
+          <Button type="submit" variant="contained" color="primary">Log In</Button>
         </form>
         <div className="auth-messages">
           {/* As in the signup, we're just using the message and error helpers */}
@@ -138,11 +110,4 @@ const mapStateToProps = state => ({
 
 // make Redux state piece of `login` and our action `loginRequest`
 // available in props within our component
-const connected = connect(mapStateToProps, { loginRequest })(Login)
-
-// in our Redux's state, this form will be available in 'form.login'
-const formed = reduxForm({
-  form: 'login',
-})(connected)
-
-export default formed
+export default connect(mapStateToProps, { loginRequest })(Login)

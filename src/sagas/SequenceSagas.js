@@ -1,5 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { handleApiErrors } from '../lib/api-errors'
+import { authHeaders, setAuth } from '../lib/Auth'
 import history from '../History'
 import {
   UPDATE_SEQUENCE,
@@ -15,15 +16,13 @@ function updateRequest(action) {
   const { payload, id } = action
   return fetch(`${url}/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     body: JSON.stringify({
       ...payload
     })
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -43,13 +42,11 @@ export function fetchPdfRequest(sequence) {
   const fetchUrl = `${url}/${sequence.id}/pdf`
   return fetch(fetchUrl, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/pdf',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     responseType: 'blob'
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.blob())
     .then(blob => blob)
     .catch((error) => { throw error })
@@ -59,12 +56,10 @@ function fetchRequest(action) {
   const fetchUrl = `${url}/${action.sequence_id}`
   return fetch(fetchUrl, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -86,12 +81,10 @@ export function indexRequest(options={}) {
   const params = options.feed ? '?feed=true' : ''
   return fetch(`${url}${params}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -110,15 +103,13 @@ function* indexFlow(email, password) {
 function createRequest(payload) {
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     body: JSON.stringify({
       ...payload
     })
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -137,12 +128,10 @@ function* createFlow(action) {
 function destroyRequest(id) {
   return fetch(`${url}/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })

@@ -1,19 +1,18 @@
 import { handleApiErrors } from '../lib/api-errors'
+import { authHeaders, setAuth } from '../lib/Auth'
 
 const url = `${process.env.REACT_APP_API_URL}/likes`
 
 function createRequest(payload) {
   return fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    },
+    headers: authHeaders(),
     body: JSON.stringify({
       ...payload
     })
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })
@@ -22,12 +21,10 @@ function createRequest(payload) {
 function destroyRequest(id) {
   return fetch(`${url}/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem("token")}`
-    }
+    headers: authHeaders()
   })
     .then(handleApiErrors)
+    .then(setAuth)
     .then(response => response.json())
     .then(json => json)
     .catch((error) => { throw error })

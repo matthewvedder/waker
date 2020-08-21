@@ -121,8 +121,8 @@ const App = () => {
                 <PrivateRoute path="/feed" exact component={Feed} />
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
                 <Route path="/yoga-sutra" component={YogaSutra} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={SignUp} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/signup" exact component={SignUp} />
               </div>
             </Paper>
           </ConnectedRouter>

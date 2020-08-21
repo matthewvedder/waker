@@ -1,22 +1,22 @@
 import { CLIENT_SET, CLIENT_UNSET } from '../actions/types'
 
 const initialSate = {
-  id: null,
-  token: null,
+  user: {},
+  auth: {},
 }
 
 const reducer = function clientReducer (state = initialSate, action) {
   switch (action.type) {
     case CLIENT_SET:
       return {
-        id: action.token.userId,
-        token: action.token,
+        user: action.user,
+        auth: action.auth,
       }
 
     case CLIENT_UNSET:
       return {
-        id: null,
-        token: null,
+        user: {},
+        auth: {},
       }
 
     default:
