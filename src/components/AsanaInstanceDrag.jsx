@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => {
       marginLeft: '.5em',
       paddingRight: '.1em',
       height: '5em',
-      overflowY: 'scroll'
+      overflowY: 'scroll',
+      wordWrap: 'break-word',
+      width: 200
     }
   }
 })
