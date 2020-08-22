@@ -40,11 +40,14 @@ const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id }) => {
   )
 
   return (
-    <div id={id} className='asana-instance-drag'>
+    <div
+      id={id}
+      className='asana-instance-drag'
+      onMouseEnter={() => setHovering(true) }
+      onMouseLeave={() => setHovering(false) }
+    >
       <div
         className='instance'
-        onMouseEnter={() => setHovering(true) }
-        onMouseLeave={() => setHovering(false) }
       >
         <div className='instance-image-drag'>
           <Thumbnail img={image}/>

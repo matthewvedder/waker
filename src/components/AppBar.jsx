@@ -21,6 +21,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
+import logo from '../images/logo.png'
 
 import { logOut, isAuthenticated } from '../lib/Auth'
 
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flex: 1,
     width: '100vw'
+  },
+  toolbar: {
+        justifyContent: 'space-between'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -60,11 +64,9 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" elevation={1} color="trasnparent">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Waker
-          </Typography>
+      <AppBar position="static" elevation={1} color="transparent">
+        <Toolbar className={classes.toolbar}>
+          <img src={logo} height={40} />
           {isAuthenticated() && (
             <div>
               <Link to='/feed' className={classes.navLink}>
