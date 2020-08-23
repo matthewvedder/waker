@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => {
 const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id, zIndex }) => {
   const [hovering, setHovering] = useState(false);
   const classes = useStyles()
+  const cursor = canEdit ? 'pointer' : 'inherit'
 
   const InstanceNotes = () => (
     <div className={classes.notes}>
@@ -43,7 +44,7 @@ const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id, zIndex
     <div
       id={id}
       className='asana-instance-drag'
-      style={{ zIndex }}
+      style={{ zIndex, cursor }}
       onMouseEnter={() => setHovering(true) }
       onMouseLeave={() => setHovering(false) }
     >
