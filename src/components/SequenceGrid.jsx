@@ -50,11 +50,12 @@ class SequenceGrid extends Component {
 
   mapInstances() {
     const { instances, asanas, showCreateModal, canEdit } = this.props
-    const elements = instances.map((instance) => {
+    const elements = instances.map((instance, index) => {
       const asana = asanas.find(a => a.id === instance.asana_id )
       const thumbnail = asana ? asana.thumbnail : ''
       return (
         <AsanaInstanceDrag
+          zIndex={instances.length - index}
           id={instance.id}
           key={instance.id}
           asanaInstance={instance}
