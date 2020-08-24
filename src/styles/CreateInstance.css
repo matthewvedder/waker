@@ -1,21 +1,28 @@
 .instance-create-asanas {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   margin: 2em;
   margin-bottom: 5em;
   padding: 2em;
-  width: 70vw;
-  height: 55vh;
+  width: 80vw;
+  min-height: 55vh;
 }
 
-.instance-create-asanas > :last-child {
-  margin-bottom: 10em;
+.filling-empty-space-childs {
+  height: 10em;
+  height:0;
 }
+
+/* .instance-create-asanas > :last-child {
+  margin-bottom: 10em;
+} */
 
 .create-instance-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .instance-create-thumbnail {

@@ -111,12 +111,12 @@ class Selector extends Component {
             />
             <TagFilter tags={tags} handleChange={this.filterAsanas} />
           </div>
-        </DialogContent>
           <div className='create-instance-container'>
             <div className='instance-create-asanas'>
               { this.mapAsanas() }
             </div>
           </div>
+        </DialogContent>
        </Dialog>
     )
   }
