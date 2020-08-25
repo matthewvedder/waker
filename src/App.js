@@ -36,22 +36,30 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       height: '100%',
       flexDirection: 'column',
-      background: '#404040'
+      // background: '#404040'
     },
   }),
 );
 
+
 const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(
+  RootReducer(history),
+  composeSetup(applyMiddleware(sagaMiddleware, routerMiddleware(history))), // allows redux devtools to watch sagas
+)
+sagaMiddleware.run(RootSaga)
 
 const App = () => {
-
     const classes = useStyles()
+    const initialUiMode = localStorage.getItem('uiMode') || 'dark'
+    const [uiMode, setUiMode] = React.useState(initialUiMode)
 
     const theme = createMuiTheme({
       palette: {
-        type: 'dark',
+        type: uiMode,
         primary: {
           main: '#41b3a3',
         },
@@ -99,19 +107,18 @@ const App = () => {
         }
       }
     });
-    const sagaMiddleware = createSagaMiddleware()
-    const store = createStore(
-      RootReducer(history),
-      composeSetup(applyMiddleware(sagaMiddleware, routerMiddleware(history))), // allows redux devtools to watch sagas
-    )
-    sagaMiddleware.run(RootSaga)
+
+    const handleUiModeClick = (value) => {
+      localStorage.setItem('uiMode', value)
+      setUiMode(value)
+    }
 
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ConnectedRouter history={history}>
             <Paper className={classes.root} square>
-              <AppBar />
+              <AppBar handleUiModeClick={handleUiModeClick} uiMode={uiMode} />
               <div className='main'>
                 <PrivateRoute path="/" exact component={Sequences} />
                 <PrivateRoute path="/asanas/new" component={CreateAsana} />
