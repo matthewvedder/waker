@@ -73,8 +73,9 @@ export default function MenuAppBar(props) {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             color="inherit"
+            onClick={() => props.handleUiModeClick('dark')}
           >
-            <WbSunny onClick={() => props.handleUiModeClick('dark')} />
+            <WbSunny />
           </IconButton>
         </Tooltip>
       )
@@ -86,8 +87,9 @@ export default function MenuAppBar(props) {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             color="inherit"
+            onClick={() => props.handleUiModeClick('light')}
           >
-            <Brightness3 onClick={() => props.handleUiModeClick('light')} />
+            <Brightness3 />
           </IconButton>
         </Tooltip>
       )

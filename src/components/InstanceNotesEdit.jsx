@@ -18,6 +18,9 @@ return ({
   textField: {
     borderColor: theme.palette.background.paper,
   },
+  textFieldHovering: {
+    borderColor: theme.palette.text.primary
+  }
 })});
 
 const InstanceNotesEdit = ((props) => {
@@ -32,7 +35,7 @@ const InstanceNotesEdit = ((props) => {
         className={classes.root}
         InputProps={{
           classes: {
-            notchedOutline: classes.textField,
+            notchedOutline: props.hovering ? classes.textFieldHovering : classes.textField,
           }
         }}
         rowsMax={4}
