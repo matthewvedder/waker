@@ -15,6 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExploreIcon from '@material-ui/icons/Explore';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Brightness3 from '@material-ui/icons/Brightness3';
+import WbSunny from '@material-ui/icons/WbSunny';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -60,6 +62,38 @@ export default function MenuAppBar() {
   const handleLogoutClick = () => {
     handleClose()
     logOut()
+  }
+
+  const BrightnessIcon = () => {
+    if (props.uiMode === 'light') {
+      return (
+        <Tooltip title="Set to dark mode">
+          <IconButton
+            aria-label="light mode"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+            onClick={() => props.handleUiModeClick('dark')}
+          >
+            <WbSunny />
+          </IconButton>
+        </Tooltip>
+      )
+    } else if (props.uiMode === 'dark') {
+      return (
+        <Tooltip title="Set to light mode">
+          <IconButton
+            aria-label='dark mode'
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit"
+            onClick={() => props.handleUiModeClick('light')}
+          >
+            <Brightness3 />
+          </IconButton>
+        </Tooltip>
+      )
+    }
   }
 
   return (
@@ -93,6 +127,7 @@ export default function MenuAppBar() {
                   </IconButton>
                 </Tooltip>
               </Link>
+              <BrightnessIcon />
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

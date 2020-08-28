@@ -59,7 +59,7 @@ const AsanaInstanceDrag = ({ image, asanaInstance, onDelete, canEdit, id, zIndex
             { asanaInstance.asana.name }
           </Typography>
           { canEdit && (
-            <InstanceNotesEdit notes={asanaInstance.notes} id={id} />
+            <InstanceNotesEdit notes={asanaInstance.notes} id={id} hovering={hovering} />
           )}
           { (!canEdit) && (
             <InstanceNotes />
