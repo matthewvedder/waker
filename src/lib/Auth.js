@@ -25,6 +25,10 @@ export const setAuth = (response) => {
   return response
 }
 
+export const currentUser = () => {
+  return JSON.parse(localStorage.user)
+}
+
 export const getAuth = (response) => {
   const accessToken = response.headers.get('access-token')
   const client = response.headers.get('client')
@@ -35,5 +39,6 @@ export const getAuth = (response) => {
 
 export const logOut = () => {
   localStorage.removeItem('auth')
+  localStorage.removeItem('user')
   window.location = window.location.pathname
 }

@@ -10,7 +10,10 @@
 
 .sequence {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 10em;
 }
 
 .sequence-grid-container {
@@ -35,4 +38,8 @@
 
 .gu-mirror {
   pointer-events: none;
+}
+
+.comments-container {
+  width: 90%;
 }

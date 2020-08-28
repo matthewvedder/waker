@@ -1,16 +1,25 @@
-import React, { Component } from 'react'
-import iyengar from '../images/bks1.jpg'
-import '../styles/Avatar.css'
+import React from 'react'
+import { useTheme } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
 
-class Avatar extends Component {
-  render() {
-    return (
-      <div className='avatar'>
-        <img className='avatar-image' src={iyengar}/>
-        <div>B.K.S. Iyengar</div>
-      </div>
-    )
+
+export default (props) => {
+  const { user: { username, id } } = props
+  const theme = useTheme()
+  const colors = ['primary', 'secondary', 'error', 'warning', 'info']
+  const color = colors[id % colors.length]
+  const avatarStyle = {
+    color: theme.palette.getContrastText(theme.palette.secondary.main),
+    backgroundColor: (theme.palette[color].main),
   }
-}
+  const avatarText = username ? username[0] : null
 
-export default Avatar
+  return (
+    <Avatar
+      style={avatarStyle}
+      alt={username}
+    >
+      { avatarText }
+    </Avatar>
+  )
+}

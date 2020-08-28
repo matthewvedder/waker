@@ -16,6 +16,7 @@ import autoScroll from 'dom-autoscroller'
 import SequenceGrid from './SequenceGrid'
 import InstanceEditModal from './InstanceEditModal'
 import CreateInstance from './CreateInstance'
+import Comments from './Comments'
 import '../styles/Sequence.css'
 import {
   fetchAsanaInstances,
@@ -26,6 +27,7 @@ import {
   resetSequence
 } from '../actions'
 import { fetchPdfRequest } from '../sagas/SequenceSagas'
+import { createComment, destroyComment } from '../services/CommentService'
 
 const NUM_COLUMNS = 6
 
@@ -162,6 +164,9 @@ class Canvas extends Component {
             sequenceId={this.id()}
           />
         </Paper>
+        <div className='comments-container'>
+          <Comments apiArgs={{ sequence_id: this.id() }} />
+        </div>
       </div>
     )
   }

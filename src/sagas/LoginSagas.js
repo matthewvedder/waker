@@ -45,7 +45,9 @@ function* loginFlow (email, password) {
     const response = yield call(loginApi, email, password)
     const auth = getAuth(response)
     setAuth(response)
-    yield put(setClient(auth, response.json().data))
+    response.json().then(result => {
+      localStorage.setItem('user', JSON.stringify(result.data))
+    })
     yield put({ type: LOGIN_SUCCESS })
     yield put(push('/'))
   } catch (error) {

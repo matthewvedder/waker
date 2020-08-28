@@ -21,7 +21,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Tooltip from '@material-ui/core/Tooltip';
-import logo from '../images/logo.png'
+import logo from '../images/logo3.png'
 
 import { logOut, isAuthenticated } from '../lib/Auth'
 
