@@ -67,10 +67,10 @@ const Signup = (props) => {
   }
 
   useEffect(() => {
-    if (successful) {
+    if (props.signup.successful) {
       props.loginRequest({ email: props.email, password: props.password })
     }
-  });
+  }, [props.signup]);
 
   const submit = (values) => {
     props.signupRequest(values)
