@@ -104,6 +104,16 @@ const Signup = (props) => {
           className="email"
           label="Email"
           component={renderTextField}
+          required
+        />
+        <Field
+          name="username"
+          type="text"
+          id="username"
+          className="username"
+          label="Username"
+          component={renderTextField}
+          required
         />
         <Field
           name="password"
@@ -112,6 +122,7 @@ const Signup = (props) => {
           className="password"
           label="Password"
           component={renderTextField}
+          required
         />
         <Field
           name="password_confirmation"
@@ -120,6 +131,7 @@ const Signup = (props) => {
           className="password"
           label="Password Confirmation"
           component={renderTextField}
+          required
         />
         <Button variant="contained" color="primary" type="submit">Create Account</Button>
       </form>

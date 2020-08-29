@@ -46,7 +46,6 @@ export const updateSequence = (id, payload) => {
 }
 
 export const resetSequence = () => {
-  console.log('reset')
   return {
     type: RESET_SEQUENCE
   }

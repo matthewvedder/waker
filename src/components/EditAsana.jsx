@@ -1,117 +1,114 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import Messages from './Messages'
 import Errors from './Errors'
-import ImageEditor from './ImageEditor'
-import { editAsana, fetchAsana } from '../actions'
-import '../styles/CreateAsana.css'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles'
+import { editAsana } from '../actions'
+import { fetchAsana } from '../sagas/AsanaSagas'
 
-class CreateAsana extends Component {
-  // Pass the correct proptypes in for validation
-  static propTypes = {
-    handleSubmit: PropTypes.func,
-    editAsana: PropTypes.func,
-    login: PropTypes.shape({
-      requesting: PropTypes.bool,
-      successful: PropTypes.bool,
-      messages: PropTypes.array,
-      errors: PropTypes.array,
-    }),
-  }
 
-  componentWillMount() {
-    this.props.fetchAsana(this.asanaId())
-  }
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: '7em',
+  },
+  paper: {
+    padding: '2em'
+  },
+  form: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+    width: '50ch',
+    // backgroundColor: 'blue',
+    display: 'flex',
+    flexDirection: 'column',
 
-  componentWillReceiveProps (nextProps) {
-    if (!_.isEqual(this.props.asanas.asana, nextProps.asanas.asana)) {
-      console.log(nextProps.asanas.asana)
-      const { name, description, level, image } = nextProps.asanas.asana
-      this.props.destroy()
-      this.props.initialize({ name, level, description, image })
-    }
-  }
+    [theme.breakpoints.down('sm')]: {
+      width: '80%',
+      marginTop: '5em',
+    },
+    link: { color: 'grey' },
+  },
+}));
 
-  asanaId() {
+const EditAsana = (props) => {
+  const [name, setName] = useState('')
+  const [fileName, setFileName] = useState('')
+  const [description, setDescription] = useState('')
+
+  const classes = useStyles()
+
+  useEffect(() => {
+    fetchAsana(asanaId()).then(result => {
+      setName(result.name)
+      setFileName(result.file_name)
+      setDescription(result.description)
+    })
+  }, [])
+
+  const asanaId = () => {
     return window.location.href.split('/')[4]
   }
 
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `email` and `password`
-  submit = (values) => {
-    const image = this.editor.getImageScaledToCanvas().toDataURL()
-    this.props.editAsana(this.asanaId(), { ...values, image })
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    props.editAsana(asanaId(), { name, description, file_name: fileName })
   }
 
-  setEditorRef = editor => {
-    if (editor) this.editor = editor
-  }
-
-  render () {
-    const {
-      handleSubmit, // remember, Redux Form injects this into our props
-      asanas: {
-        requesting,
-        successful,
-        messages,
-        errors,
-        asana
-      },
-    } = this.props
-
-    return (
-      <div className="create-asana">
-        <ImageEditor initialImage={asana.image} setEditorRef={this.setEditorRef}/>
-        <form className="create-asana-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-          <h1>Edit Asana</h1>
-          <label htmlFor="name">Name</label>
-          <Field
+  return (
+    <Container className={classes.container} >
+      <Paper className={classes.paper} square>
+        <Typography variant='h5'>Edit Asana</Typography>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
             name="name"
             type="text"
             id="name"
+            label="Name"
             className="name"
-            component="input"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
-          <label htmlFor="level">Level</label>
-          <Field
-            name="level"
+          <TextField
+            name="fileName"
             type="text"
-            id="level"
-            className="level"
-            component="select"
-          >
-            <option></option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </Field>
-          <label htmlFor="description">Description</label>
-          <Field
+            id="fileName"
+            label="File Name"
+            className="fileName"
+            value={fileName}
+            onChange={(event) => setFileName(event.target.value)}
+          />
+          <TextField
             name="description"
             type="text"
             id="description"
+            label="Description"
             className="description"
-            component="textarea"
+            value={description}
+            multiline
+            onChange={(event) => setDescription(event.target.value)}
           />
-          <button action="submit">Save</button>
+          <Button variant="contained" color="primary" type="submit">Save</Button>
         </form>
-      </div>
-    )
-  }
+      </Paper>
+    </Container>
+  )
 }
 
 const mapStateToProps = state => ({
   asanas: state.asanas
 })
 
-const connected = connect(mapStateToProps, { editAsana, fetchAsana })(CreateAsana)
-
-// in our Redux's state, this form will be available in 'form.asana-edit'
-const formed = reduxForm({
-  form: 'asana-edit',
-})(connected)
-
-export default formed
+export default connect(mapStateToProps, { editAsana })(EditAsana)

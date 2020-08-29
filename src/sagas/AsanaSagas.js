@@ -40,7 +40,7 @@ function* createFlow (action) {
   }
 }
 
-function getApi (id) {
+export function fetchAsana(id) {
   return fetch(`${url}/${id}`, {
     method: 'GET'
   })
@@ -52,7 +52,7 @@ function getApi (id) {
 
 function* getFlow (action) {
   try {
-    const payload = yield call(getApi, action.asanaId)
+    const payload = yield call(fetchAsana, action.asanaId)
     yield put({ type: ASANA_SUCCESS })
     yield put({ type: SET_ASANA, payload })
 

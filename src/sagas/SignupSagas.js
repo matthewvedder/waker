@@ -8,28 +8,27 @@ import {
 
 const signupUrl = `${process.env.REACT_APP_API_URL}/users`
 
-function signupApi (email, password, password_confirmation) {
+function signupApi(email, username, password, password_confirmation) {
   return fetch(signupUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password, password_confirmation }),
+    body: JSON.stringify({ email, username, password, password_confirmation }),
   })
-    .then(response => response.json())
-    .then(json => json)
+    .then(response => response.json().then(data => ({ response, data })))
 }
 
 
 function* signupFlow (action) {
   try {
-    const { email, password, password_confirmation } = action
-    const response = yield call(signupApi, email, password, password_confirmation)
+    const { email, username, password, password_confirmation } = action
+    const { response, data } = yield call(signupApi, email, username, password, password_confirmation)
+    console.log(response, response.ok, data)
     if (response.ok) {
-      yield put({ type: SIGNUP_SUCCESS, response })
+      yield put({ type: SIGNUP_SUCCESS, response: data })
     } else {
-      console.log(response)
-      yield put({ type: SIGNUP_ERROR, error: mapErrorMessages(response) })
+      yield put({ type: SIGNUP_ERROR, error: mapErrorMessages(data) })
     }
   } catch (error) {
     yield put({ type: SIGNUP_ERROR, error })
