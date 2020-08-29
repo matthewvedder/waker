@@ -1,27 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import Alert from './Alert'
 
-// Iterate over each error object and print them
-// in an unordered list
 const Errors = (props) => {
   const { errors } = props
   return (
     <div>
-      <ul>
-        {errors.map(errors => (
-          <li key={errors.time}>{errors.body}</li>
+        {errors.map((error, index) => (
+          <Alert
+            key={index}
+            message={error}
+            severity='error'
+            style={{ width: '50ch' }}
+          />
         ))}
-      </ul>
     </div>
   )
-}
-
-Errors.propTypes = {
-  errors: PropTypes.arrayOf(
-      PropTypes.shape({
-        body: PropTypes.string,
-        time: PropTypes.date,
-      })),
 }
 
 export default Errors

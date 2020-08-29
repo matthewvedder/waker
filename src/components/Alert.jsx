@@ -16,6 +16,7 @@ export default function Alert(props) {
       '& > * + *': {
         marginTop: theme.spacing(2),
       },
+      ...props.style
     },
   }));
 

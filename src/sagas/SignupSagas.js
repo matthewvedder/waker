@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { handleApiErrors } from '../lib/api-errors'
+import { handleApiErrors, mapErrorMessages } from '../lib/api-errors'
 import {
   SIGNUP_REQUESTING,
   SIGNUP_SUCCESS,
@@ -16,17 +16,21 @@ function signupApi (email, password, password_confirmation) {
     },
     body: JSON.stringify({ email, password, password_confirmation }),
   })
-    .then(handleApiErrors)
     .then(response => response.json())
     .then(json => json)
-    .catch((error) => { throw error })
 }
+
 
 function* signupFlow (action) {
   try {
     const { email, password, password_confirmation } = action
     const response = yield call(signupApi, email, password, password_confirmation)
-    yield put({ type: SIGNUP_SUCCESS, response })
+    if (response.ok) {
+      yield put({ type: SIGNUP_SUCCESS, response })
+    } else {
+      console.log(response)
+      yield put({ type: SIGNUP_ERROR, error: mapErrorMessages(response) })
+    }
   } catch (error) {
     yield put({ type: SIGNUP_ERROR, error })
   }

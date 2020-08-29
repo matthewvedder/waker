@@ -40,11 +40,9 @@ const reducer = function signupReducer (state = initialState, action) {
     // more detailed, but we'll just stick with
     // the base message for now
     case SIGNUP_ERROR:
+       console.log(action.error)
       return {
-        errors: state.errors.concat([{
-          body: action.error.toString(),
-          time: new Date(),
-        }]),
+        errors: action.error,
         messages: [],
         requesting: false,
         successful: false,
