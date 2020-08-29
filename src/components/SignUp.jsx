@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    // backgroundColor: 'red',
+  },
+  authMessages: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   form: {
     '& > *': {
@@ -119,7 +123,7 @@ const Signup = (props) => {
         />
         <Button variant="contained" color="primary" type="submit">Create Account</Button>
       </form>
-      <div className="auth-messages">
+      <div className={classes.authMessages}>
         {
           /*
           These are all nothing more than helpers that will show up

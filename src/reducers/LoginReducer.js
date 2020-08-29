@@ -35,10 +35,7 @@ const reducer = function loginReducer (state = initialState, action) {
     // set the success and requesting flags to false
     case LOGIN_ERROR:
       return {
-        errors: state.errors.concat([{
-          body: action.error.toString(),
-          time: new Date(),
-        }]),
+        errors: [action.error.toString()],
         messages: [],
         requesting: false,
         successful: false,

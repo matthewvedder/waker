@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     // backgroundColor: 'red',
   },
+  authMessages: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
   form: {
     '& > *': {
       margin: theme.spacing(1),
@@ -83,7 +88,7 @@ const Login = (props) => {
           />
           <Button type="submit" variant="contained" color="primary">Log In</Button>
         </form>
-        <div className="auth-messages">
+        <div className={classes.authMessages}>
           {/* As in the signup, we're just using the message and error helpers */}
           {!requesting && !!errors.length && (
             <Errors message="Failure to login due to:" errors={errors} />
@@ -91,7 +96,6 @@ const Login = (props) => {
           {!requesting && !!messages.length && (
             <Messages messages={messages} />
           )}
-          {requesting && <div>Logging in...</div>}
           {!requesting && !successful && (
             <Link to="/signup">
               <span style={{ color: useTheme().palette.text.primary }}>
@@ -99,6 +103,7 @@ const Login = (props) => {
               </span>
             </Link>
           )}
+          {requesting && <div>Logging in...</div>}
         </div>
       </div>
     )
