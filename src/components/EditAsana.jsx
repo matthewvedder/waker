@@ -9,9 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import TagFilter from './TagFilter'
 import { makeStyles } from '@material-ui/core/styles'
 import { editAsana } from '../actions'
-import { fetchAsana } from '../sagas/AsanaSagas'
+import { fetchAsana, fetchTags } from '../sagas/AsanaSagas'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,17 +43,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditAsana = (props) => {
+  const [tags, setTags] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
   const [name, setName] = useState('')
   const [fileName, setFileName] = useState('')
   const [description, setDescription] = useState('')
-
   const classes = useStyles()
 
   useEffect(() => {
     fetchAsana(asanaId()).then(result => {
+      setSelectedTags(result.tag_list)
       setName(result.name)
       setFileName(result.file_name)
       setDescription(result.description)
+    })
+
+    fetchTags().then(result => {
+      setTags(result.map(tag => tag.name))
     })
   }, [])
 
@@ -60,11 +67,9 @@ const EditAsana = (props) => {
     return window.location.href.split('/')[4]
   }
 
-  // Remember, Redux Form passes the form values to our handler
-  // In this case it will be an object with `email` and `password`
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.editAsana(asanaId(), { name, description, file_name: fileName })
+    props.editAsana(asanaId(), { name, description, tag_list: selectedTags, file_name: fileName })
   }
 
   return (
@@ -100,6 +105,12 @@ const EditAsana = (props) => {
             multiline
             onChange={(event) => setDescription(event.target.value)}
           />
+          <TagFilter
+            tags={tags}
+            selectedTags={selectedTags}
+            width='48.5ch'
+            handleChange={(e, tags) => setSelectedTags(tags)}
+          />
           <Button variant="contained" color="primary" type="submit">Save</Button>
         </form>
       </Paper>
@@ -108,7 +119,8 @@ const EditAsana = (props) => {
 }
 
 const mapStateToProps = state => ({
-  asanas: state.asanas
+  asanas: state.asanas,
+  tags: state.asanas.tags
 })
 
 export default connect(mapStateToProps, { editAsana })(EditAsana)

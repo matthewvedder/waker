@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Asanas = (props) =>  {
   useEffect(() => {
     props.fetchAsanas()
-  })
+  }, [])
 
   const classes = useStyles()
 

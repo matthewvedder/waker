@@ -111,7 +111,7 @@ function* indexFlow (action) {
   }
 }
 
-function fetchTagsApi (payload) {
+export function fetchTags (payload) {
   const endpoint = `${process.env.REACT_APP_API_URL}/asana-tags`
   return fetch(endpoint, {
     method: 'GET'
@@ -124,7 +124,7 @@ function fetchTagsApi (payload) {
 
 function* fetchTagsFlow (action) {
   try {
-    const payload = yield call(fetchTagsApi)
+    const payload = yield call(fetchTags)
     yield put({ type: SET_TAGS, payload })
 
   } catch (error) {
