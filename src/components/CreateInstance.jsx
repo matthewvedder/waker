@@ -55,15 +55,14 @@ class Selector extends Component {
     this.setState({ searchedAsanas })
   }
 
-  filterAsanas(event, tags) {
-    if (_.isEmpty(tags)) {
+  filterAsanas(event, tagNames) {
+    if (_.isEmpty(tagNames)) {
       this.setState({ filteredAsanas: this.props.asanas })
       return
     }
 
-    const tag_names = tags.map(tag => tag.name)
     const filteredAsanas = this.props.asanas.filter(asana => {
-      return tag_names.every(tag => asana.tag_list.includes(tag))
+      return tagNames.every(tag => asana.tag_list.includes(tag))
     })
 
     this.setState({ filteredAsanas })
@@ -90,6 +89,7 @@ class Selector extends Component {
 
   render() {
     const { visible, onClose, tags } = this.props
+    const tagNames = tags ? tags.map(tag => tag.name) : []
     return (
       <Dialog
         maxWidth="lg"
@@ -109,7 +109,7 @@ class Selector extends Component {
               label="Search"
               type="search"
             />
-            <TagFilter tags={tags} handleChange={this.filterAsanas} />
+            <TagFilter tags={tagNames} handleChange={this.filterAsanas} />
           </div>
           <div className='create-instance-container'>
             <div className='instance-create-asanas'>
