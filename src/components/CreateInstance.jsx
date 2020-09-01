@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField'
 import Thumbnail from './Thumbnail'
 import { withStyles } from '@material-ui/core/styles'
 import TagFilter from './TagFilter'
+import { getAsanaImageUrl } from '../lib/utils'
 import '../styles/CreateInstance.css'
 
 class Selector extends Component {
@@ -80,7 +81,7 @@ class Selector extends Component {
     return asanas.map((asana, index) => {
       return (
         <div className='instance-create-thumbnail' onClick={() => this.addToSequence(asana.id)}>
-          <div><Thumbnail img={asana.thumbnail}/></div>
+          <div><Thumbnail img={getAsanaImageUrl(asana)}/></div>
           <div className='instance-create-name'>{asana.name}</div>
         </div>
       )

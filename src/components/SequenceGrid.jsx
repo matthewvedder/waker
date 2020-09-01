@@ -18,6 +18,7 @@ import {
   deleteAsanaInstance,
   fetchAsanas
 } from '../actions'
+import { getAsanaImageUrl } from '../lib/utils'
 
 const NUM_COLUMNS = 6
 
@@ -52,7 +53,6 @@ class SequenceGrid extends Component {
     const { instances, asanas, showCreateModal, canEdit } = this.props
     const elements = instances.map((instance, index) => {
       const asana = asanas.find(a => a.id === instance.asana_id )
-      const thumbnail = asana ? asana.thumbnail : ''
       return (
         <AsanaInstanceDrag
           zIndex={instances.length - index}
@@ -60,7 +60,7 @@ class SequenceGrid extends Component {
           key={instance.id}
           asanaInstance={instance}
           onDelete={() => this.props.deleteAsanaInstance(instance.id)}
-          image={instance.asana.thumbnail || thumbnail}
+          image={getAsanaImageUrl(asana)}
           canEdit={this.props.canEdit}
         />
       )
