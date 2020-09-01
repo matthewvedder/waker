@@ -10,9 +10,11 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TagFilter from './TagFilter'
+import Thumbnail from './Thumbnail'
 import { makeStyles } from '@material-ui/core/styles'
 import { editAsana } from '../actions'
 import { fetchAsana, fetchTags } from '../sagas/AsanaSagas'
+import { getAsanaImageUrl } from '../lib/utils'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,6 +78,7 @@ const EditAsana = (props) => {
     <Container className={classes.container} >
       <Paper className={classes.paper} square>
         <Typography variant='h5'>Edit Asana</Typography>
+        <Thumbnail img={getAsanaImageUrl({ file_name: fileName })}/>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
             name="name"
