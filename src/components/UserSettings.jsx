@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { editAsana } from '../actions'
 import { updateUser } from '../services/UserService'
 import { currentUser, setCurrentUser } from '../lib/Auth'
+import { mapErrorMessages } from '../lib/api-errors'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Alert from './Alert'
 
@@ -50,6 +51,7 @@ const UserSettings = (props) => {
   const [username, setUsername] = useState(currentUser().username)
   const [loading, setLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [errors, setErrors] = useState([])
   const classes = useStyles()
 
   const handleSubmit = (event) => {
@@ -58,10 +60,15 @@ const UserSettings = (props) => {
       setLoading(true)
     })
     setSuccessMessage('')
-    updateUser({ username }).then(result => {
-      setCurrentUser(result)
+    setErrors([])
+    updateUser({ username }).then(({ response, data }) => {
       setLoading(false)
-      setSuccessMessage('Settings updated')
+      if (response.ok) {
+        setCurrentUser(data)
+        setSuccessMessage('Settings updated')
+      } else {
+        setErrors(mapErrorMessages(data))
+      }
     })
   }
 
@@ -82,6 +89,7 @@ const UserSettings = (props) => {
               />
               <Button variant="outlined" color="primary" type="submit">Save</Button>
               <Alert width='100%' severity="success" message={successMessage} />
+              <Errors errors={errors} />
             </form>
           </Container>
         <LinearProgress style={{ display: loading ? 'flex' : 'none' }} />

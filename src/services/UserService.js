@@ -11,9 +11,7 @@ export function updateUser(payload) {
       ...payload
     })
   })
-    .then(handleApiErrors)
+    // .then(handleApiErrors)
     .then(setAuth)
-    .then(response => response.json())
-    .then(json => json)
-    .catch((error) => { throw error })
+    .then(response => response.json().then(data => ({ response, data })))
 }

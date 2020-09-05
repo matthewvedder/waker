@@ -24,7 +24,6 @@ function* signupFlow (action) {
   try {
     const { email, username, password, password_confirmation } = action
     const { response, data } = yield call(signupApi, email, username, password, password_confirmation)
-    console.log(response, response.ok, data)
     if (response.ok) {
       yield put({ type: SIGNUP_SUCCESS, response: data })
     } else {

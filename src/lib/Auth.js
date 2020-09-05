@@ -19,6 +19,7 @@ export const authHeaders = () => {
 
 export const setAuth = (response) => {
   const auth = getAuth(response)
+  if (response.status === 401) logOut()
   if (auth.accessToken) {
     localStorage.setItem('auth', JSON.stringify(auth))
   }

@@ -151,9 +151,9 @@ export default function MenuAppBar(props) {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Link to="/user-settings"  className={classes.navLink}>Settings</Link>
-                </MenuItem>
+                <Link to="/user-settings" className={classes.navLink}>
+                  <MenuItem>Settings</MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogoutClick}>Sign Out</MenuItem>
               </Menu>
             </div>
