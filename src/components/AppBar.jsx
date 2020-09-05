@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -152,6 +151,9 @@ export default function MenuAppBar(props) {
                 open={open}
                 onClose={handleClose}
               >
+                <MenuItem>
+                  <Link to="/user-settings"  className={classes.navLink}>Settings</Link>
+                </MenuItem>
                 <MenuItem onClick={handleLogoutClick}>Sign Out</MenuItem>
               </Menu>
             </div>

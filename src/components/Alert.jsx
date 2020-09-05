@@ -18,10 +18,17 @@ export default function Alert(props) {
       },
       ...props.style
     },
+    outlinedSuccess: {
+      '& div': {
+        color: `${theme.palette.primary.main} !important`
+      },
+      border: `1px solid ${theme.palette.primary.main}`
+    },
   }));
 
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+  // const alertClass = (props.variant === 'outlined' && props.severity === 'success') ?  classes.outlinedSuccess : null
 
   useEffect(() => {
     setOpen(true)

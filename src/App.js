@@ -18,6 +18,7 @@ import AppBar from './components/AppBar'
 import CreateAsana from './components/CreateAsana'
 import AsanaIndex from './components/AsanaIndex'
 import EditAsana from './components/EditAsana'
+import UserSettings from './components/UserSettings'
 import YogaSutra from './pages/YogaSutra'
 import RootReducer from './reducers'
 import RootSaga from './sagas'
@@ -127,6 +128,7 @@ const App = () => {
                 <PrivateRoute path="/sequences" exact component={Sequences} />
                 <PrivateRoute path="/feed" exact component={Feed} />
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
+                <PrivateRoute path="/user-settings" component={UserSettings} />
                 <Route path="/yoga-sutra" component={YogaSutra} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={SignUp} />
