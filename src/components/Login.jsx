@@ -7,6 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 
 import Messages from './Messages'
@@ -40,6 +41,14 @@ const useStyles = makeStyles((theme) => ({
     },
     link: { color: 'grey' },
   },
+  hr: {
+    margin: '2em',
+    width: '40ch'
+  },
+  button: {
+    width: '50ch',
+    marginBottom: '1em'
+  }
 }));
 
 const Login = (props) => {
@@ -96,15 +105,15 @@ const Login = (props) => {
           {!requesting && !!messages.length && (
             <Messages messages={messages} />
           )}
-          {!requesting && !successful && (
-            <Link to="/signup">
-              <span style={{ color: useTheme().palette.text.primary }}>
-                Need to Signup? Click Here »
-              </span>
-            </Link>
-          )}
           {requesting && <div>Logging in...</div>}
         </div>
+        <Divider className={classes.hr}/>
+        <Link to="/signup">
+          <Button className={classes.button} color='secondary' size='small'>Sign Up »</Button>
+        </Link>
+        <Link to="/forgot-password">
+          <Button className={classes.button} color='secondary' size='small'>Forgot Password?</Button>
+        </Link>
       </div>
     )
 }

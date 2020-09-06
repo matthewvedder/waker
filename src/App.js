@@ -17,6 +17,8 @@ import Feed from './components/Feed'
 import AppBar from './components/AppBar'
 import CreateAsana from './components/CreateAsana'
 import AsanaIndex from './components/AsanaIndex'
+import ForgotPassword from './components/ForgotPassword'
+import ResetPassword from './components/ResetPassword'
 import EditAsana from './components/EditAsana'
 import UserSettings from './components/UserSettings'
 import YogaSutra from './pages/YogaSutra'
@@ -26,9 +28,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContext } from "react-dnd";
 import createTypography from 'material-ui/styles/typography';
 import './styles/App.css'
-import 'fontsource-roboto'
 import "fontsource-montserrat"
-import "fontsource-playfair-display"
 import "fontsource-open-sans"
 
 
@@ -130,6 +130,8 @@ const App = () => {
                 <PrivateRoute path="/sequences/:id" component={Sequence} />
                 <PrivateRoute path="/user-settings" component={UserSettings} />
                 <Route path="/yoga-sutra" component={YogaSutra} />
+                <Route path="/forgot-password" component={ForgotPassword} />
+                <Route path="/reset-password" component={ResetPassword} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={SignUp} />
               </div>

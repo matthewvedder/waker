@@ -31,6 +31,7 @@ export const setCurrentUser = (user) => {
 }
 
 export const currentUser = () => {
+  if (_.isEmpty(localStorage.user)) return {}
   return JSON.parse(localStorage.user)
 }
 
