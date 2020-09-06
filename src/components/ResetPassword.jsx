@@ -65,6 +65,7 @@ const ResetPassword = (props) => {
     resetPassword({ password, password_confirmation: passwordConfirmation }).then(({ response, data }) => {
       setLoading(false)
       if (response.ok) {
+        localStorage.setItem('user', JSON.stringify(data.data))
         setSuccess(true)
       } else {
         setErrors(data.errors)
