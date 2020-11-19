@@ -62,6 +62,7 @@ export default function Comments(props) {
             <Avatar user={comment.user} />
           </ListItemAvatar>
           <ListItemText
+            style={{whiteSpace: 'pre-line'}}
             primary={comment.user.username}
             secondary={comment.message}
           />
