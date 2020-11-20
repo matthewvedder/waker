@@ -4,6 +4,7 @@ import Dragula from 'react-dragula'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import GetAppIcon from '@material-ui/icons/GetApp'
 import PublicIcon from '@material-ui/icons/Public'
+import CopyIcon from '@material-ui/icons/FileCopy'
 import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 import Container from '@material-ui/core/Container'
@@ -26,7 +27,7 @@ import {
   deleteAsanaInstance,
   resetSequence
 } from '../actions'
-import { fetchPdfRequest } from '../sagas/SequenceSagas'
+import { fetchPdfRequest, duplicateSequenceRequest } from '../sagas/SequenceSagas'
 import { createComment, destroyComment } from '../services/CommentService'
 
 const NUM_COLUMNS = 6
@@ -47,6 +48,7 @@ class Canvas extends Component {
     this.dragulaDecorator = this.dragulaDecorator.bind(this)
     this.handleLayoutChange = this.handleLayoutChange.bind(this)
     this.publish = this.publish.bind(this)
+    this.duplicateSequence = this.duplicateSequence.bind(this)
   }
 
   componentDidMount () {
@@ -94,7 +96,17 @@ class Canvas extends Component {
     }).catch((error) => {
       this.setState({ pdfError: error.message, pdfLoading: false })
     })
+  }
 
+  duplicateSequence() {
+    const { sequence } = this.props
+    this.setState({ pdfLoading: true, pdfError: null })
+    duplicateSequenceRequest(sequence).then((json) => {
+      this.setState({ pdfLoading: false })
+      window.location.href = `/sequences/${json.id}`
+    }).catch((error) => {
+      this.setState({ pdfError: error.message, pdfLoading: false })
+    })
   }
 
   publish() {
@@ -124,7 +136,7 @@ class Canvas extends Component {
     const { instance_id, pdfLoading, pdfError, published } = this.state
     const { sequence } = this.props
     const publishColor = published ? 'secondary' : 'none'
-    const publishTooltip = published ? 'Unpublish this Sequence' : 'Publish this Sequence'
+    const publishTooltip = published ? 'Unpublish this sequence' : 'Publish this sequence'
     const editableDisplay = sequence.can_edit ? 'flex' : 'none'
     return (
       <div className='sequence'>
@@ -134,6 +146,11 @@ class Canvas extends Component {
             <Tooltip title="Download as PDF">
               <IconButton aria-label="Download PDF" color='secondary' onClick={this.exportSequence}>
                 <GetAppIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Duplicate this sequence">
+              <IconButton aria-label="Download PDF" color='secondary' onClick={this.duplicateSequence}>
+                <CopyIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title={publishTooltip}>

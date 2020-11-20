@@ -52,6 +52,19 @@ export function fetchPdfRequest(sequence) {
     .catch((error) => { throw error })
 }
 
+export function duplicateSequenceRequest(sequence) {
+  const fetchUrl = `${url}/${sequence.id}/duplicate`
+  return fetch(fetchUrl, {
+    method: 'POST',
+    headers: authHeaders()
+  })
+    .then(handleApiErrors)
+    .then(setAuth)
+    .then(response => response.json())
+    .then(json => json)
+    .catch((error) => { throw error })
+}
+
 function fetchRequest(action) {
   const fetchUrl = `${url}/${action.sequence_id}`
   return fetch(fetchUrl, {
