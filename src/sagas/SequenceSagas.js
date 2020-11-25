@@ -91,8 +91,8 @@ function* fetchFlow(action) {
 }
 
 export function indexRequest(options={}) {
-  const params = options.feed ? '?feed=true' : ''
-  return fetch(`${url}${params}`, {
+  const params = new URLSearchParams(options).toString()
+  return fetch(`${url}?${params}`, {
     method: 'GET',
     headers: authHeaders()
   })

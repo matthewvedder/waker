@@ -8,6 +8,7 @@ import moment from 'moment'
 import _ from 'lodash'
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Tooltip from '@material-ui/core/Tooltip'
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -25,6 +26,10 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from '@material-ui/core/Avatar';
 import Like from './Like'
 import DoneIcon from '@material-ui/icons/Done';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import '../styles/sequences.css'
 
 
@@ -35,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '4.7em',
-    cursor: 'default',
     color: theme.palette.primary.main
   }
 }))
@@ -49,11 +53,11 @@ const Sequences = (props) => {
 
 
   useEffect(() => {
-    fetchSequences()
+    fetchSequences({ order_by: 'verified' })
   }, [])
 
-  const fetchSequences = async () => {
-    const response = await indexRequest({ feed: true })
+  const fetchSequences = async (options={}) => {
+    const response = await indexRequest({ feed: true, ...options })
     setSequences(response)
   }
 
@@ -92,7 +96,9 @@ const Sequences = (props) => {
               style={{ display: sequence.verified ? 'flex' : 'none'}}
             >
               <DoneIcon fontSize='small' />
-              <Typography variant="subtitle2">verified</Typography>
+              <Tooltip title="This sequence was created or approved by a senior teacher">
+                <Typography variant="subtitle2">verified</Typography>
+              </Tooltip>
             </div>
             <ListItemSecondaryAction>
                <Like
@@ -114,6 +120,17 @@ const Sequences = (props) => {
           <Typography variant="h5">
             Explore Sequences
           </Typography>
+          <FormControl className={classes.formControl}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              onChange={(event) => fetchSequences({ order_by: event.target.value })}
+              defaultValue='verified'
+            >
+              <MenuItem value={'created_at'}>Newest</MenuItem>
+              <MenuItem value={'verified'}>Verified</MenuItem>
+            </Select>
+          </FormControl>
         </div>
         <Divider />
          <List component="nav">
