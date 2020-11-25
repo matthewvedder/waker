@@ -24,13 +24,19 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from '@material-ui/core/Avatar';
 import Like from './Like'
+import DoneIcon from '@material-ui/icons/Done';
 import '../styles/sequences.css'
 
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    // color: theme.palette.getContrastText(theme.palette.secondary.main),
-    // backgroundColor: (theme.palette[color].main),
+  listMiddleContainer: {
+    display: 'flex',
+    marginRight: '5em',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '4.7em',
+    cursor: 'default',
+    color: theme.palette.primary.main
   }
 }))
 
@@ -71,6 +77,7 @@ const Sequences = (props) => {
         color: theme.palette.getContrastText(theme.palette.secondary.main),
         backgroundColor: (theme.palette[color].main),
       }
+
       return (
           <ListItem
             button
@@ -80,6 +87,13 @@ const Sequences = (props) => {
               <Avatar style={avatarStyle} className={classes.avatar} alt={username}>{ avatarText }</Avatar>
             </ListItemAvatar>
             <ListItemText primary={name}  secondary={secondaryText} />
+            <div
+              className={classes.listMiddleContainer}
+              style={{ display: sequence.verified ? 'flex' : 'none'}}
+            >
+              <DoneIcon fontSize='small' />
+              <Typography variant="subtitle2">verified</Typography>
+            </div>
             <ListItemSecondaryAction>
                <Like
                 like_by_current_user={like_by_current_user}
@@ -87,6 +101,7 @@ const Sequences = (props) => {
                 likes={likes}
               />
              </ListItemSecondaryAction>
+
           </ListItem>
       )
     })
