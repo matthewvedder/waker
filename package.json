@@ -21,7 +21,7 @@
     "html2canvas": "^1.0.0-rc.3",
     "lodash": "^4.17.11",
     "material-ui": "^0.20.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "pluralize": "^8.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.0",
